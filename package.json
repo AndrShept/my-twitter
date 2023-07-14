@@ -27,6 +27,8 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "prisma": "^5.0.0"
+    "daisyui": "^3.2.1",
+    "prisma": "^5.0.0",
+    "tailwindcss-animate": "^1.0.6"
   }
 }
