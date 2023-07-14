@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gray-100;
+}
+
+@layer components {
+  .hoverEffect {
+    @apply duration-150 animate-in fade-in  cursor-pointer hover:bg-gray-200 rounded-full p-3  h-[52px] xl:w-auto xl:h-auto xl:p-3;
+  }
+}
