@@ -8,6 +8,6 @@ body {
 
 @layer components {
   .hoverEffect {
-    @apply duration-150 animate-in fade-in  cursor-pointer hover:bg-gray-200 rounded-full p-3  h-[52px] xl:w-auto xl:h-auto xl:p-3;
+    @apply cursor-pointer hover:bg-gray-200 rounded-full w-[62px] xl:w-auto h-[62px] xl:h-auto xl:p-3 transition duration-500 ease-out;
   }
 }
