@@ -48,6 +48,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  Post          Post[]
+  Comment       Comment[]
 
   @@map("users")
 }
@@ -60,4 +62,35 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+model Post {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  image     String?
+  userImage String?
+  title     String
+  content   String
+  published Boolean   @default(false)
+  authorName String
+  authorId  String    @db.ObjectId
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comments  Comment[] // Relationship with the Comment model
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime?  @updatedAt @map("updated_at")
+
+  @@map("posts")
+}
+
+model Comment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  content   String
+  postId    String   @db.ObjectId
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  authorId  String   @db.ObjectId
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  userImage String? // Поле для зберігання URL-адреси аватарки користувача
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  @@map("comments")
 }

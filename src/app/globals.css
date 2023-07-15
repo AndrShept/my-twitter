@@ -8,6 +8,9 @@ body {
 
 @layer components {
   .hoverEffect {
-    @apply cursor-pointer hover:bg-gray-200 rounded-full w-[62px] xl:w-auto h-[62px] xl:h-auto xl:p-3 transition duration-500 ease-out;
+    @apply cursor-pointer hover:bg-gray-200 rounded-full w-[62px] xl:w-auto h-[62px] xl:h-auto xl:p-3 p-1 transition duration-500 ease-out;
+  }
+  .iconHoverEffect {
+    @apply cursor-pointer hover:bg-gray-200 rounded-full  xl:w-auto  xl:h-auto xl:p-3 p-2 transition duration-500 ease-out;
   }
 }

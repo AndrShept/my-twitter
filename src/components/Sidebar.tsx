@@ -3,12 +3,14 @@ import React from 'react';
 import { SidebarMenuItem } from './SidebarMenuItem';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 
 export const Sidebar = async () => {
   const session = await getServerSession(authOptions);
   return (
     <div className='hidden sm:flex flex-col p-1  xl:items-start xl:justify-center fixed h-full xl:ml-24'>
       <Image
+      priority
         className='cursor-pointer hoverEffect  '
         height='70'
         width='70'
@@ -34,6 +36,7 @@ export const Sidebar = async () => {
           <h4 className='font-bold'>Smart Andr</h4>
           <p className='text-gray-500'> @shipa_top</p>
         </div>
+        <EllipsisHorizontalIcon className="h-7 w-7 xl:ml-8 xl:inline hidden " />
       </div>
     </div>
   );
