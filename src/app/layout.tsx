@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={inter.className}>
         <AuthProvider>
-          <main className='flex min-h-screen mx-auto container  p-4'>
+          <main className='flex min-h-screen mx-auto   p-4'>
             <Sidebar/>
             {children}
             <Widgets/>
