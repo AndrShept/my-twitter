@@ -74,9 +74,9 @@ model Post {
   authorName String
   authorId  String    @db.ObjectId
   author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  comments  Comment[] // Relationship with the Comment model
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime?  @updatedAt @map("updated_at")
+  comments  Comment[] // Relationship with the Comment model
 
   @@map("posts")
 }
@@ -89,6 +89,7 @@ model Comment {
   authorId  String   @db.ObjectId
   author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   userImage String? // Поле для зберігання URL-адреси аватарки користувача
+  authorName String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 

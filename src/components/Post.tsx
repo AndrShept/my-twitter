@@ -23,7 +23,7 @@ interface PostProps {
 
 export const Post = ({ post }: { post: PostProps }) => {
   return (
-    <div className='flex p-3  border-b border-gray-200 '>
+    <div className='flex p-3  border-b border-gray-200  '>
       <div className=' p-2'>
         <Image
           width={500}
@@ -34,9 +34,10 @@ export const Post = ({ post }: { post: PostProps }) => {
         />
       </div>
       <div>
-        <div className='flex  items-center justify-between'></div>
+       
         {/* post user info */}
-        <div className='flex items-center space-x-1 whitespace-nowrap'>
+        <div className='flex items-center space-x-1 whitespace-nowrap w-full justify-between '>
+          <div className='flex  items-center justify-between gap-1'>
           <h4 className='font-bold text-[15px] sm:text-[16px] hover:underline'>
             {post.username}
           </h4>
@@ -44,7 +45,9 @@ export const Post = ({ post }: { post: PostProps }) => {
           <span className='text-sm sm:text-[15px] hover:underline '>
             {post.createdAt}
           </span>
-          <EllipsisHorizontalIcon className='h-6 w-6 hoverEffect hover:bg-sky-100 hover:text-sky-500 p-2 ' />
+          </div>
+
+          <EllipsisHorizontalIcon className='h-8 w-8 hoverEffect hover:bg-sky-100 hover:text-sky-500' />
         </div>
         {/* post text */}
         <p className='text-gray-800 text-[15px] sm:text-[16px] mb-2'>
@@ -57,17 +60,17 @@ export const Post = ({ post }: { post: PostProps }) => {
           src={post.image}
           className='rounded-xl mr-2 object-cover'
         />
-       
+
         {/* ICON BLOCK */}
         <div className='flex justify-between items-center  text-gray-500    mt-2 '>
           <div className='  iconHoverEffect hover:bg-sky-100 flex items-center justify-center '>
-            <ChatBubbleLeftIcon className='h-5 w-5 text-gray-500   hover:text-sky-500 duration-300    ' />
+            <ChatBubbleLeftIcon className='h-5 w-5 text-gray-500 active:scale-110   hover:text-sky-500 duration-300    ' />
           </div>
           <div className='  iconHoverEffect hover:bg-red-100 flex items-center justify-center '>
-            <TrashIcon className='h-5 w-5 text-gray-500   hover:text-red-600 duration-300    ' />
+            <TrashIcon className='h-5 w-5 text-gray-500 active:scale-110   hover:text-red-600 duration-300    ' />
           </div>
           <div className='  iconHoverEffect hover:bg-red-100 flex items-center justify-center '>
-            <HeartIcon className='h-5 w-5 text-gray-500   hover:text-red-600 duration-300    ' />
+            <HeartIcon className='h-5 w-5 text-gray-500 active:scale-110    hover:text-red-600 duration-300    ' />
           </div>
           <div className='  iconHoverEffect hover:bg-sky-100 flex items-center justify-center '>
             <ShareIcon className='h-5 w-5 text-gray-500   hover:text-sky-500 duration-300    ' />
@@ -75,8 +78,6 @@ export const Post = ({ post }: { post: PostProps }) => {
           <div className='  iconHoverEffect hover:bg-sky-100 flex items-center justify-center '>
             <ChartBarIcon className='h-5 w-5 text-gray-500   hover:text-sky-500 duration-300    ' />
           </div>
-
-         
         </div>
       </div>
     </div>

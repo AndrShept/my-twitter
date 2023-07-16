@@ -9,14 +9,16 @@ export const Sidebar = async () => {
   const session = await getServerSession(authOptions);
   return (
     <div className='hidden sm:flex flex-col p-1  xl:items-start xl:justify-center fixed h-full xl:ml-24'>
+      
       <Image
       priority
-        className='cursor-pointer hoverEffect  '
+        className='cursor-pointer  hoverEffect '
         height='70'
         width='70'
         src={'https://help.twitter.com/content/dam/help-twitter/brand/logo.png'}
         alt='logo'
       />
+     
 
       <div className='mt-4 mb-2.5 xl:items-start  '>
         <SidebarMenuItem />
