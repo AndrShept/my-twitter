@@ -8,10 +8,11 @@ import { redirect } from 'next/navigation';
 
 export const Input = ({ session }: { session: Session }) => {
   const [content, setContent] = useState('');
-  const [imageUrl, setImageUrl] = useState<string | null>('');
+  const [imageUrl, setImageUrl] = useState('');
+  const [imgSize, setImgSize] = useState(0);
   const [isPendingImg, startTransition] = useTransition();
   const [isPendingData, startTransitionData] = useTransition();
-  const ref = useRef(null)
+  const ref = useRef(null);
   const CLOUD_NAME = 'dn4qas6ys';
   const UPLOAD_PRESET = 'my-twitter';
 
@@ -36,6 +37,7 @@ export const Input = ({ session }: { session: Session }) => {
         console.log(data, 'DATA');
 
         setImageUrl(data.secure_url);
+        setImgSize(data.bytes)
       });
     } catch (error) {
       console.log(error);
@@ -67,7 +69,7 @@ export const Input = ({ session }: { session: Session }) => {
         }
         if (res.ok) {
           toast.success('Post created success!');
-          redirect('/')
+          redirect('/');
         }
       });
     } catch (error) {
@@ -86,7 +88,11 @@ export const Input = ({ session }: { session: Session }) => {
           src={session?.user.image || ''}
         />
       </div>
-      <form ref={ref} onSubmit={handleSubmit} className='w-full divide-y divide-gray-200'>
+      <form
+        ref={ref}
+        onSubmit={handleSubmit}
+        className='w-full divide-y divide-gray-200'
+      >
         <textarea
           required
           value={content}
@@ -97,11 +103,25 @@ export const Input = ({ session }: { session: Session }) => {
           placeholder='Whats happening'
         />
 
+        {imageUrl && (
+          <Image
+            src={imageUrl!}
+            alt='image'
+            width={500}
+            height={500}
+            className={`w-full rounded-xl  `}
+          />
+        )}
+
         <div className='flex items-center justify-between pt-2.5'>
           <div className='flex items-center '>
             <span className='text-sky-500 text-xs'>Upload</span>
-            <label htmlFor='image'>
-              <PhotoIcon className='h-8 w-8 p-1 iconHoverEffect text-sky-500 hover:bg-sky-100' />
+            <label className='flex items-center' htmlFor='image'>
+              {isPendingImg ? (
+                <span className='loading loading-spinner text-sky-500 mr-2 ' />
+              ) : (
+                <PhotoIcon className='h-8 w-8 p-1 iconHoverEffect text-sky-500 hover:bg-sky-100' />
+              )}
             </label>
             <input
               id='image'
@@ -112,6 +132,18 @@ export const Input = ({ session }: { session: Session }) => {
               onChange={uploadImage}
             />
             <FaceSmileIcon className='h-8 w-8 p-1 iconHoverEffect text-sky-500 hover:bg-sky-100' />
+            {imageUrl && (
+              <div className='flex items-center gap-3'>
+                {' '}
+                <span
+                  onClick={() => setImageUrl('')}
+                  className='hover:underline ml-4 cursor-pointer text-red-600 font-medium hover:bg-red-100 hover:px-2 hover:py-1 rounded-full px-2 py-1 duration-300 '
+                >
+                  remove
+                </span>{' '}
+                <span>{(imgSize/1048576).toFixed(2)} mb</span>
+              </div>
+            )}
           </div>
           {/* <TweetButton /> */}
           <div className='flex items-center gap-3'>
