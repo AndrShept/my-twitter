@@ -1,14 +1,17 @@
 'use client';
 import { FaceSmileIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
-import React, { useState, useTransition } from 'react';
+import React, { useRef, useState, useTransition } from 'react';
 import { Session } from 'next-auth';
 import { toast } from 'react-hot-toast';
+import { redirect } from 'next/navigation';
 
 export const Input = ({ session }: { session: Session }) => {
   const [content, setContent] = useState('');
   const [imageUrl, setImageUrl] = useState<string | null>('');
-  const [isPending, startTransition] = useTransition();
+  const [isPendingImg, startTransition] = useTransition();
+  const [isPendingData, startTransitionData] = useTransition();
+  const ref = useRef(null)
   const CLOUD_NAME = 'dn4qas6ys';
   const UPLOAD_PRESET = 'my-twitter';
 
@@ -48,19 +51,25 @@ export const Input = ({ session }: { session: Session }) => {
     }
 
     try {
-      const res = await fetch(`/api/tweet`, {
-        method: 'POST',
-        body: JSON.stringify({
-          content,
-          imageUrl,
-          authorId: session?.user?.id,
-        }),
+      startTransitionData(async () => {
+        const res = await fetch(`/api/tweet`, {
+          method: 'POST',
+          body: JSON.stringify({
+            content,
+            image: imageUrl,
+            authorId: session?.user?.id,
+            authorName: session.user.username,
+            authorImage: session.user.image,
+          }),
+        });
+        if (!res.ok) {
+          throw new Error('Error occurred');
+        }
+        if (res.ok) {
+          toast.success('Post created success!');
+          redirect('/')
+        }
       });
-
-      if (!res.ok) {
-        throw new Error('Error occured');
-      }
-      console.log();
     } catch (error) {
       console.log(error);
     }
@@ -77,7 +86,7 @@ export const Input = ({ session }: { session: Session }) => {
           src={session?.user.image || ''}
         />
       </div>
-      <form onSubmit={handleSubmit} className='w-full divide-y divide-gray-200'>
+      <form ref={ref} onSubmit={handleSubmit} className='w-full divide-y divide-gray-200'>
         <textarea
           required
           value={content}
@@ -105,12 +114,17 @@ export const Input = ({ session }: { session: Session }) => {
             <FaceSmileIcon className='h-8 w-8 p-1 iconHoverEffect text-sky-500 hover:bg-sky-100' />
           </div>
           {/* <TweetButton /> */}
-          <button
-            disabled={isPending}
-            className='bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50'
-          >
-            Tweet
-          </button>
+          <div className='flex items-center gap-3'>
+            {isPendingData && (
+              <span className='loading loading-spinner loading-md text-gray-400' />
+            )}
+            <button
+              disabled={isPendingImg || isPendingData}
+              className='bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50'
+            >
+              Tweet
+            </button>
+          </div>
         </div>
       </form>
     </div>
