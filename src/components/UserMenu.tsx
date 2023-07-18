@@ -1,4 +1,5 @@
 'use client';
+import { ArrowLeftOnRectangleIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
 import { Session } from 'next-auth';
 import { signIn, signOut } from 'next-auth/react';
 import React, { useTransition } from 'react';
@@ -23,11 +24,12 @@ export const UserMenu = ({ session }: { session: Session }) => {
   return (
     <>
       <li>
-        <span>Settings</span>
+        <span> <Cog6ToothIcon className="h-6 w-6 text-gray-500" /> Settings</span>
       </li>
       {!session ? (
         <li>
           <span onClick={signInUser}>
+          <Cog6ToothIcon className="h-6 w-6 text-gray-500" />
             Login
             {isPending && (
               <span className='loading loading-spinner text-gray-400 loading-md' />
@@ -36,7 +38,8 @@ export const UserMenu = ({ session }: { session: Session }) => {
         </li>
       ) : (
         <li>
-          <span onClick={signOutUser}>
+          <span onClick={signOutUser}> 
+          <ArrowLeftOnRectangleIcon className="h-6 w-6 text-gray-500" />
             Sign Out
             {isPending && (
               <span className='loading loading-spinner text-gray-400 loading-md' />

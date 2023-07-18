@@ -8,7 +8,7 @@ import {
   UserCircleIcon,
 } from '@heroicons/react/24/solid';
 import { UserMenu } from './UserMenu';
-import { SignInButton } from './SignInBuuton';
+import { SignInButton } from './SignInButton';
 
 export const Sidebar = async () => {
   const session = await getServerSession(authOptions);

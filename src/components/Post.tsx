@@ -13,7 +13,7 @@ interface PostProps {
   id: string;
   image: string;
   userImage: string;
-  title: string;
+  title?: string;
   content: string;
   published: boolean;
   authorId: string;
