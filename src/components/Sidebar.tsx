@@ -3,42 +3,64 @@ import React from 'react';
 import { SidebarMenuItem } from './SidebarMenuItem';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
+import {
+  EllipsisHorizontalIcon,
+  UserCircleIcon,
+} from '@heroicons/react/24/solid';
+import { UserMenu } from './UserMenu';
+import { SignInButton } from './SignInBuuton';
 
 export const Sidebar = async () => {
   const session = await getServerSession(authOptions);
   return (
     <div className='hidden sm:flex flex-col p-1  xl:items-start xl:justify-center fixed h-full xl:ml-24'>
-      
       <Image
-      priority
+        priority
         className='cursor-pointer  hoverEffect '
         height='70'
         width='70'
         src={'https://help.twitter.com/content/dam/help-twitter/brand/logo.png'}
         alt='logo'
       />
-     
 
       <div className='mt-4 mb-2.5 xl:items-start  '>
-        <SidebarMenuItem />
+        <SidebarMenuItem authProtectNum={session ? 10 : 2} />
       </div>
-      <button className='bg-blue-400 text-white rounded-full w-56 h-12 font-bold shadow-md hover:brightness-95 text-lg hidden xl:inline'>
-        Tweet
-      </button>
-      <div className='hoverEffect px-4 text-gray-700 flex items-center justify-center xl:justify-start mt-auto mb-4'>
-        <Image
-          className='rounded-full xl:mr-2'
-          height={50}
-          width={50}
-          alt='avatar'
-          src={session?.user.image ?? ''}
-        />
-        <div className='leading-5 hidden xl:inline'>
-          <h4 className='font-bold'>Smart Andr</h4>
-          <p className='text-gray-500'> @shipa_top</p>
-        </div>
-        <EllipsisHorizontalIcon className="h-7 w-7 xl:ml-8 xl:inline hidden " />
+
+      {session ? (
+        <button className='bg-blue-400 text-white rounded-full w-56 h-12 font-bold shadow-md hover:brightness-95 text-lg hidden xl:inline'>
+          Tweet
+        </button>
+      ) : (
+        <SignInButton />
+      )}
+
+      <div className='dropdown dropdown-top dropdown-right hover:bg-gray-200 rounded-full duration-500   cursor-pointer text-gray-700 flex self-start  mt-auto mb-6'>
+        <label tabIndex={0}>
+          {session && 
+            <div className='flex items-center cursor-pointer  xl:px-6 xl:py-3'>
+              {' '}
+              <Image
+                className='rounded-full xl:mr-2 hover:brightness-95'
+                height={50}
+                width={50}
+                alt='avatar'
+                src={session?.user.image ?? ''}
+              />
+              <div className='leading-5 hidden xl:inline'>
+                <h4 className='font-bold'>{session?.user.name}</h4>
+                <p className='text-gray-500'> {session?.user.username}</p>
+              </div>
+              <EllipsisHorizontalIcon className='h-7 w-7 xl:ml-8 xl:inline hidden  ' />
+            </div>
+          }
+        </label>
+        <ul
+          tabIndex={0}
+          className='dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52'
+        >
+          <UserMenu session={session!} />
+        </ul>
       </div>
     </div>
   );

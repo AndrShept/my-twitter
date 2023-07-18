@@ -20,7 +20,7 @@ export const authOptions:NextAuthOptions = {
   callbacks: {
     session({session,user}){
       session.user.id = user.id
-      session.user.username = session.user.name!.split(' ').join('').toLocaleLowerCase();
+      session.user.username = '@'+session.user.name!.split(' ').join('').toLocaleLowerCase();
       return session
     },
 

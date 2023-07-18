@@ -37,15 +37,15 @@ export const FollowUsers = ({ randomUsers }: FollowUsersProps) => {
       ))}
       <button
         onClick={() => setRandomUsersCount((prev) => prev + 5)}
-        className='text-blue-400 pl-4  font-medium hover:text-blue-500'
+        className='text-blue-400 pl-4  font-medium hover:text-blue-500 italic'
       >
-        Show more...
+        show more...
       </button>
       <button
         onClick={() => setRandomUsersCount(-1)}
-        className='text-blue-400 pl-4 pr-4 pb-3 font-medium hover:text-blue-500 block'
+        className='text-blue-400 pl-4 pr-4 pb-3 font-medium hover:text-blue-500 block italic'
       >
-        Show all news...
+        show all news...
       </button>
     </>
   );

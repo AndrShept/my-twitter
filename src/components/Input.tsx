@@ -17,7 +17,7 @@ export const Input = ({session}:{session: Session}) => {
           src={session?.user.image || ''}
         />
       </div>
-      <div className='w-full divide-y divide-gray-200'>
+   <div className='w-full divide-y divide-gray-200'>
         <textarea
           className=' w-full p-2  text-lg  placeholder-gray-400  tracking-wide min-h-[50px] text-gray-700'
           rows={2}

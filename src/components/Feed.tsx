@@ -75,13 +75,11 @@ export const Feed = async () => {
           <SparklesIcon className='h-5' />
         </div>
       </div>
-      
-      
-      <Input session={session!} />
+
+      {session && <Input session={session!} />}
       {posts.map((post) => (
         <Post key={post.id} post={post} />
-        ))}
-       
+      ))}
     </div>
   );
 };
