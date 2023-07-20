@@ -3,7 +3,7 @@ import React from 'react';
 import { experimental_useFormStatus } from 'react-dom';
 import { toast } from 'react-hot-toast';
 
-export const TweetButton = () => {
+export const TwittButton = () => {
   const { pending,method } = experimental_useFormStatus();
   if(method){
     toast.success('Post created!!')

@@ -4,9 +4,10 @@ import Image from 'next/image';
 import React, { useRef, useState, useTransition } from 'react';
 import { Session } from 'next-auth';
 import { toast } from 'react-hot-toast';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export const Input = ({ session }: { session: Session }) => {
+  const router = useRouter()
   const [content, setContent] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [imgSize, setImgSize] = useState(0);
@@ -17,6 +18,7 @@ export const Input = ({ session }: { session: Session }) => {
   const UPLOAD_PRESET = 'my-twitter';
 
   const uploadImage = async (e: any) => {
+    
     const photo = e.target.files[0];
 
     if (!photo) return;
@@ -34,10 +36,11 @@ export const Input = ({ session }: { session: Session }) => {
           }
         );
         const data = await res.json();
-        console.log(data, 'DATA');
 
         setImageUrl(data.secure_url);
-        setImgSize(data.bytes)
+        setImgSize(data.bytes);
+     
+
       });
     } catch (error) {
       console.log(error);
@@ -54,13 +57,14 @@ export const Input = ({ session }: { session: Session }) => {
 
     try {
       startTransitionData(async () => {
-        const res = await fetch(`/api/tweet`, {
+        const res = await fetch(`/api/posts`, {
           method: 'POST',
           body: JSON.stringify({
             content,
             image: imageUrl,
             authorId: session?.user?.id,
-            authorName: session.user.username,
+            authorName: session.user.name,
+            authorUserName: session.user.username,
             authorImage: session.user.image,
           }),
         });
@@ -69,7 +73,10 @@ export const Input = ({ session }: { session: Session }) => {
         }
         if (res.ok) {
           toast.success('Post created success!');
-          redirect('/');
+          setContent('')
+          setImageUrl('')
+          // redirect('/');
+          router.refresh()
         }
       });
     } catch (error) {
@@ -96,7 +103,7 @@ export const Input = ({ session }: { session: Session }) => {
         <textarea
           required
           value={content}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={(e) => setContent(e.target.value.trimStart())}
           name='text'
           className=' w-full p-2  text-lg  placeholder-gray-400  tracking-wide min-h-[50px] text-gray-700'
           rows={2}
@@ -134,14 +141,13 @@ export const Input = ({ session }: { session: Session }) => {
             <FaceSmileIcon className='h-8 w-8 p-1 iconHoverEffect text-sky-500 hover:bg-sky-100' />
             {imageUrl && (
               <div className='flex items-center gap-3'>
-                {' '}
                 <span
                   onClick={() => setImageUrl('')}
                   className='hover:underline ml-4 cursor-pointer text-red-600 font-medium hover:bg-red-100 hover:px-2 hover:py-1 rounded-full px-2 py-1 duration-300 '
                 >
                   remove
-                </span>{' '}
-                <span>{(imgSize/1048576).toFixed(2)} mb</span>
+                </span>
+                <span>{(imgSize / 1048576).toFixed(2)} mb</span>
               </div>
             )}
           </div>

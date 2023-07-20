@@ -67,11 +67,12 @@ model VerificationToken {
 
 model Post {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  image       String?
+  image       String
   content     String
   published   Boolean   @default(false)
   authorImage String
   authorName  String
+  authorUserName String
   authorId    String    @db.ObjectId
   author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   createdAt   DateTime  @default(now()) @map("created_at")

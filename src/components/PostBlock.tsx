@@ -6,22 +6,24 @@ import {
   ShareIcon,
   TrashIcon,
 } from '@heroicons/react/24/outline';
+import { Post } from '@prisma/client';
 import Image from 'next/image';
 import React from 'react';
+import { format } from 'timeago.js';
 
-interface PostProps {
+interface PostBlockProps {
   id: string;
   image: string;
-  userImage: string;
+  authorImage: string;
   title?: string;
   content: string;
   published: boolean;
   authorId: string;
-  username: string;
+  authorName: string;
   createdAt: string;
 }
 
-export const Post = ({ post }: { post: PostProps }) => {
+export const PostBlock = ({ post }: { post: Post }) => {
   return (
     <div className='flex p-3  border-b border-gray-200  '>
       <div className=' p-2'>
@@ -30,7 +32,7 @@ export const Post = ({ post }: { post: PostProps }) => {
           height={500}
           className='h-11 w-11 object-cover rounded-full mr-12'
           alt='post_image '
-          src={post.userImage}
+          src={post.authorImage}
         />
       </div>
       <div>
@@ -38,11 +40,11 @@ export const Post = ({ post }: { post: PostProps }) => {
         <div className='flex items-center space-x-1 whitespace-nowrap w-full justify-between '>
           <div className='flex  items-center justify-between gap-1'>
             <h4 className='font-bold text-[15px] sm:text-[16px] hover:underline'>
-              {post.username}
+              {post.authorName}
             </h4>
-            <span className='text-sm sm:text-[15px]'>@{post.username}</span>
-            <span className='text-sm sm:text-[15px] hover:underline '>
-              {post.createdAt}
+            <span className='text-sm sm:text-[15px]'>{post.authorUserName}</span>
+            <span className='text-sm sm:text-[15px] hover:underline text-gray-400 '>
+              {format(post.createdAt)}
             </span>
           </div>
 
@@ -53,13 +55,13 @@ export const Post = ({ post }: { post: PostProps }) => {
           {post.content}
         </p>
         {/* <div className='mr-2 sm:h-72 h-60 group overflow-hidden rounded-xl'> */}
-          <Image
-            height={500}
-            width={500}
-            alt='post_image'
-            src={post.image}
-            className='rounded-xl  object-cover mr-2 '
-          />
+        <Image
+          height={500}
+          width={500}
+          alt='post_image'
+          src={post.image!}
+          className='rounded-xl  object-cover mr-2 '
+        />
         {/* </div> */}
 
         {/* ICON BLOCK */}
