@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
 export const Input = ({ session }: { session: Session }) => {
-  const router = useRouter()
+  const router = useRouter();
   const [content, setContent] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [imgSize, setImgSize] = useState(0);
@@ -18,7 +18,6 @@ export const Input = ({ session }: { session: Session }) => {
   const UPLOAD_PRESET = 'my-twitter';
 
   const uploadImage = async (e: any) => {
-    
     const photo = e.target.files[0];
 
     if (!photo) return;
@@ -39,8 +38,6 @@ export const Input = ({ session }: { session: Session }) => {
 
         setImageUrl(data.secure_url);
         setImgSize(data.bytes);
-     
-
       });
     } catch (error) {
       console.log(error);
@@ -73,10 +70,9 @@ export const Input = ({ session }: { session: Session }) => {
         }
         if (res.ok) {
           toast.success('Post created success!');
-          setContent('')
-          setImageUrl('')
-          // redirect('/');
-          router.refresh()
+          setContent('');
+          setImageUrl('');
+          router.refresh();
         }
       });
     } catch (error) {
@@ -124,11 +120,11 @@ export const Input = ({ session }: { session: Session }) => {
           <div className='flex items-center '>
             <span className='text-sky-500 text-xs'>Upload</span>
             <label className='flex items-center' htmlFor='image'>
-              {isPendingImg ? (
-                <span className='loading loading-spinner text-sky-500 mr-2 ' />
-              ) : (
+            
+              
+        
                 <PhotoIcon className='h-8 w-8 p-1 iconHoverEffect text-sky-500 hover:bg-sky-100' />
-              )}
+          
             </label>
             <input
               id='image'
@@ -139,17 +135,18 @@ export const Input = ({ session }: { session: Session }) => {
               onChange={uploadImage}
             />
             <FaceSmileIcon className='h-8 w-8 p-1 iconHoverEffect text-sky-500 hover:bg-sky-100' />
-            {imageUrl && (
-              <div className='flex items-center gap-3'>
+            {imageUrl && 
+              <div className='flex items-center gap-1'>
                 <span
                   onClick={() => setImageUrl('')}
                   className='hover:underline ml-4 cursor-pointer text-red-600 font-medium hover:bg-red-100 hover:px-2 hover:py-1 rounded-full px-2 py-1 duration-300 '
                 >
                   remove
                 </span>
-                <span>{(imgSize / 1048576).toFixed(2)} mb</span>
-              </div>
-            )}
+                <span className='text-sm text-gray-400'>{(imgSize / 1048576).toFixed(2)} mb</span>
+              </div>}
+
+            { isPendingImg&& <span className='loading loading-spinner text-sky-500 ml-2 ' />}
           </div>
           {/* <TweetButton /> */}
           <div className='flex items-center gap-3'>

@@ -48,9 +48,9 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  Post          Post[]
-  Comment       Comment[]
-  Like          Like[]
+  post          Post[]
+  comment       Comment[]
+  like          Like[]
 
   @@map("users")
 }
@@ -66,19 +66,19 @@ model VerificationToken {
 }
 
 model Post {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
-  image       String
-  content     String
-  published   Boolean   @default(false)
-  authorImage String
-  authorName  String
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  image          String
+  content        String
+  published      Boolean   @default(false)
+  authorImage    String
+  authorName     String
   authorUserName String
-  authorId    String    @db.ObjectId
-  author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime? @updatedAt @map("updated_at")
-  comments    Comment[] // Relationship with the Comment model
-  Like        Like[]
+  authorId       String    @db.ObjectId
+  author         User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime? @updatedAt @map("updated_at")
+  comments       Comment[] // Relationship with the Comment model
+  like           Like[]
 
   @@map("posts")
 }

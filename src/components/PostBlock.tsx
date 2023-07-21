@@ -1,29 +1,18 @@
-import {
-  ChartBarIcon,
-  ChatBubbleLeftIcon,
-  EllipsisHorizontalIcon,
-  HeartIcon,
-  ShareIcon,
-  TrashIcon,
-} from '@heroicons/react/24/outline';
-import { Post } from '@prisma/client';
+
+import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import React from 'react';
 import { format } from 'timeago.js';
+import { CommentsPostIcon } from './post-icons/CommentsPostIcon';
+import { LikeIcon } from './post-icons/LikeIcon';
+import { DeletePostIcon } from './post-icons/DeletePostIcon';
+import { ChartBarPostIcon } from './post-icons/ChartBarPostIcon';
+import { SharePostIcon } from './post-icons/SharePostIcon';
+import { PostWithLikes } from './Feed';
 
-interface PostBlockProps {
-  id: string;
-  image: string;
-  authorImage: string;
-  title?: string;
-  content: string;
-  published: boolean;
-  authorId: string;
-  authorName: string;
-  createdAt: string;
-}
+export const PostBlock = ({ post }: { post: PostWithLikes }) => {
 
-export const PostBlock = ({ post }: { post: Post }) => {
+
   return (
     <div className='flex p-3  border-b border-gray-200  '>
       <div className=' p-2'>
@@ -42,8 +31,10 @@ export const PostBlock = ({ post }: { post: Post }) => {
             <h4 className='font-bold text-[15px] sm:text-[16px] hover:underline'>
               {post.authorName}
             </h4>
-            <span className='text-sm sm:text-[15px]'>{post.authorUserName}</span>
-            <span className='text-sm sm:text-[15px] hover:underline text-gray-400 '>
+            <span className='text-sm sm:text-[15px]'>
+              {post.authorUserName}
+            </span>
+            <span className='text-sm sm:text-[14px] hover:underline text-gray-400 '>
               {format(post.createdAt)}
             </span>
           </div>
@@ -65,22 +56,12 @@ export const PostBlock = ({ post }: { post: Post }) => {
         {/* </div> */}
 
         {/* ICON BLOCK */}
-        <div className='flex justify-between items-center  text-gray-500    mt-2 '>
-          <div className='  iconHoverEffect hover:bg-sky-100 flex items-center justify-center '>
-            <ChatBubbleLeftIcon className='h-5 w-5 text-gray-500 active:scale-110   hover:text-sky-500 duration-300    ' />
-          </div>
-          <div className='  iconHoverEffect hover:bg-red-100 flex items-center justify-center '>
-            <TrashIcon className='h-5 w-5 text-gray-500 active:scale-110   hover:text-red-600 duration-300    ' />
-          </div>
-          <div className='  iconHoverEffect hover:bg-red-100 flex items-center justify-center '>
-            <HeartIcon className='h-5 w-5 text-gray-500 active:scale-110    hover:text-red-600 duration-300    ' />
-          </div>
-          <div className='  iconHoverEffect hover:bg-sky-100 flex items-center justify-center '>
-            <ShareIcon className='h-5 w-5 text-gray-500   hover:text-sky-500 duration-300    ' />
-          </div>
-          <div className='  iconHoverEffect hover:bg-sky-100 flex items-center justify-center '>
-            <ChartBarIcon className='h-5 w-5 text-gray-500   hover:text-sky-500 duration-300    ' />
-          </div>
+        <div className=' flex justify-between items-center   text-gray-500    mt-2 '>
+          <CommentsPostIcon />
+          <LikeIcon post={post} />
+          <DeletePostIcon postId={post.id} />
+          <SharePostIcon />
+          <ChartBarPostIcon />
         </div>
       </div>
     </div>
