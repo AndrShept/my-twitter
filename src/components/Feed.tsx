@@ -12,6 +12,7 @@ export type PostWithLikes = Post & { like: Like[] };
 export const getPosts = async () => {
   try {
     const res = await fetch('http://localhost:3000/api/posts', {
+      next:{revalidate: 10}
    
     });
 

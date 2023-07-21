@@ -18,24 +18,3 @@ export const DELETE = async (
     return new NextResponse('Database ERROR', { status: 500 });
   }
 };
-
-// export const PUT = async (
-//   req: Request,
-//   { params }: { params: { id: string } }
-// ) => {
-//   try {
-//     const authorId = await req.json();
-
-//     console.log(authorId ,'authorId' )
-//     console.log(params.id ,'params' )
-    
-//     const like = await prisma.post.update({
-//       where: { id: params.id },
-//       data: { Like: {connect: {id: authorId}}}
-      
-//     });
-//     return new NextResponse(JSON.stringify(like), { status: 201 });
-//   } catch (error) {
-//     return new NextResponse('Database ERROR', { status: 500 });
-//   }
-// };

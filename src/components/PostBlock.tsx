@@ -57,7 +57,7 @@ export const PostBlock = ({ post }: { post: PostWithLikes }) => {
 
         {/* ICON BLOCK */}
         <div className=' flex justify-between items-center   text-gray-500    mt-2 '>
-          <CommentsPostIcon />
+          <CommentsPostIcon postId={post.id} />
           <LikeIcon post={post} />
           <DeletePostIcon postId={post.id} />
           <SharePostIcon />

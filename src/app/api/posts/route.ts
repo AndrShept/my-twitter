@@ -10,7 +10,7 @@ export const GET = async (req: Request) => {
       },
       include: {like: true}
     });
-console.log(posts)
+    revalidatePath('/');
     return new NextResponse(JSON.stringify(posts), { status: 200 });
   } catch (error) {
     console.error('Database error:', error);
