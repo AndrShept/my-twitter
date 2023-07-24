@@ -5,6 +5,7 @@ import React, { useRef, useState, useTransition } from 'react';
 import { Session } from 'next-auth';
 import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { SessionAvatar } from './SessionAvatar';
 
 export const Input = ({ session }: { session: Session }) => {
   const router = useRouter();
@@ -82,15 +83,9 @@ export const Input = ({ session }: { session: Session }) => {
 
   return (
     <div className='flex border-b border-gray-200 p-3 space-x-3'>
-      <div className='w-[68px]'>
-        <Image
-          className='ml-2 rounded-full w-11 h-11 object-cover cursor-pointer hover:brightness-95 '
-          height={400}
-          width={400}
-          alt='avatar_img'
-          src={session?.user.image || ''}
-        />
-      </div>
+     
+      <SessionAvatar/>
+     
       <form
         ref={ref}
         onSubmit={handleSubmit}
@@ -120,11 +115,7 @@ export const Input = ({ session }: { session: Session }) => {
           <div className='flex items-center '>
             <span className='text-sky-500 text-xs'>Upload</span>
             <label className='flex items-center' htmlFor='image'>
-            
-              
-        
-                <PhotoIcon className='h-8 w-8 p-1 iconHoverEffect text-sky-500 hover:bg-sky-100' />
-          
+              <PhotoIcon className='h-8 w-8 p-1 iconHoverEffect text-sky-500 hover:bg-sky-100' />
             </label>
             <input
               id='image'
@@ -135,7 +126,7 @@ export const Input = ({ session }: { session: Session }) => {
               onChange={uploadImage}
             />
             <FaceSmileIcon className='h-8 w-8 p-1 iconHoverEffect text-sky-500 hover:bg-sky-100' />
-            {imageUrl && 
+            {imageUrl && (
               <div className='flex items-center gap-1'>
                 <span
                   onClick={() => setImageUrl('')}
@@ -143,10 +134,15 @@ export const Input = ({ session }: { session: Session }) => {
                 >
                   remove
                 </span>
-                <span className='text-sm text-gray-400'>{(imgSize / 1048576).toFixed(2)} mb</span>
-              </div>}
+                <span className='text-sm text-gray-400'>
+                  {(imgSize / 1048576).toFixed(2)} mb
+                </span>
+              </div>
+            )}
 
-            { isPendingImg&& <span className='loading loading-spinner text-sky-500 ml-2 ' />}
+            {isPendingImg && (
+              <span className='loading loading-spinner text-sky-500 ml-2 ' />
+            )}
           </div>
           {/* <TweetButton /> */}
           <div className='flex items-center gap-3'>

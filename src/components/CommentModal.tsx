@@ -5,6 +5,8 @@ import { format } from 'timeago.js';
 import { PostWithLikes } from './Feed';
 import { useSession } from 'next-auth/react';
 import { redirect, useRouter } from 'next/navigation';
+import { UserAvatar } from './UserAvatar';
+import { Modal } from './Modal';
 
 export const CommentModal = ({
   post,
@@ -13,7 +15,7 @@ export const CommentModal = ({
   post: PostWithLikes;
   setIsModalOpen: (bool: boolean) => void;
 }) => {
-  const router = useRouter()
+  const router = useRouter();
   const { data: session } = useSession();
   const [comment, setComment] = useState('');
   const [isPending, startTransition] = useTransition();
@@ -27,23 +29,21 @@ export const CommentModal = ({
       postId: post.id,
     };
 
-    startTransition(async()=>{
+    startTransition(async () => {
       const res = await fetch(`api/comments`, {
         method: 'POST',
         body: JSON.stringify(data),
       });
-      if (res){
-        setIsModalOpen(false)
-        router.refresh()
-        router.push('post/'+post.id)
-
+      if (res) {
+        setIsModalOpen(false);
+        router.refresh();
+        router.push('post/' + post.id);
       }
-
-    })
+    });
   };
   return (
-    <section className='fixed p-4 inset-0 w-full h-full bg-white/50 backdrop-blur-sm z-50 flex  items-center justify-center animate-in fade-in-0 duration-300'>
-      <div className='md:min-w-[500px] min-h-[400px]  bg-white rounded-xl border-2 border-gray-200 shadow-lg flex flex-col p-4 animate-in fade-in-0 zoom-in-90 duration-300 '>
+    <Modal>
+      <div className='md:min-w-[500px] min-h-[400px]  bg-base-100 rounded-xl border-2 border-gray-200 shadow-lg flex flex-col p-4 animate-in fade-in-0 zoom-in-90 duration-300 '>
         <div className=' border-b flex items-center justify-end  '>
           <span
             onClick={() => setIsModalOpen(false)}
@@ -54,13 +54,7 @@ export const CommentModal = ({
         </div>
         <div className=' flex mt-4'>
           <div className=' '>
-            <Image
-              width={500}
-              height={500}
-              className='h-11 w-11 object-cover rounded-full mr-12'
-              alt='post_image '
-              src={post.authorImage}
-            />
+            <UserAvatar userImage={post.authorImage} />
           </div>
           <div className='flex flex-col  items-start space-x-1 whitespace-nowrap w-full justify-between '>
             <div className='flex  items-center justify-between gap-1'>
@@ -81,7 +75,7 @@ export const CommentModal = ({
         </div>
         <div className='flex mt-16'>
           <Image
-            className='rounded-full w-11 h-11 object-cover cursor-pointer hover:brightness-95 '
+            className='rounded-full w-11 h-11 object-cover   '
             height={400}
             width={400}
             alt='avatar_img'
@@ -102,12 +96,16 @@ export const CommentModal = ({
             />
             <div className='self-end  mt-4'>
               <button className=' rounded-full w-20 duration-300 hover:bg-blue-400 bg-blue-500 text-white shadow-md px-4 py-2 self-end flex items-center justify-center'>
-            { isPending? <span className='loading loading-spinner  text-gray-300'/> :   `Reply`}
+                {isPending ? (
+                  <span className='loading loading-spinner  text-gray-300' />
+                ) : (
+                  `Reply`
+                )}
               </button>
             </div>
           </form>
         </div>
       </div>
-    </section>
+    </Modal>
   );
 };

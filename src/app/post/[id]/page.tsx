@@ -1,8 +1,37 @@
-import React from 'react'
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { PostWithLikes } from '@/components/Feed';
+import { getServerSession } from 'next-auth';
+import React from 'react';
 
-const PostPageById = ({params}:{params: {id:string}}) => {
+export const getPostById = async (postId: string) => {
+  try {
+    const res = await fetch('http://localhost:3000/api/posts/'+postId);
+    return await res.json()
+  } catch (error) {
+    console.log(error)
+  }
+
+};
+
+const PostPageById = async ({ params }: { params: { id: string } }) => {
+  const session = await getServerSession(authOptions);
+  const post:PostWithLikes = await getPostById(params.id)
+  
+
   return (
-    <div>{params.id}</div>
-  )
-}
-export default PostPageById
+    <div className='chat chat-start'>
+      <div className='chat-image avatar'>
+        <div className='w-10 rounded-full'>
+          <img src='/images/stock/photo-1534528741775-53994a69daeb.jpg' />
+        </div>
+      </div>
+      <div className='chat-header'>
+        Obi-Wan Kenobi
+        <time className='text-xs opacity-50'>12:45</time>
+      </div>
+      <div className='chat-bubble'>You were the Chosen One!</div>
+      <div className='chat-footer opacity-50'>Delivered</div>
+    </div>
+  );
+};
+export default PostPageById;

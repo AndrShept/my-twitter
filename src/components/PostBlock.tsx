@@ -10,21 +10,14 @@ import { ChartBarPostIcon } from './post-icons/ChartBarPostIcon';
 import { SharePostIcon } from './post-icons/SharePostIcon';
 import { PostWithLikes } from './Feed';
 import Link from 'next/link';
+import { UserAvatar } from './UserAvatar';
 
 export const PostBlock = ({ post }: { post: PostWithLikes }) => {
 
 
   return (
     <div className='flex p-3  border-b border-gray-200  '>
-      <div className=' p-2'>
-        <Image
-          width={500}
-          height={500}
-          className='h-11 w-11 object-cover rounded-full mr-12'
-          alt='post_image '
-          src={post.authorImage}
-        />
-      </div>
+<UserAvatar userImage={post.authorImage}/>
       <div>
         {/* post user info */}
         <div className='flex items-center space-x-1 whitespace-nowrap w-full justify-between '>
