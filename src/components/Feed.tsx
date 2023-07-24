@@ -4,10 +4,10 @@ import { PostBlock } from './PostBlock';
 import { Input } from './Input';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { Like, Post } from '@prisma/client';
+import { Comment, Like, Post } from '@prisma/client';
 
 
-export type PostWithLikes = Post & { like: Like[] };
+export type PostWithLikes = Post & { like: Like[] , comments: Comment[] };
 
 export const getPosts = async () => {
   try {

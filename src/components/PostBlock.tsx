@@ -9,6 +9,7 @@ import { DeletePostIcon } from './post-icons/DeletePostIcon';
 import { ChartBarPostIcon } from './post-icons/ChartBarPostIcon';
 import { SharePostIcon } from './post-icons/SharePostIcon';
 import { PostWithLikes } from './Feed';
+import Link from 'next/link';
 
 export const PostBlock = ({ post }: { post: PostWithLikes }) => {
 
@@ -46,13 +47,16 @@ export const PostBlock = ({ post }: { post: PostWithLikes }) => {
           {post.content}
         </p>
         {/* <div className='mr-2 sm:h-72 h-60 group overflow-hidden rounded-xl'> */}
+        <Link href={'post/'+post.id} className=' '>
         <Image
           height={500}
           width={500}
+          
           alt='post_image'
           src={post.image!}
           className='rounded-xl  object-cover mr-2 '
         />
+        </Link>
         {/* </div> */}
 
         {/* ICON BLOCK */}

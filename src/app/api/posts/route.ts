@@ -8,7 +8,7 @@ export const GET = async (req: Request) => {
       orderBy: {
         createdAt: 'desc',
       },
-      include: {like: true}
+      include: {like: true, comments: true}
     });
     revalidatePath('/');
     return new NextResponse(JSON.stringify(posts), { status: 200 });
