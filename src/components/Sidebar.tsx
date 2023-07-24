@@ -13,7 +13,7 @@ import { SignInButton } from './SignInButton';
 export const Sidebar = async () => {
   const session = await getServerSession(authOptions);
   return (
-    <div className='hidden sm:flex flex-col p-1  xl:items-start xl:justify-center fixed h-full xl:ml-24'>
+    <div className='hidden sm:flex flex-col p-1  xl:items-start xl:justify-center  fixed h-full xl:ml-24'>
       <Image
         priority
         className='cursor-pointer  hoverEffect '
@@ -35,19 +35,19 @@ export const Sidebar = async () => {
         <SignInButton />
       )}
 
-      <div className='dropdown dropdown-top dropdown-right hover:bg-gray-200 rounded-full duration-500   cursor-pointer text-gray-700 flex self-start  mt-auto mb-6'>
+      <div className='dropdown dropdown-top dropdown-right hover:bg-gray-200 rounded-full duration-500    cursor-pointer text-gray-700 flex self-start  mt-auto mb-6'>
         <label tabIndex={0}>
           {session && 
             <div className='flex items-center cursor-pointer  xl:px-6 xl:py-3'>
               {' '}
               <Image
-                className='rounded-full xl:mr-2 hover:brightness-95'
+                className='rounded-full ml-2 hover:brightness-95'
                 height={50}
                 width={50}
                 alt='avatar'
                 src={session?.user.image ?? ''}
               />
-              <div className='leading-5 hidden xl:inline'>
+              <div className='leading-5 hidden xl:inline ml-2'>
                 <h4 className='font-bold'>{session?.user.name}</h4>
                 <p className='text-gray-500'> {session?.user.username}</p>
               </div>

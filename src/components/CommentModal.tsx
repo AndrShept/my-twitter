@@ -4,6 +4,7 @@ import React, { useState, useTransition } from 'react';
 import { format } from 'timeago.js';
 import { PostWithLikes } from './Feed';
 import { useSession } from 'next-auth/react';
+import { redirect, useRouter } from 'next/navigation';
 
 export const CommentModal = ({
   post,
@@ -12,6 +13,7 @@ export const CommentModal = ({
   post: PostWithLikes;
   setIsModalOpen: (bool: boolean) => void;
 }) => {
+  const router = useRouter()
   const { data: session } = useSession();
   const [comment, setComment] = useState('');
   const [isPending, startTransition] = useTransition();
@@ -32,6 +34,9 @@ export const CommentModal = ({
       });
       if (res){
         setIsModalOpen(false)
+        router.refresh()
+        router.push('post/'+post.id)
+
       }
 
     })

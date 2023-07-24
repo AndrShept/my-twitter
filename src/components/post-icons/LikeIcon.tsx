@@ -15,6 +15,7 @@ export const LikeIcon = ({ post }: { post: PostWithLikes }) => {
   const likeByPostId = post.like.some((item) => item.postId === post.id);
 
   const addLike = async () => {
+    if (!session) return
     const newLike = {
       authorId: session!.user.id,
       postId: post.id,
@@ -34,6 +35,7 @@ export const LikeIcon = ({ post }: { post: PostWithLikes }) => {
     }
   };
   const deleteLike = async () => {
+    if (!session) return
     // setLikes((prev) => [
     //   ...prev.filter((item) => item.authorId !== session!.user.id),
     // ]);

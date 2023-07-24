@@ -4,13 +4,23 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { CommentModal } from '../CommentModal';
 import { PostWithLikes } from '../Feed';
+import { Session } from 'inspector';
+import { useSession } from 'next-auth/react';
 
 export const CommentsPostIcon = ({ post }: { post: PostWithLikes }) => {
+  const {data: session} = useSession()
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleClick = ()=>{
+    if(session){
+      setIsModalOpen((prev) => !prev)
+    }
+   
+  }
   return (
     <>
       <div
-        onClick={() => setIsModalOpen((prev) => !prev)}
+        onClick={handleClick}
         data-tip='comments'
         className='tooltip   iconHoverEffect hover:bg-sky-100 flex items-center justify-center gap-1 group'
       >
