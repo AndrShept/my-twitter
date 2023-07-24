@@ -43,24 +43,29 @@ export const DeletePostIcon = ({ postId }: { postId: string }) => {
       {isShowModal && session && (
         <Modal>
           <div className='flex flex-col p-8 max-w-xl min-w-[400px]  gap-10 bg-base-100 shadow-md rounded-xl animate-in fade-in-0 zoom-in-90 duration-300'>
-            <h1 className='text-3xl  font-bold text-black text-left'>
+            <h1 className='text-2xl  font-bold text-black text-left'>
               Ви дійсно хочете видалити цей пост?
             </h1>
 
             <div className='flex gap-3 self-end'>
-              <div
+              <button
+              
                 onClick={() => setIsShowModal(false)}
-                className='btn btn-outline capitalize '
+                className=' btn-outline capitalize px-4 py-3 rounded-lg border-2 font-medium duration-200'
               >
                 Cancel
-              </div>
-              <div onClick={handleDeletePost} className='btn btn-neutral w-28 capitalize text-white'>
+              </button>
+              <button
+                disabled={isPending}
+                onClick={handleDeletePost}
+                className=' btn-neutral w-28 capitalize text-white disabled:opacity-50 px-4 py-3 rounded-lg flex items-center justify-center'
+              >
                 {isPending ? (
-                  <span className='loading loading-spinner text-gray-300' />
+                  <span className='loading loading-spinner text-gray-200  ' />
                 ) : (
                   'Continue'
                 )}
-              </div>
+              </button>
             </div>
           </div>
         </Modal>

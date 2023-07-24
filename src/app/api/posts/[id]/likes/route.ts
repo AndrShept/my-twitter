@@ -9,16 +9,13 @@ export const POST = async (
   try {
     const authorId = await req.json();
 
-
-
     const like = await prisma.like.create({
-        data:{
-            postId: params.id,
-            authorId
-        }
-      
+      data: {
+        postId: params.id,
+        authorId,
+      },
     });
-    revalidatePath('/')
+    revalidatePath('/');
     return new NextResponse(JSON.stringify(like), { status: 201 });
   } catch (error) {
     return new NextResponse('Database ERROR', { status: 500 });
@@ -31,13 +28,10 @@ export const DELETE = async (
   try {
     const authorId = await req.json();
 
-
-
     const like = await prisma.like.deleteMany({
-      where:{postId: params.id, authorId}
-  
+      where: { postId: params.id, authorId },
     });
-    revalidatePath('/')
+    revalidatePath('/');
     return new NextResponse(JSON.stringify(like), { status: 201 });
   } catch (error) {
     return new NextResponse('Database ERROR', { status: 500 });

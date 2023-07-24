@@ -1,10 +1,8 @@
 'use client';
 import { ChatBubbleLeftIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
 import React, { useState } from 'react';
 import { CommentModal } from '../CommentModal';
 import { PostWithLikes } from '../Feed';
-import { Session } from 'inspector';
 import { useSession } from 'next-auth/react';
 
 export const CommentsPostIcon = ({ post }: { post: PostWithLikes }) => {
