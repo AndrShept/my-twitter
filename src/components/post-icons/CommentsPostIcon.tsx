@@ -25,9 +25,9 @@ export const CommentsPostIcon = ({ post }: { post: PostWithLikes }) => {
         className='tooltip   iconHoverEffect hover:bg-sky-100 flex items-center justify-center gap-1 group'
       >
         <ChatBubbleLeftIcon className='h-5 w-5 text-gray-500 active:scale-110   hover:text-sky-500 duration-300    ' />
-        <span className='group-hover:text-sky-500 duration-300 text-xs  font-semibold'>
+{   post.comments.length > 0 &&     <span className='group-hover:text-sky-500 duration-300 text-xs  font-semibold'>
           {post.comments.length}
-        </span>
+        </span> }
       </div>
       {isModalOpen && (
         <CommentModal post={post} setIsModalOpen={setIsModalOpen} />

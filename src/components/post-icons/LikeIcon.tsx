@@ -15,7 +15,7 @@ export const LikeIcon = ({ post }: { post: PostWithLikes }) => {
   const likeByPostId = post.like.some((item) => item.postId === post.id);
 
   const addLike = async () => {
-    if (!session) return
+    if (!session) return;
     const newLike = {
       authorId: session!.user.id,
       postId: post.id,
@@ -35,7 +35,7 @@ export const LikeIcon = ({ post }: { post: PostWithLikes }) => {
     }
   };
   const deleteLike = async () => {
-    if (!session) return
+    if (!session) return;
     // setLikes((prev) => [
     //   ...prev.filter((item) => item.authorId !== session!.user.id),
     // ]);
@@ -60,9 +60,11 @@ export const LikeIcon = ({ post }: { post: PostWithLikes }) => {
           className='tooltip group  iconHoverEffect hover:bg-red-100 flex items-center justify-center gap-1 '
         >
           <HeartIcon className='h-5 w-5 text-gray-500 active:scale-110    group-hover:text-red-600 duration-300    ' />
-          <span className='group-hover:text-red-600 text-xs font-semibold'>
-            {post.like.length}
-          </span>
+          {post.like.length > 0 && (
+            <span className='group-hover:text-red-600 text-xs  font-semibold'>
+              {post.like.length}
+            </span>
+          )}
         </div>
       ) : (
         <div
@@ -71,9 +73,11 @@ export const LikeIcon = ({ post }: { post: PostWithLikes }) => {
           className='tooltip group  iconHoverEffect hover:bg-red-100 flex items-center justify-center gap-1 '
         >
           <HeartIconSolid className='h-5 w-5 text-red-600 active:scale-110    group-hover:text-red-600 duration-300    ' />
-          <span className='group-hover:text-red-600 text-xs  font-semibold'>
-            {post.like.length}
-          </span>
+          {post.like.length > 0 && (
+            <span className='group-hover:text-red-600 text-xs  font-semibold'>
+              {post.like.length}
+            </span>
+          )}
         </div>
       )}
     </>
