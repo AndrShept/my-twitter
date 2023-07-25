@@ -1,12 +1,10 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { PostWithLikes } from '@/components/Feed';
 import { PostComments } from '@/components/PostComments';
-import { UserAvatar } from '@/components/UserAvatar';
 import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline';
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import React from 'react';
-import { format } from 'timeago.js';
 
 export const getPostById = async (postId: string) => {
   try {

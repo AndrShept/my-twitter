@@ -19,11 +19,10 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
       setIsShowCommentMenu(false);
     }
   });
-  console.log(ref);
   return (
     <>
       {post.comments.map((comment, i) => (
-        <div ref={ref} className='chat chat-start gap-4 mt-4' key={comment.id}>
+        <div  className='chat chat-start gap-4 mt-4' key={comment.id}>
           <div className='chat-image avatar self-start '>
             <div className='w-10 rounded-full mt-2'>
               <UserAvatar userImage={comment.authorImage} />
@@ -50,7 +49,7 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
                   )}
                 />
                 {i === index && isShowCommentMenu && (
-                  <div className='absolute mt-1 text-sm flex flex-col w-44  p-2  bg-base-100 rounded-md gap-1 shadow-md border animate-in fade-in-0 zoom-in-90 duration-200'>
+                  <div ref={ref} className='absolute mt-1 text-sm flex flex-col w-44  p-2  bg-base-100 rounded-md gap-1 shadow-md border animate-in fade-in-0 zoom-in-90 duration-200'>
                     <EditIcon />
                     <DeleteIcon
                       commentId={comment.id}
@@ -62,7 +61,7 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
                 )}
               </div>
             </div>
-            <p className=' bg-base-100 px-4 py-3 rounded-xl text-black/80 shadow-md border mt-1  '>
+            <p className=' bg-gray-100 px-4 py-3 rounded-xl text-black/80 shadow-md  mt-1  '>
               {comment.content}
             </p>
           </div>
