@@ -4,16 +4,18 @@ import React, { useState, useTransition } from 'react';
 import { ConfirmModal } from '../ConfirmModal';
 import { useRouter } from 'next/navigation';
 
-export const DeleteIcon = ({
-  commentId,
-  postId,
-}: {
+interface DeleteIconProps {
   commentId: string;
   postId: string;
-}) => {
+  setIsShowCommentMenu: (bool: boolean) => void;
+  isShowCommentMenu: boolean;
+}
+
+export const DeleteIcon = ({ commentId, postId }: DeleteIconProps) => {
   const [isPending, startTransition] = useTransition();
   const [isShowModal, setIsShowModal] = useState(false);
   const router = useRouter();
+
   const handleClick = async () => {
     try {
       startTransition(async () => {
