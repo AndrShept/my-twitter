@@ -1,26 +1,46 @@
 import React from 'react';
+import { Modal } from './Modal';
 
-export const ConfirmModal = () => {
+interface ConfirmModalProps {
+  confirmText: string;
+  isPending: boolean;
+  setIsShowModal: (bool: boolean) => void;
+  handleDeletePost: () => void;
+}
+
+export const ConfirmModal = ({
+  confirmText,
+  setIsShowModal,
+  isPending,
+  handleDeletePost,
+}: ConfirmModalProps) => {
   return (
-    <div>
-      {/* The button to open modal */}
-      <label htmlFor='my_modal_6' className='btn'>
-        open modal
-      </label>
+    <Modal>
+      <div className='flex flex-col p-8 max-w-xl min-w-[400px] border border-gray-300  gap-10 bg-base-100 shadow-md rounded-xl animate-in fade-in-0 zoom-in-90 duration-300'>
+        <h1 className='text-xl  font-bold text-black text-left'>
+          {confirmText}
+        </h1>
 
-      {/* Put this part before </body> tag */}
-      <input type='checkbox' id='my_modal_6' className='modal-toggle' />
-      <div className='modal'>
-        <div className='modal-box'>
-          <h3 className='font-bold text-lg'>Hello!</h3>
-          <p className='py-4'>This modal works with a hidden checkbox!</p>
-          <div className='modal-action'>
-            <label htmlFor='my_modal_6' className='btn'>
-              Close!
-            </label>
-          </div>
+        <div className='flex gap-3 self-end'>
+          <button
+            onClick={() => setIsShowModal(false)}
+            className='  capitalize px-[14px] py-[10px] rounded-lg border text-sm hover:bg-gray-100 font-medium duration-200'
+          >
+            Cancel
+          </button>
+          <button
+            disabled={isPending}
+            onClick={handleDeletePost}
+            className=' btn-neutral w-28 capitalize text-white disabled:opacity-50 px-[14px] py-[10px] text-sm rounded-lg flex items-center justify-center'
+          >
+            {isPending ? (
+              <span className='loading loading-spinner text-gray-200  ' />
+            ) : (
+              'Continue'
+            )}
+          </button>
         </div>
       </div>
-    </div>
+    </Modal>
   );
 };

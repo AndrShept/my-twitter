@@ -28,7 +28,7 @@ export default  function RootLayout({
           <main className='flex min-h-screen mx-auto '>
             <ToastProvider/>
             <Sidebar/>
-            <div className='xl:ml-[370px] md:min-w-[650px] sm:ml-[73px] max-w-2xl'>
+            <div className='xl:ml-[370px] md:min-w-[650px] sm:ml-[73px] max-w-2xl p-4'>
             {children}
             </div>
             <Widgets/>

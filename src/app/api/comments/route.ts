@@ -25,3 +25,4 @@ export const POST = async (req: Request) => {
     return new NextResponse('DATABASE ERROR', { status: 500 });
   }
 };
+
