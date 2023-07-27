@@ -126,7 +126,7 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
                   />
                   <div className='flex  self-end mt-1'>
                     <button
-                    data-tip="cancel"
+                      data-tip='cancel'
                       className='tooltip p-1 rounded-full hover:bg-red-200 duration-200'
                       onClick={() => setCommentId('')}
                     >
@@ -137,7 +137,7 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
                       <span className='loading loading-spinner text-gray-500 text-sm' />
                     ) : (
                       <button
-                      data-tip="ok!"
+                        data-tip='ok!'
                         disabled={comment.content === newComment}
                         className='tooltip p-1 rounded-full hover:bg-green-200 duration-200 disabled:opacity-50 '
                       >
