@@ -13,7 +13,9 @@ export const POST = async (
       data: {
         postId: params.id,
         authorId,
+        
       },
+
     });
     revalidatePath('/');
     return new NextResponse(JSON.stringify(like), { status: 201 });

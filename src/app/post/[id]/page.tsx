@@ -21,7 +21,7 @@ const PostPageById = async ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      <div className='flex py-2 px-3 sticky top-0 z-50  min-w-[350px] bg-white border-b border-gray-200'>
+      <div className='flex py-2 px-3 sticky top-0 z-50  min-w-[300px] bg-white border-b border-gray-200'>
         <div className=' flex items-center justify-center   w-9 h-9 ml-2'>
           <Link  href='/'>
             <ArrowUturnLeftIcon className='h-10 w-10 text-gray-500 iconHoverEffect' />
