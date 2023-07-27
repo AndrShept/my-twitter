@@ -7,6 +7,9 @@ import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { SessionAvatar } from './SessionAvatar';
 
+import { useClickAway } from 'react-use';
+import { EmojiIcon } from './EmojiIcon';
+
 export const Input = ({ session }: { session: Session }) => {
   const router = useRouter();
   const [content, setContent] = useState('');
@@ -14,6 +17,8 @@ export const Input = ({ session }: { session: Session }) => {
   const [imgSize, setImgSize] = useState(0);
   const [isPendingImg, startTransition] = useTransition();
   const [isPendingData, startTransitionData] = useTransition();
+
+  const refEmoji = useRef(null);
   const ref = useRef(null);
   const CLOUD_NAME = 'dn4qas6ys';
   const UPLOAD_PRESET = 'my-twitter';
@@ -44,6 +49,9 @@ export const Input = ({ session }: { session: Session }) => {
       console.log(error);
     }
   };
+
+
+
 
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -83,9 +91,8 @@ export const Input = ({ session }: { session: Session }) => {
 
   return (
     <div className='flex border-b border-gray-200 p-3 space-x-3'>
-     
-      <SessionAvatar/>
-     
+      <SessionAvatar />
+
       <form
         ref={ref}
         onSubmit={handleSubmit}
@@ -125,7 +132,7 @@ export const Input = ({ session }: { session: Session }) => {
               type='file'
               onChange={uploadImage}
             />
-            <FaceSmileIcon className='h-8 w-8 p-1 iconHoverEffect text-sky-500 hover:bg-sky-100' />
+            <EmojiIcon  content={content} setContent={setContent} />
             {imageUrl && (
               <div className='flex items-center gap-1'>
                 <span

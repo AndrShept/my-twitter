@@ -126,7 +126,8 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
                   />
                   <div className='flex  self-end mt-1'>
                     <button
-                      className='p-1 rounded-full hover:bg-red-200 duration-200'
+                    data-tip="cancel"
+                      className='tooltip p-1 rounded-full hover:bg-red-200 duration-200'
                       onClick={() => setCommentId('')}
                     >
                       <XMarkIcon className='h-6 w-6 text-gray-500 hover:text-red-500' />
@@ -136,8 +137,9 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
                       <span className='loading loading-spinner text-gray-500 text-sm' />
                     ) : (
                       <button
+                      data-tip="ok!"
                         disabled={comment.content === newComment}
-                        className=' p-1 rounded-full hover:bg-green-200 duration-200 disabled:opacity-50 '
+                        className='tooltip p-1 rounded-full hover:bg-green-200 duration-200 disabled:opacity-50 '
                       >
                         <CheckIcon className='h-6 w-6 text-gray-500 hover:text-green-500 ' />
                       </button>
