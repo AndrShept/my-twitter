@@ -14,16 +14,18 @@ import clsx from 'clsx';
 import { useClickAway } from 'react-use';
 import { API_URL } from '@/lib/utils/baseUrl';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 export const PostComments = ({ post }: { post: PostWithLikes }) => {
   const [isShowDropdownMenu, setIsShowDropdownMenu] = useState(false);
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState<number | null>(null);
   const [newComment, setNewComment] = useState('');
   const [commentId, setCommentId] = useState('');
 
   const [isPending, startTransition] = useTransition();
   const ref = useRef(null);
   const router = useRouter();
+  const { data: session } = useSession();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -67,23 +69,25 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
               <time className=' text-gray-400 text-sm'>
                 {comment.createdAt === comment.updatedAt
                   ? format(comment.createdAt)
-                  : `updated ${format(comment.createdAt)}`}
+                  : `updated ${format(comment.updatedAt || '')}`}
               </time>
 
               <div className='h-10 w-10 '>
-                <EllipsisHorizontalIcon
-                  onClick={() => {
-                    setIndex(i);
+                {session && session.user.id === comment.authorId && (
+                  <EllipsisHorizontalIcon
+                    onClick={() => {
+                      setIndex(i);
 
-                    setIsShowDropdownMenu((prev) => !prev);
-                  }}
-                  className={clsx(
-                    `group-hover:block  cursor-pointer iconHoverEffect   rounded-full `,
-                    {
-                      hidden: !isShowDropdownMenu,
-                    }
-                  )}
-                />
+                      setIsShowDropdownMenu((prev) => !prev);
+                    }}
+                    className={clsx(
+                      `group-hover:block  cursor-pointer iconHoverEffect   rounded-full `,
+                      {
+                        hidden: !isShowDropdownMenu,
+                      }
+                    )}
+                  />
+                )}
                 {i === index && isShowDropdownMenu && (
                   <div
                     ref={ref}
@@ -107,16 +111,16 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
               </div>
             </div>
             {comment.id !== commentId ? (
-              <p className=' bg-gray-100 px-4 py-3 rounded-xl text-black/80 shadow-md  mt-1  '>
+              <p className=' bg-gray-100 px-4 py-3 rounded-xl text-black/80 shadow-md  mt-1 break-all  '>
                 {comment.content}
               </p>
             ) : (
               <div>
-                <form onSubmit={handleSubmit} className='flex flex-col'>
+                <form onSubmit={handleSubmit} className='flex flex-col '>
                   <textarea
                     rows={3}
                     cols={40}
-                    className='p-2 mt-2 border-2 rounded-md '
+                    className='p-2 mt-2 border-2 rounded-md  '
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                   />
