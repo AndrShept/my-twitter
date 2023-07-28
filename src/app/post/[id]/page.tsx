@@ -1,7 +1,7 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { PostWithLikes } from '@/components/Feed';
 import { PostComments } from '@/components/PostComments';
-import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline';
+import { ArrowSmallLeftIcon } from '@heroicons/react/24/outline';
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import React from 'react';
@@ -24,12 +24,12 @@ const PostPageById = async ({ params }: { params: { id: string } }) => {
       <div className='flex py-2 px-3  sticky top-0 z-50  min-w-[300px] bg-white border-b border-gray-200'>
         <div className=' flex items-center justify-center   w-9 h-9 ml-2'>
           <Link href='/'>
-            <ArrowUturnLeftIcon className='h-10 w-10 text-gray-500 iconHoverEffect' />
+            <ArrowSmallLeftIcon className='h-10 w-10 text-gray-500 iconHoverEffect' />
           </Link>
           <h2 className='text-base sm:text-xl font-bold ml-1'>back</h2>
         </div>
       </div>
-      <h1  className='text-center text-xl mt-2'>{post.content}</h1>
+      <h1 className='text-center text-xl mt-2'>{post.content}</h1>
       <PostComments post={post} />
     </>
   );

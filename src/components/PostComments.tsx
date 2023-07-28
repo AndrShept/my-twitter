@@ -21,6 +21,7 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
   const [index, setIndex] = useState<number | null>(null);
   const [newComment, setNewComment] = useState('');
   const [commentId, setCommentId] = useState('');
+  const [isShowAllComments, setIsShowAllComments] = useState(200);
 
   const [isPending, startTransition] = useTransition();
   const ref = useRef(null);
@@ -44,6 +45,26 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
       console.log(error);
     }
   };
+
+  const handleClickMoreComments = (i: number) => {
+    
+    
+    console.log(i, 'i');
+    console.log(index, 'index');
+
+    if (index === i) {
+      setIsShowAllComments(1000);
+    }
+  };
+
+  // const handleClickMoreComments = (i:number) => {
+
+  //   setIndex(i)
+  //   if ( i === index) {
+  //     setIsShowAllComments(1000);
+  //   }
+  //   console.log(isShowAllComments)
+  // };
 
   const handleEditClick = (comment: string, commentId: string) => {
     setNewComment(comment);
@@ -69,7 +90,7 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
               <time className=' text-gray-400 text-sm'>
                 {comment.createdAt === comment.updatedAt
                   ? format(comment.createdAt)
-                  : `updated ${format(comment.updatedAt || '')}`}
+                  : `${format(comment.updatedAt || '')}(змінено) `}
               </time>
 
               <div className='h-10 w-10 '>
@@ -111,13 +132,26 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
               </div>
             </div>
             {comment.id !== commentId ? (
-              <p className=' bg-gray-100 px-4 py-3 rounded-xl text-black/80 shadow-md  mt-1 break-all  '>
-                {comment.content}
-              </p>
+              <>
+                <p
+                  className={` bg-gray-100 px-4 py-3 rounded-xl text-black/80 shadow-md  mt-1 break-all   `}
+                >
+                  {comment.content.slice(0, isShowAllComments)} <br></br>
+                  {comment.content.length > 200 && index !== i && (
+                    <span
+                      onClick={() => handleClickMoreComments(i)}
+                      className=' font-bold hover:underline cursor-pointer'
+                    >
+                      Докладніше...
+                    </span>
+                  )}
+                </p>
+              </>
             ) : (
               <div>
                 <form onSubmit={handleSubmit} className='flex flex-col '>
                   <textarea
+                    maxLength={255}
                     rows={3}
                     cols={40}
                     className='p-2 mt-2 border-2 rounded-md  '
