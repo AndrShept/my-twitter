@@ -1,32 +1,23 @@
 'use client';
-import React, { useState, useRef, useTransition } from 'react';
+import React, { useState, useTransition } from 'react';
 import { UserAvatar } from './UserAvatar';
 import { format } from 'timeago.js';
 import { PostWithLikes } from './Feed';
-import {
-  CheckIcon,
-  EllipsisHorizontalIcon,
-  PencilSquareIcon,
-  XMarkIcon,
-} from '@heroicons/react/24/outline';
-import { DeleteIcon } from './comments-icons/DeleteIcon';
-import clsx from 'clsx';
-import { useClickAway } from 'react-use';
+import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
+
 import { API_URL } from '@/lib/utils/baseUrl';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { CommentsDropDownMenu } from './CommentsDropDownMenu';
 
 export const PostComments = ({ post }: { post: PostWithLikes }) => {
-  const [isShowDropdownMenu, setIsShowDropdownMenu] = useState(false);
-  const [index, setIndex] = useState<number | null>(null);
   const [newComment, setNewComment] = useState('');
   const [commentId, setCommentId] = useState('');
-  const [isShowAllComments, setIsShowAllComments] = useState(200);
-
+  const [newCommentId, setNewCommentId] = useState('');
   const [isPending, startTransition] = useTransition();
-  const ref = useRef(null);
+
+  const [maxCommentLength, setMaxCommentLength] = useState(214);
+
   const router = useRouter();
-  const { data: session } = useSession();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,35 +37,17 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
     }
   };
 
-  const handleClickMoreComments = (i: number) => {
-    
-    
-    console.log(i, 'i');
-    console.log(index, 'index');
-
-    if (index === i) {
-      setIsShowAllComments(1000);
-    }
-  };
-
-  // const handleClickMoreComments = (i:number) => {
-
-  //   setIndex(i)
-  //   if ( i === index) {
-  //     setIsShowAllComments(1000);
+  // const addMaxCommentsLength = (id: string) => {
+  //   console.log(id, 'id');
+  //   console.log(newCommentId, 'newCommentId');
+  //   setNewCommentId(id);
+  //   if (id === newCommentId) {
+  //     setMaxCommentLength(1000);
   //   }
-  //   console.log(isShowAllComments)
+  //   console.log(maxCommentLength, 'maxCommentLength')
+
   // };
 
-  const handleEditClick = (comment: string, commentId: string) => {
-    setNewComment(comment);
-    setCommentId(commentId);
-    setIsShowDropdownMenu(false);
-  };
-
-  useClickAway(ref, () => {
-    setIsShowDropdownMenu(false);
-  });
   return (
     <>
       {post.comments.map((comment, i) => (
@@ -93,58 +66,34 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
                   : `${format(comment.updatedAt || '')}(змінено) `}
               </time>
 
-              <div className='h-10 w-10 '>
-                {session && session.user.id === comment.authorId && (
-                  <EllipsisHorizontalIcon
-                    onClick={() => {
-                      setIndex(i);
-
-                      setIsShowDropdownMenu((prev) => !prev);
-                    }}
-                    className={clsx(
-                      `group-hover:block  cursor-pointer iconHoverEffect   rounded-full `,
-                      {
-                        hidden: !isShowDropdownMenu,
-                      }
-                    )}
-                  />
-                )}
-                {i === index && isShowDropdownMenu && (
-                  <div
-                    ref={ref}
-                    className='absolute mt-1 text-sm flex flex-col w-32  p-2  bg-base-100 rounded-md gap-1 shadow-md border animate-in fade-in-0 zoom-in-90 duration-200'
-                  >
-                    <div
-                      onClick={() =>
-                        handleEditClick(comment.content, comment.id)
-                      }
-                      className='flex gap-2 items-center cursor-pointer hover:bg-gray-100 py-2 duration-200  rounded-md'
-                    >
-                      <span className='ml-3'>
-                        <PencilSquareIcon className='h-5 w-5 text-gray-500' />
-                      </span>
-                      <span>Edit</span>
-                    </div>
-
-                    <DeleteIcon commentId={comment.id} postId={post.id} />
-                  </div>
-                )}
-              </div>
+              <CommentsDropDownMenu
+                setNewComment={setNewComment}
+                setCommentId={setCommentId}
+                comment={comment}
+                postId={post.id}
+                i={i}
+              />
             </div>
             {comment.id !== commentId ? (
               <>
                 <p
-                  className={` bg-gray-100 px-4 py-3 rounded-xl text-black/80 shadow-md  mt-1 break-all   `}
+                  className={` bg-gray-100 px-4 py-3 rounded-xl text-black/80 shadow-md  mt-1 break-all`}
                 >
-                  {comment.content.slice(0, isShowAllComments)} <br></br>
-                  {comment.content.length > 200 && index !== i && (
+                  {comment.id !== newCommentId
+                    ? comment.content.slice(0, maxCommentLength)+ ' ...'
+                    : comment.content}
+                  <br></br>
+
+                  { comment.id !== newCommentId ? (
                     <span
-                      onClick={() => handleClickMoreComments(i)}
-                      className=' font-bold hover:underline cursor-pointer'
+                      onClick={() => setNewCommentId(comment.id)}
+                      className=' text-sm text-gray-600 font-bold hover:underline cursor-pointer'
                     >
-                      Докладніше...
+                      {`Показати повністю`}
                     </span>
-                  )}
+                  ) : 
+                    ''
+                  }
                 </p>
               </>
             ) : (
