@@ -13,6 +13,7 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from './ui/button';
+import { cn } from '@/lib/utils';
 
 const menuList = [
   { path: '/', name: 'Home', Icon: HomeIcon },
@@ -42,21 +43,17 @@ export const SidebarMenuItem = ({ authProtectNum = menuList.length }) => {
 
         return (
           <Link
-            className={` xl:px-5 xl:py-3 p-2 xl:w-auto xl:h-auto h-12 w-12   flex items-center hover:bg-secondary  text-gray-700 text-lg rounded-full ${
-              isActive && 'bg-secondary'
-            }`}
+            className={cn(
+              'xl:px-5 xl:py-3 p-[10px] xl:w-auto xl:h-auto h-12 w-12   flex items-center hover:bg-secondary/30  text-muted-foreground text-lg rounded-full',
+             {'bg-secondary hover:bg-secondary font-semibold text-primary': isActive}
+            
+            )}
             key={item.name}
             href={item.path}
           >
-            
-              <item.Icon className='xl:h-7 xl:w-7  ' />
-        
+            <item.Icon className='xl:h-[25px] xl:w-[25px]  ' />
 
-            <span
-              className={` ${isActive && 'font-bold  '} hidden xl:inline ml-2`}
-            >
-              {item.name}
-            </span>
+            <span className='text-base hidden xl:inline ml-2'>{item.name}</span>
           </Link>
         );
       })}

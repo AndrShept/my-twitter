@@ -33,13 +33,13 @@ export const DeletePostIcon = ({ postId }: { postId: string }) => {
   return (
     <div
       data-tip='delete'
-      className='tooltip  p-2 rounded-full transition cursor-pointer hover:bg-red-100 flex items-center justify-center '
+      className='tooltip  p-2 rounded-full transition hover:text-red-500 cursor-pointer hover:bg-secondary flex items-center justify-center '
     >
       <TrashIcon
         onClick={() => {
           setIsShowModal((prev) => !prev);
         }}
-        className='h-5 w-5 text-gray-500 active:scale-110   hover:text-red-600 duration-300    '
+        className='h-5 w-5 active:scale-110    '
       />
       {isShowModal && session && (
         <ConfirmModal

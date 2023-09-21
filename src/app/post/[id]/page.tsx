@@ -21,10 +21,10 @@ const PostPageById = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div className='xl:p-0 sm:p-6 p-4'>
-      <div className='flex py-2 px-3  sticky top-0 z-50  min-w-[300px] bg-white border-b border-gray-200'>
+      <div className='flex py-2 px-3  sticky top-0 z-50  min-w-[300px] bg-primary border-b border-border'>
         <div className=' flex items-center justify-center   w-9 h-9 ml-2'>
           <Link href='/'>
-            <ArrowSmallLeftIcon className='h-10 w-10 text-gray-500 p-2 rounded-full transition cursor-pointer' />
+            <ArrowSmallLeftIcon className='h-10 w-10 text-muted-foreground p-2 rounded-full transition cursor-pointer' />
           </Link>
           <h2 className='text-base sm:text-xl font-bold ml-1'>back</h2>
         </div>

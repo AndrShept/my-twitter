@@ -9,6 +9,7 @@ import { SessionAvatar } from './SessionAvatar';
 
 import { useClickAway } from 'react-use';
 import { EmojiIcon } from './EmojiIcon';
+import { Textarea } from './ui/textarea';
 
 export const Input = ({ session }: { session: Session }) => {
   const router = useRouter();
@@ -87,20 +88,20 @@ export const Input = ({ session }: { session: Session }) => {
   };
 
   return (
-    <div className='flex border-b border-gray-200 p-3 space-x-3'>
+    <div className='flex border-b border-border p-3 space-x-3 bg-secondary/20'>
       <SessionAvatar />
 
       <form
         ref={ref}
         onSubmit={handleSubmit}
-        className='w-full divide-y divide-gray-200'
+        className='w-full divide-y divide-border'
       >
-        <textarea
+        <Textarea
           required
           value={content}
           onChange={(e) => setContent(e.target.value.trimStart())}
           name='text'
-          className=' w-full p-2  text-lg  placeholder-gray-400  tracking-wide min-h-[50px] text-gray-700'
+          className=' w-full p-2 min-h-[50px] '
           rows={2}
           placeholder='Whats happening'
         />
@@ -117,9 +118,9 @@ export const Input = ({ session }: { session: Session }) => {
 
         <div className='flex items-center justify-between pt-2.5'>
           <div className='flex items-center '>
-            <span className='text-sky-500 text-xs'>Upload</span>
+            <span className='text-muted-foreground text-xs'>Upload</span>
             <label className='flex items-center' htmlFor='image'>
-              <PhotoIcon className='h-8 w-8 p-1  rounded-full transition cursor-pointer text-sky-500 hover:bg-sky-100' />
+              <PhotoIcon className='h-8 w-8 p-1  rounded-full transition cursor-pointer text-muted-foreground hover:bg-secondary' />
             </label>
             <input
               id='image'
@@ -134,28 +135,28 @@ export const Input = ({ session }: { session: Session }) => {
               <div className='flex items-center gap-1'>
                 <span
                   onClick={() => setImageUrl('')}
-                  className='hover:underline ml-4 cursor-pointer text-red-600 font-medium hover:bg-red-100 hover:px-2 hover:py-1 rounded-full px-2 py-1 duration-300 '
+                  className='hover:underline ml-4 cursor-pointer text-red-600 font-medium hover:bg-secondary hover:px-2 hover:py-1 rounded-full px-2 py-1 duration-300 '
                 >
                   remove
                 </span>
-                <span className='text-sm text-gray-400'>
+                <span className='text-sm text-muted-foreground'>
                   {(imgSize / 1048576).toFixed(2)} mb
                 </span>
               </div>
             )}
 
             {isPendingImg && (
-              <span className='loading loading-spinner text-sky-500 ml-2 ' />
+              <span className='loading loading-spinner text-muted-foreground ml-2 ' />
             )}
           </div>
           {/* <TweetButton /> */}
           <div className='flex items-center gap-3'>
             {isPendingData && (
-              <span className='loading loading-spinner loading-md text-gray-400' />
+              <span className='loading loading-spinner loading-md text-secondary' />
             )}
             <button
               disabled={isPendingImg || isPendingData}
-              className='bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50'
+              className='bg-blue-400 text-primary px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50'
             >
               Tweet
             </button>

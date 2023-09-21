@@ -47,7 +47,7 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
           <div className='group'>
             <div className='flex gap-2 items-center'>
               <div className=' font-medium  text-lg'>{comment.authorName}</div>
-              <time className=' text-gray-400 text-sm'>
+              <time className=' text-muted-foreground text-sm'>
                 {comment.createdAt === comment.updatedAt
                   ? format(comment.createdAt)
                   : `${format(comment.updatedAt || '')}(змінено) `}
@@ -63,7 +63,7 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
             </div>
             {comment.id !== commentId ? (
               <p
-                className={` bg-gray-100 px-4 py-3 rounded-xl text-black/80 shadow-md  mt-1 break-all`}
+                className={` bg-secondary/40 px-4 py-3 rounded-xl text-muted-foreground shadow-md  mt-1 break-all`}
               >
                 {comment.id !== newCommentId && comment.content.length > 200
                   ? comment.content.slice(0, 214) + ' ...'
@@ -73,7 +73,7 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
                 {comment.id !== newCommentId && comment.content.length > 200 ? (
                   <span
                     onClick={() => setNewCommentId(comment.id)}
-                    className=' text-sm text-gray-600 font-bold hover:underline cursor-pointer'
+                    className=' text-sm text-muted-foreground font-bold hover:underline cursor-pointer'
                   >
                     {`Показати повністю`}
                   </span>
@@ -98,18 +98,18 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
                       className='tooltip p-1 rounded-full hover:bg-red-200 duration-200'
                       onClick={() => setCommentId('')}
                     >
-                      <XMarkIcon className='h-6 w-6 text-gray-500 hover:text-red-500' />
+                      <XMarkIcon className='h-6 w-6 text-muted-foreground hover:text-red-500' />
                     </button>
 
                     {isPending ? (
-                      <span className='loading loading-spinner text-gray-500 text-sm' />
+                      <span className='loading loading-spinner text-secondary text-sm' />
                     ) : (
                       <button
                         data-tip='ok!'
                         disabled={comment.content === newComment}
                         className='tooltip p-1 rounded-full hover:bg-green-200 duration-200 disabled:opacity-50 '
                       >
-                        <CheckIcon className='h-6 w-6 text-gray-500 hover:text-green-500 ' />
+                        <CheckIcon className='h-6 w-6 text-muted-foreground hover:text-green-500 ' />
                       </button>
                     )}
                   </div>

@@ -24,25 +24,25 @@ export const UserMenu = ({ session }: { session: Session }) => {
   return (
     <>
       <li>
-        <span> <Cog6ToothIcon className="h-6 w-6 text-gray-500" /> Settings</span>
+        <span> <Cog6ToothIcon className="h-6 w-6 text-muted-foreground" /> Settings</span>
       </li>
       {!session ? (
         <li>
           <span onClick={signInUser}>
-          <Cog6ToothIcon className="h-6 w-6 text-gray-500" />
+          <Cog6ToothIcon className="h-6 w-6 text-muted-foreground" />
             Login
             {isPending && (
-              <span className='loading loading-spinner text-gray-400 loading-md' />
+              <span className='loading loading-spinner text-muted-foreground loading-md' />
             )}
           </span>
         </li>
       ) : (
         <li>
           <span onClick={signOutUser}> 
-          <ArrowLeftOnRectangleIcon className="h-6 w-6 text-gray-500" />
+          <ArrowLeftOnRectangleIcon className="h-6 w-6 text-muted-foreground" />
             Sign Out
             {isPending && (
-              <span className='loading loading-spinner text-gray-400 loading-md' />
+              <span className='loading loading-spinner text-muted-foreground loading-md' />
             )}
          
           </span>

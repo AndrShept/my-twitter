@@ -9,6 +9,7 @@ import {
 } from '@heroicons/react/24/solid';
 import { UserMenu } from './UserMenu';
 import { SignInButton } from './SignInButton';
+import { ModeToggle } from './ToggleMode';
 
 export const Sidebar = async () => {
   const session = await getServerSession(authOptions);
@@ -28,14 +29,14 @@ export const Sidebar = async () => {
       </div>
 
       {session ? (
-        <button className='bg-blue-400 text-white rounded-full w-56 h-12 font-bold shadow-md hover:brightness-95 text-lg hidden xl:inline'>
+        <button className='bg-blue-400 text-primary rounded-full w-56 h-12 font-bold shadow-md hover:brightness-95 text-lg hidden xl:inline'>
           Tweet
         </button>
       ) : (
         <SignInButton />
       )}
 
-      <div className='dropdown dropdown-top dropdown-right mx-auto hover:bg-gray-200 rounded-full duration-500    cursor-pointer text-gray-700 flex  mt-auto mb-6'>
+      <div className='dropdown dropdown-top dropdown-right mx-auto hover:bg-secondary/40 rounded-full duration-500    cursor-pointer text-muted-foreground flex  mt-auto mb-6'>
         <label tabIndex={0}>
           {session && 
             <div className='flex items-center cursor-pointer  xl:px-6 xl:py-3'>
@@ -49,7 +50,7 @@ export const Sidebar = async () => {
               />
               <div className='leading-5 hidden xl:inline ml-3'>
                 <h4 className='font-bold'>{session?.user.name}</h4>
-                <p className='text-gray-500'> {session?.user.username}</p>
+                <p className='text-muted-foreground'> {session?.user.username}</p>
               </div>
               <EllipsisHorizontalIcon className='h-7 w-7 xl:ml-8 xl:inline hidden  ' />
             </div>
@@ -62,6 +63,7 @@ export const Sidebar = async () => {
           <UserMenu session={session!} />
         </ul>
       </div>
+      <ModeToggle/>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 import React, { useState } from 'react';
+import { Button } from './ui/button';
 
 interface FollowUsersProps {
   randomUsers: any[];
@@ -13,7 +14,7 @@ export const FollowUsers = ({ randomUsers }: FollowUsersProps) => {
       {randomUsers.slice(0, randomUsersCount).map((randomUser) => (
         <div
           key={randomUser.login.username}
-          className='flex items-center px-4 py-2 cursor-pointer hover:bg-gray-200'
+          className='flex items-center px-4 py-2 cursor-pointer hover:bg-secondary/50 transition'
         >
           <Image
             className='rounded-full object-cover h-14 w-14'
@@ -23,27 +24,27 @@ export const FollowUsers = ({ randomUsers }: FollowUsersProps) => {
             src={randomUser.picture.thumbnail}
           />
           <div className='truncate ml-4 leading-5'>
-            <h4 className='font-bold hover:underline text-[14px] truncate'>
+            <h4 className='font-semibold hover:underline text-muted-foreground text-[14px] truncate'>
               {randomUser.login.username}
             </h4>
-            <h5 className='text-[13px] text-gray-500 truncate'>
+            <h5 className='text-[13px] text-muted-foreground/60 truncate'>
               {randomUser.name.first + ' ' + randomUser.name.last}
             </h5>
           </div>
-          <button className='ml-auto bg-black text-white rounded-full text-sm px-3.5 py-1.5'>
+          <Button variant={'default'} size={'sm'} className=' rounded-full text-sm ml-auto '>
             Follow
-          </button>
+          </Button>
         </div>
       ))}
       <button
         onClick={() => setRandomUsersCount((prev) => prev + 5)}
-        className='text-blue-400 pl-4  font-medium hover:text-blue-500 italic'
+        className='text-blue-400 pl-4  font-medium hover:text-blue-500 text-sm mt-2'
       >
         show more...
       </button>
       <button
         onClick={() => setRandomUsersCount(-1)}
-        className='text-blue-400 pl-4 pr-4 pb-3 font-medium hover:text-blue-500 block italic'
+        className='text-blue-400 pl-4 pr-4 pb-3 font-medium hover:text-blue-500 block text-sm '
       >
         show all news...
       </button>

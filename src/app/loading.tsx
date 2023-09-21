@@ -1,21 +1,16 @@
-import React from "react"
-import ContentLoader from "react-content-loader"
+import React from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
 
-const MyLoader = (props:any) => (
-    <ContentLoader 
-    speed={2}
-    width={576}
-    height={466}
-    viewBox="0 0 576 466"
-    backgroundColor="#f0f0f0"
-    foregroundColor="#d9d9d9"
-    {...props}
-  >
-    <rect x="102" y="26" rx="10" ry="10" width="448" height="51" /> 
-    <rect x="105" y="92" rx="10" ry="10" width="446" height="217" /> 
-    <rect x="106" y="331" rx="10" ry="10" width="448" height="30" /> 
-    <circle cx="53" cy="53" r="26" />
-  </ContentLoader>
-)
+const MyLoader = (props: any) => (
+  <>
+    <div className='flex items-center space-x-4'>
+      <Skeleton className='h-12 w-12 rounded-full' />
+      <div className='space-y-2'>
+        <Skeleton className='h-4 w-[200px]' />
+        <Skeleton className=' w-[250px] h-[300px]' />
+      </div>
+    </div>
+  </>
+);
 
-export default MyLoader
+export default MyLoader;

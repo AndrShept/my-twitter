@@ -43,7 +43,7 @@ export const CommentModal = ({
   };
   return (
     <Modal>
-      <div className='md:min-w-[500px] min-h-[400px]  bg-base-100 rounded-xl border-2 border-gray-200 shadow-lg flex flex-col p-4 animate-in fade-in-0 zoom-in-90 duration-300 '>
+      <div className='md:min-w-[500px] min-h-[400px]  bg-base-100 rounded-xl border-2 border-border shadow-lg flex flex-col p-4 animate-in fade-in-0 zoom-in-90 duration-300 '>
         <div className=' border-b flex items-center justify-end  '>
           <span
             onClick={() => setIsModalOpen(false)}
@@ -64,11 +64,11 @@ export const CommentModal = ({
               <span className='text-sm sm:text-[15px]'>
                 {post.authorUserName}
               </span>
-              <span className='text-sm sm:text-[14px] hover:underline text-gray-400 '>
+              <span className='text-sm sm:text-[14px] hover:underline text-muted-foreground '>
                 {format(post.createdAt)}
               </span>
             </div>
-            <p className='text-gray-800 text-[15px] sm:text-[16px] '>
+            <p className='text-muted text-[15px] sm:text-[16px] '>
               {post.content}
             </p>
           </div>
@@ -90,14 +90,14 @@ export const CommentModal = ({
               onChange={(e) => setComment(e.target.value)}
               required
               name='text'
-              className=' p-2 ml-6 border-b  text-lg  focus:outline-none focus:ring-0  placeholder-gray-400  tracking-wide  text-gray-700'
+              className=' p-2 ml-6 border-b  text-lg  focus:outline-none focus:ring-0  placeholder-text-muted-foreground  tracking-wide  text-muted-foreground'
               rows={4}
               placeholder='Whats happening'
             />
             <div className='self-end  mt-4'>
-              <button className=' rounded-full w-20 duration-300 hover:bg-blue-400 bg-blue-500 text-white shadow-md px-4 py-2 self-end flex items-center justify-center'>
+              <button className=' rounded-full w-20 duration-300 hover:bg-blue-400 bg-blue-500 text-primary shadow-md px-4 py-2 self-end flex items-center justify-center'>
                 {isPending ? (
-                  <span className='loading loading-spinner  text-gray-300' />
+                  <span className='loading loading-spinner  text-muted-foreground' />
                 ) : (
                   `Reply`
                 )}

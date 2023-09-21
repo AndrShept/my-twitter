@@ -5,6 +5,8 @@ import { AuthProvider } from '../components/AuthProvider';
 import { Sidebar } from '../components/Sidebar';
 import { Widgets } from '@/components/Widgets';
 import { ToastProvider } from '@/components/ToastProvider';
+import { ThemeProvider } from '@/components/ThemeProvider';
+
 
 
 const inter = Inter({ subsets: ['latin'] });
@@ -22,18 +24,25 @@ export default  function RootLayout({
 }) {
 
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning>
       <body className={`${inter.className} flex`}>
         <AuthProvider >
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
           <main className='flex min-h-screen mx-auto '>
             <ToastProvider/>
             <Sidebar/>
-            <div className='xl:ml-[370px] md:min-w-[650px] sm:ml-[73px] max-w-2xl '>
+            <div className='xl:ml-[370px] md:min-w-[650px] sm:ml-[73px] max-w-2xl  '>
             {children}
             </div>
             <Widgets/>
             
             </main>
+            </ThemeProvider>
         </AuthProvider>
       </body>
     </html>
