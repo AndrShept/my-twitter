@@ -15,8 +15,6 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
   const [newCommentId, setNewCommentId] = useState('');
   const [isPending, startTransition] = useTransition();
 
-  const [maxCommentLength, setMaxCommentLength] = useState(214);
-
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -36,17 +34,6 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
       console.log(error);
     }
   };
-
-  // const addMaxCommentsLength = (id: string) => {
-  //   console.log(id, 'id');
-  //   console.log(newCommentId, 'newCommentId');
-  //   setNewCommentId(id);
-  //   if (id === newCommentId) {
-  //     setMaxCommentLength(1000);
-  //   }
-  //   console.log(maxCommentLength, 'maxCommentLength')
-
-  // };
 
   return (
     <>
@@ -75,27 +62,25 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
               />
             </div>
             {comment.id !== commentId ? (
-              <>
-                <p
-                  className={` bg-gray-100 px-4 py-3 rounded-xl text-black/80 shadow-md  mt-1 break-all`}
-                >
-                  {comment.id !== newCommentId
-                    ? comment.content.slice(0, maxCommentLength)+ ' ...'
-                    : comment.content}
-                  <br></br>
+              <p
+                className={` bg-gray-100 px-4 py-3 rounded-xl text-black/80 shadow-md  mt-1 break-all`}
+              >
+                {comment.id !== newCommentId && comment.content.length > 200
+                  ? comment.content.slice(0, 214) + ' ...'
+                  : comment.content}
+                <br></br>
 
-                  { comment.id !== newCommentId ? (
-                    <span
-                      onClick={() => setNewCommentId(comment.id)}
-                      className=' text-sm text-gray-600 font-bold hover:underline cursor-pointer'
-                    >
-                      {`Показати повністю`}
-                    </span>
-                  ) : 
-                    ''
-                  }
-                </p>
-              </>
+                {comment.id !== newCommentId && comment.content.length > 200 ? (
+                  <span
+                    onClick={() => setNewCommentId(comment.id)}
+                    className=' text-sm text-gray-600 font-bold hover:underline cursor-pointer'
+                  >
+                    {`Показати повністю`}
+                  </span>
+                ) : (
+                  ''
+                )}
+              </p>
             ) : (
               <div>
                 <form onSubmit={handleSubmit} className='flex flex-col '>

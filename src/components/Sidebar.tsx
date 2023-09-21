@@ -35,13 +35,13 @@ export const Sidebar = async () => {
         <SignInButton />
       )}
 
-      <div className='dropdown dropdown-top dropdown-right hover:bg-gray-200 rounded-full duration-500    cursor-pointer text-gray-700 flex self-start  mt-auto mb-6'>
+      <div className='dropdown dropdown-top dropdown-right mx-auto hover:bg-gray-200 rounded-full duration-500    cursor-pointer text-gray-700 flex  mt-auto mb-6'>
         <label tabIndex={0}>
           {session && 
             <div className='flex items-center cursor-pointer  xl:px-6 xl:py-3'>
               {' '}
               <Image
-                className='rounded-full ml-2 hover:brightness-95'
+                className='rounded-full  hover:brightness-95'
                 height={50}
                 width={50}
                 alt='avatar'

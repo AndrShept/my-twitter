@@ -33,7 +33,7 @@ export const DeletePostIcon = ({ postId }: { postId: string }) => {
   return (
     <div
       data-tip='delete'
-      className='tooltip  iconHoverEffect hover:bg-red-100 flex items-center justify-center '
+      className='tooltip  p-2 rounded-full transition cursor-pointer hover:bg-red-100 flex items-center justify-center '
     >
       <TrashIcon
         onClick={() => {

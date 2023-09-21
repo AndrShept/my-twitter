@@ -1,4 +1,7 @@
-import { EllipsisHorizontalIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
+import {
+  EllipsisHorizontalIcon,
+  PencilSquareIcon,
+} from '@heroicons/react/24/outline';
 import { useSession } from 'next-auth/react';
 import React, { useState, useRef } from 'react';
 import { useClickAway } from 'react-use';
@@ -6,17 +9,21 @@ import { DeleteIcon } from './comments-icons/DeleteIcon';
 import clsx from 'clsx';
 import { Comment } from '@prisma/client';
 
-
-interface CommentsDropDownMenuProps{
-    setNewComment: (str:string)=> void
-    setCommentId:  (str:string)=> void
-    comment : Comment
-    postId: string
-    i: number
- 
+interface CommentsDropDownMenuProps {
+  setNewComment: (str: string) => void;
+  setCommentId: (str: string) => void;
+  comment: Comment;
+  postId: string;
+  i: number;
 }
 
-export const CommentsDropDownMenu = ({setNewComment,setCommentId, comment, postId, i,  }:CommentsDropDownMenuProps) => {
+export const CommentsDropDownMenu = ({
+  setNewComment,
+  setCommentId,
+  comment,
+  postId,
+  i,
+}: CommentsDropDownMenuProps) => {
   const [isShowDropdownMenu, setIsShowDropdownMenu] = useState(false);
   const { data: session } = useSession();
   const ref = useRef(null);
@@ -31,19 +38,17 @@ export const CommentsDropDownMenu = ({setNewComment,setCommentId, comment, postI
     setIsShowDropdownMenu(false);
   });
 
-
   return (
     <>
       <div className='h-10 w-10 '>
         {session && session.user.id === comment.authorId && (
           <EllipsisHorizontalIcon
             onClick={() => {
-              
-                    setIndex(i)
+              setIndex(i);
               setIsShowDropdownMenu((prev) => !prev);
             }}
             className={clsx(
-              `group-hover:block  cursor-pointer iconHoverEffect   rounded-full `,
+              `group-hover:block  cursor-pointer p-2  transition   rounded-full `,
               {
                 hidden: !isShowDropdownMenu,
               }

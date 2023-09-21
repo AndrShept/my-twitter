@@ -34,7 +34,7 @@ export const EmojiIcon = ({
     <div className='relative'>
       <FaceSmileIcon
         onClick={() => setIsEmojiShow(true)}
-        className='h-8 w-8 p-1 iconHoverEffect text-sky-500 hover:bg-sky-100'
+        className='h-8 w-8 p-1  rounded-full transition cursor-pointer text-sky-500 hover:bg-sky-100'
       />
       {isEmojiShow && (
         <div

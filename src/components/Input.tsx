@@ -50,9 +50,6 @@ export const Input = ({ session }: { session: Session }) => {
     }
   };
 
-
-
-
   const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -122,7 +119,7 @@ export const Input = ({ session }: { session: Session }) => {
           <div className='flex items-center '>
             <span className='text-sky-500 text-xs'>Upload</span>
             <label className='flex items-center' htmlFor='image'>
-              <PhotoIcon className='h-8 w-8 p-1 iconHoverEffect text-sky-500 hover:bg-sky-100' />
+              <PhotoIcon className='h-8 w-8 p-1  rounded-full transition cursor-pointer text-sky-500 hover:bg-sky-100' />
             </label>
             <input
               id='image'
@@ -132,7 +129,7 @@ export const Input = ({ session }: { session: Session }) => {
               type='file'
               onChange={uploadImage}
             />
-            <EmojiIcon  content={content} setContent={setContent} />
+            <EmojiIcon content={content} setContent={setContent} />
             {imageUrl && (
               <div className='flex items-center gap-1'>
                 <span

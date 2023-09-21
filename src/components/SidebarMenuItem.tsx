@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { HomeIcon } from "@heroicons/react/20/solid";
+import { HomeIcon } from '@heroicons/react/20/solid';
 import {
   BellIcon,
   BookmarkIcon,
@@ -12,40 +12,49 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Button } from './ui/button';
 
 const menuList = [
-  { path: '/', name: 'Home', icon: <HomeIcon className='h-7' /> },
+  { path: '/', name: 'Home', Icon: HomeIcon },
   {
     path: '/explore',
     name: 'Explore',
-    icon: <HashtagIcon className='h-7 w-7' />,
+    Icon: HashtagIcon,
   },
-  { path: '#', name: 'Notification', icon: <BellIcon className='h-7' /> },
-  { path: '#', name: 'Messages', icon: <InboxIcon className='h-7' /> },
-  { path: '#', name: 'Bookmarks', icon: <BookmarkIcon className='h-7' /> },
-  { path: '#', name: 'Lists', icon: <ClipboardIcon className='h-7' /> },
-  { path: '#', name: 'Profile', icon: <UserIcon className='h-7' /> },
-  { path: '#', name: 'More', icon: <EllipsisHorizontalIcon className='h-7' /> },
+  { path: '#', name: 'Notification', Icon: BellIcon },
+  { path: '#', name: 'Messages', Icon: InboxIcon },
+  { path: '#', name: 'Bookmarks', Icon: BookmarkIcon },
+  { path: '#', name: 'Lists', Icon: ClipboardIcon },
+  { path: '#', name: 'Profile', Icon: UserIcon },
+  {
+    path: '#',
+    name: 'More',
+    Icon: EllipsisHorizontalIcon,
+  },
 ];
 
-export const SidebarMenuItem = ({ authProtectNum = -1 }) => {
+export const SidebarMenuItem = ({ authProtectNum = menuList.length }) => {
   const pathname = usePathname();
   return (
-    <div className='flex flex-col gap-0 xl:gap-1'>
+    <div className='flex flex-col gap-1 xl:items-start items-center'>
       {menuList.slice(0, authProtectNum).map((item) => {
         const isActive = pathname === item.path;
 
         return (
           <Link
-            className={`hoverEffect flex items-center px-4  text-gray-700  xl:justify-start justify-center text-lg rounded-full space-x-3 ${
-              isActive && ''
+            className={` xl:px-5 xl:py-3 p-2 xl:w-auto xl:h-auto h-12 w-12   flex items-center hover:bg-secondary  text-gray-700 text-lg rounded-full ${
+              isActive && 'bg-secondary'
             }`}
             key={item.name}
             href={item.path}
           >
-            {item.icon}
-            <span className={` ${isActive && 'font-bold '} hidden xl:inline `}>
-          
+            
+              <item.Icon className='xl:h-7 xl:w-7  ' />
+        
+
+            <span
+              className={` ${isActive && 'font-bold  '} hidden xl:inline ml-2`}
+            >
               {item.name}
             </span>
           </Link>

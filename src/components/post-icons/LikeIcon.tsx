@@ -57,7 +57,7 @@ export const LikeIcon = ({ post }: { post: PostWithLikes }) => {
         <div
           onClick={addLike}
           data-tip='like?'
-          className='tooltip group  iconHoverEffect hover:bg-red-100 flex items-center justify-center gap-1 '
+          className='tooltip group  p-2 rounded-full transition cursor-pointer hover:bg-red-100 flex items-center justify-center gap-1 '
         >
           <HeartIcon className='h-5 w-5 text-gray-500 active:scale-110    group-hover:text-red-600 duration-300    ' />
           {post.like.length > 0 && (
@@ -70,7 +70,7 @@ export const LikeIcon = ({ post }: { post: PostWithLikes }) => {
         <div
           onClick={deleteLike}
           data-tip='like?'
-          className='tooltip group  iconHoverEffect hover:bg-red-100 flex items-center justify-center gap-1 '
+          className='tooltip group  p-2 rounded-full transition cursor-pointer hover:bg-red-100 flex items-center justify-center gap-1 '
         >
           <HeartIconSolid className='h-5 w-5 text-red-600 active:scale-110    group-hover:text-red-600 duration-300    ' />
           {post.like.length > 0 && (
