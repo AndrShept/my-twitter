@@ -9,6 +9,8 @@ import { API_URL } from '@/lib/utils/baseUrl';
 import { useRouter } from 'next/navigation';
 import { CommentsDropDownMenu } from './CommentsDropDownMenu';
 
+import { Textarea } from './ui/textarea';
+
 export const PostComments = ({ post }: { post: PostWithLikes }) => {
   const [newComment, setNewComment] = useState('');
   const [commentId, setCommentId] = useState('');
@@ -34,17 +36,25 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
       console.log(error);
     }
   };
+console.log(!post.comments)
+  if (!post.comments.length) {
+    return (
+      <h1 className='text-muted-foreground text-center text-2xl mt-10'>
+        No comments
+      </h1>
+    );
+  }
 
   return (
     <>
       {post.comments.map((comment, i) => (
-        <div className='chat chat-start gap-4 mt-4' key={comment.id}>
+        <div className='chat chat-start gap-4 mt-4 group' key={comment.id}>
           <div className='chat-image avatar self-start '>
             <div className='w-10 rounded-full mt-2'>
               <UserAvatar userImage={comment.authorImage} />
             </div>
           </div>
-          <div className='group'>
+          <div className=''>
             <div className='flex gap-2 items-center'>
               <div className=' font-medium  text-lg'>{comment.authorName}</div>
               <time className=' text-muted-foreground text-sm'>
@@ -63,7 +73,7 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
             </div>
             {comment.id !== commentId ? (
               <p
-                className={` bg-secondary/40 px-4 py-3 rounded-xl text-muted-foreground shadow-md  mt-1 break-all`}
+                className={` bg-secondary/40 px-4 py-3 rounded-xl text-primary/90 shadow-md  mt-1 break-all`}
               >
                 {comment.id !== newCommentId && comment.content.length > 200
                   ? comment.content.slice(0, 214) + ' ...'
@@ -73,7 +83,7 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
                 {comment.id !== newCommentId && comment.content.length > 200 ? (
                   <span
                     onClick={() => setNewCommentId(comment.id)}
-                    className=' text-sm text-muted-foreground font-bold hover:underline cursor-pointer'
+                    className=' text-sm text-primary font-bold hover:underline cursor-pointer'
                   >
                     {`Показати повністю`}
                   </span>
@@ -84,7 +94,7 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
             ) : (
               <div>
                 <form onSubmit={handleSubmit} className='flex flex-col '>
-                  <textarea
+                  <Textarea
                     maxLength={255}
                     rows={3}
                     cols={40}
@@ -92,7 +102,7 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                   />
-                  <div className='flex  self-end mt-1'>
+                  <div className='flex  self-end mt-2'>
                     <button
                       data-tip='cancel'
                       className='tooltip p-1 rounded-full hover:bg-red-200 duration-200'
@@ -102,7 +112,7 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
                     </button>
 
                     {isPending ? (
-                      <span className='loading loading-spinner text-secondary text-sm' />
+                      <span className='loading loading-spinner text-primary text-sm' />
                     ) : (
                       <button
                         data-tip='ok!'

@@ -10,6 +10,7 @@ import { SessionAvatar } from './SessionAvatar';
 import { useClickAway } from 'react-use';
 import { EmojiIcon } from './EmojiIcon';
 import { Textarea } from './ui/textarea';
+import { Button } from './ui/button';
 
 export const Input = ({ session }: { session: Session }) => {
   const router = useRouter();
@@ -154,12 +155,12 @@ export const Input = ({ session }: { session: Session }) => {
             {isPendingData && (
               <span className='loading loading-spinner loading-md text-secondary' />
             )}
-            <button
+            <Button
               disabled={isPendingImg || isPendingData}
-              className='bg-blue-400 text-primary px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50'
+              className='  rounded-full font-bold shadow-md '
             >
-              Tweet
-            </button>
+              Post
+            </Button>
           </div>
         </div>
       </form>

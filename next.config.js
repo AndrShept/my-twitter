@@ -10,6 +10,7 @@ const nextConfig = {
       'images.unsplash.com',
       'randomuser.me',
       'res.cloudinary.com',
+      "cdn-icons-png.flaticon.com"
     ],
   },
 };

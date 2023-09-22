@@ -22,10 +22,10 @@ export const PostBlock = ({ post }: { post: PostWithLikes }) => {
             <h4 className='font-bold text-[15px] sm:text-[16px] hover:underline'>
               {post.authorName}
             </h4>
-            <span className='text-sm sm:text-[15px]'>
+            <span className='text-sm sm:text-[15px] text-muted-foreground'>
               {post.authorUserName}
             </span>
-            <span className='text-sm sm:text-[14px] hover:underline text-muted-foreground '>
+            <span className='text-sm sm:text-[14px] hover:underline text-muted-foreground/50 '>
               {format(post.createdAt)}
             </span>
           </div>

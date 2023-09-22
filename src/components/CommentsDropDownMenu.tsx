@@ -58,7 +58,7 @@ export const CommentsDropDownMenu = ({
         {i === index && isShowDropdownMenu && (
           <div
             ref={ref}
-            className='absolute mt-1 text-sm flex flex-col w-32  p-2  bg-base-100 rounded-md gap-1 shadow-md border animate-in fade-in-0 zoom-in-90 duration-200'
+            className='absolute mt-1 text-sm flex flex-col w-32   bg-background rounded-md gap-1 shadow-md border animate-in fade-in-0 zoom-in-90 duration-200'
           >
             <div
               onClick={() => handleEditClick(comment.content, comment.id)}
@@ -69,7 +69,6 @@ export const CommentsDropDownMenu = ({
               </span>
               <span>Edit</span>
             </div>
-
             <DeleteIcon commentId={comment.id} postId={postId} />
           </div>
         )}
