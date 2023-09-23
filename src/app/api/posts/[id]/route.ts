@@ -10,8 +10,8 @@ export const GET = async (
   try {
     const post = await prisma.post.findUnique({
      where:{ id: params.id},
-     include: {comments: true}
-    });
+     include: {comments: true, like: true}
+    })
     revalidatePath('post/' + params.id);
     return new NextResponse(JSON.stringify(post), { status: 200 });
   } catch (error) {

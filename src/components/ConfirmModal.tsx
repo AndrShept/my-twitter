@@ -18,7 +18,7 @@ export const ConfirmModal = ({
   return (
     <Modal>
       <div className='flex flex-col p-8 max-w-xl min-w-[400px] border border-border bg-background  gap-10  shadow-md rounded-xl animate-in fade-in-0 zoom-in-90 duration-300'>
-        <h1 className='text-xl  font-bold text-primary text-left'>
+        <h1 className='text-xl  text-primary text-left'>
           {confirmText}
         </h1>
 
@@ -26,7 +26,7 @@ export const ConfirmModal = ({
           <Button
           variant={'outline'}
             onClick={() => setIsShowModal(false)}
-            className='  '
+            className=' text-primary '
           >
             Cancel
           </Button>

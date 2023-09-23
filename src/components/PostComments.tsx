@@ -10,8 +10,9 @@ import { useRouter } from 'next/navigation';
 import { CommentsDropDownMenu } from './CommentsDropDownMenu';
 
 import { Textarea } from './ui/textarea';
+import { Comment } from '@prisma/client';
 
-export const PostComments = ({ post }: { post: PostWithLikes }) => {
+export const PostComments = ({ comments, postId }: { comments: Comment[], postId:string }) => {
   const [newComment, setNewComment] = useState('');
   const [commentId, setCommentId] = useState('');
   const [newCommentId, setNewCommentId] = useState('');
@@ -36,10 +37,10 @@ export const PostComments = ({ post }: { post: PostWithLikes }) => {
       console.log(error);
     }
   };
-console.log(!post.comments)
-  if (!post.comments.length) {
+console.log(!comments)
+  if (!comments.length) {
     return (
-      <h1 className='text-muted-foreground text-center text-2xl mt-10'>
+      <h1 className='text-muted-foreground text-center text-2xl mt-10 min-h-[400px]'>
         No comments
       </h1>
     );
@@ -47,8 +48,9 @@ console.log(!post.comments)
 
   return (
     <>
-      {post.comments.map((comment, i) => (
-        <div className='chat chat-start gap-4 mt-4 group' key={comment.id}>
+      {comments.map((comment, i) => (
+        <div className='chat chat-start gap-4 mt-4 group w-full hover:bg-secondary/50 text-sm' key={comment.id}>
+          <div className='flex gap-4 px-3 py-2'>
           <div className='chat-image avatar self-start '>
             <div className='w-10 rounded-full mt-2'>
               <UserAvatar userImage={comment.authorImage} />
@@ -56,7 +58,7 @@ console.log(!post.comments)
           </div>
           <div className=''>
             <div className='flex gap-2 items-center'>
-              <div className=' font-medium  text-lg'>{comment.authorName}</div>
+              <h2 className=' font-medium  text-base '>{comment.authorName}</h2>
               <time className=' text-muted-foreground text-sm'>
                 {comment.createdAt === comment.updatedAt
                   ? format(comment.createdAt)
@@ -67,13 +69,13 @@ console.log(!post.comments)
                 setNewComment={setNewComment}
                 setCommentId={setCommentId}
                 comment={comment}
-                postId={post.id}
+                postId={postId}
                 i={i}
               />
             </div>
             {comment.id !== commentId ? (
               <p
-                className={` bg-secondary/40 px-4 py-3 rounded-xl text-primary/90 shadow-md  mt-1 break-all`}
+                className={`  text-primary/90  break-all`}
               >
                 {comment.id !== newCommentId && comment.content.length > 200
                   ? comment.content.slice(0, 214) + ' ...'
@@ -98,7 +100,7 @@ console.log(!post.comments)
                     maxLength={255}
                     rows={3}
                     cols={40}
-                    className='p-2 mt-2 border-2 rounded-md  '
+                    className='   '
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                   />
@@ -127,6 +129,8 @@ console.log(!post.comments)
               </div>
             )}
           </div>
+          </div>
+   
         </div>
       ))}
     </>
