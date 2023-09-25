@@ -1,19 +1,18 @@
 import clsx from 'clsx';
 import Image from 'next/image';
 import React from 'react';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar"
 
 export const UserAvatar = ({ className, userImage }: { className?: string, userImage:string }) => {
 
   return (
-    <Image
-    priority
-      className={clsx(
-        ' rounded-full w-12 h-12 mr-8  object-cover cursor-pointer hover:brightness-95 duration-200  ', className)
-      }
-      height={600}
-      width={600}
-      alt='avatar_img'
-      src={userImage}
-    />
+    <Avatar className={`${className} h-11 w-11 mr-4`}>
+      <AvatarImage src={userImage} alt="@shadcn" />
+      <AvatarFallback>CN</AvatarFallback>
+    </Avatar>
   );
 };

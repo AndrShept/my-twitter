@@ -14,8 +14,8 @@ import { UserAvatar } from './UserAvatar';
 export const PostBlock = ({ post }: { post: PostWithLikes }) => {
   return (
     <div className='flex p-3  border-b border-border bg-secondary/20  '>
-      <UserAvatar userImage={post.authorImage} />
-      <div>
+      <UserAvatar  userImage={post.authorImage} />
+      <div className='w-full' >
         {/* post user info */}
         <div className='flex items-center space-x-1 whitespace-nowrap w-full justify-between '>
           <div className='flex  items-center justify-between gap-1'>
@@ -37,10 +37,10 @@ export const PostBlock = ({ post }: { post: PostWithLikes }) => {
           {post.content}
         </p>
         {/* <div className='mr-2 sm:h-72 h-60 group overflow-hidden rounded-xl'> */}
-        <Link href={'post/' + post.id} className=' '>
+        <Link href={'post/' + post.id}>
           <Image
             height={500}
-            width={500}
+            width={600}
             alt='post_image'
             src={post.image!}
             className='rounded-xl  object-cover mr-2 '

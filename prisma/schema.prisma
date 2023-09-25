@@ -58,8 +58,8 @@ model User {
 }
 
 model Following {
-  id                String   @id @default(auto()) @map("_id") @db.ObjectId
-  followingId       String   @db.ObjectId
+  id                String   @id @default(uuid()) @map("_id") 
+  followingId       String   
   followingName     String
   followingUserName String
   followingImage    String

@@ -6,9 +6,7 @@ import { Input } from './ui/input';
 import { UsersList } from './UsersList';
 import { prisma } from '@/lib/db/prisma';
 
-
 export const getWidgetData = async () => {
-
   try {
     const res = await fetch(
       'https://saurav.tech/NewsAPI/top-headlines/category/business/us.json'
@@ -30,7 +28,7 @@ export const getUsersAvatar = async () => {
 };
 
 export const Widgets = async () => {
-  const users = await prisma.user.findMany( );
+  const users = await prisma.user.findMany();
 
   const { articles } = await getWidgetData();
   const { results: randomUsers } = await getUsersAvatar();

@@ -90,7 +90,7 @@ export const Input = ({ session }: { session: Session }) => {
 
   return (
     <div className='flex border-b border-border p-3 space-x-3 bg-secondary/20'>
-      <SessionAvatar />
+      <SessionAvatar session={session} />
 
       <form
         ref={ref}
@@ -113,7 +113,7 @@ export const Input = ({ session }: { session: Session }) => {
             alt='image'
             width={500}
             height={500}
-            className={`w-full rounded-xl  `}
+            className={`w-full rounded-xl mt-4  `}
           />
         )}
 

@@ -9,6 +9,7 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 export const UsersList = async ({ users }: { users: User[] }) => {
   const session = await getServerSession(authOptions);
 
+  if(!session) return
   const userData = await prisma.user.findUnique({
     where: { id: session?.user.id },
     include: { following: true },

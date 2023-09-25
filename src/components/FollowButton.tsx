@@ -3,14 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { Following } from '@prisma/client';
 import { useRouter } from 'next/navigation';
-import { cn } from '@/lib/utils';
 
 interface FollowButtonProps {
   followingId: string | null;
   followingUserName: string | null;
   followingImage: string | null;
   followingName: string | null;
-  followingsArr: Following[] | undefined;
+  followingsArr?: Following[] | undefined;
 }
 
 export const FollowButton = ({
@@ -24,7 +23,8 @@ export const FollowButton = ({
   const followingExist = followingsArr?.some(
     (following) => following.followingId === followingId
   );
-  const [isFollowingExist, setSsFollowingExist] = useState(followingExist);
+  const [followingExistState, setFollowingExistState] =
+    useState(followingExist);
   const addFollowingUsers = async () => {
     const followingUser = {
       followingId,
@@ -37,7 +37,7 @@ export const FollowButton = ({
         method: 'POST',
         body: JSON.stringify(followingUser),
       });
-      setSsFollowingExist(!isFollowingExist)
+      setFollowingExistState(!followingExistState);
       if (res.ok) {
         router.refresh();
       }
@@ -48,7 +48,7 @@ export const FollowButton = ({
 
   return (
     <>
-      {!isFollowingExist ? (
+      {!followingExistState ? (
         <Button
           onClick={addFollowingUsers}
           variant={'default'}
@@ -62,10 +62,7 @@ export const FollowButton = ({
           onClick={addFollowingUsers}
           variant={'outline'}
           size={'sm'}
-          className={cn(
-            ' rounded-full text-sm ml-auto group transition  hover:bg-red-500/10 hover:text-red-500 hover:border-red-500/50',
-            {}
-          )}
+          className=' rounded-full text-sm ml-auto group transition  hover:bg-red-500/10 hover:text-red-500 hover:border-red-500/50'
         >
           <span className='group-hover:hidden block '> Following</span>
           <span className='group-hover:block hidden '> Unfollow</span>

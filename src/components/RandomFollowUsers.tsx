@@ -9,6 +9,7 @@ interface FollowUsersProps {
 }
 
 export const RandomFollowUsers = ({ randomUsers }: FollowUsersProps) => {
+  console.log(randomUsers);
   const [randomUsersCount, setRandomUsersCount] = useState(5);
   return (
     <>
@@ -33,7 +34,15 @@ export const RandomFollowUsers = ({ randomUsers }: FollowUsersProps) => {
             </h5>
           </div>
 
-          <FollowButton />
+          <FollowButton
+            followingId={randomUser.login.uuid}
+            followingImage={randomUser.picture.thumbnail}
+            followingName={randomUser.login.username}
+            followingUserName={
+              randomUser.name.first + ' ' + randomUser.name.last
+            }
+
+          />
         </div>
       ))}
       <button
