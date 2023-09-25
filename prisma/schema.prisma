@@ -41,18 +41,33 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
-  email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
+  username      String?
+  email         String?     @unique
+  emailVerified DateTime?   @map("email_verified")
   image         String?
   accounts      Account[]
   sessions      Session[]
   post          Post[]
   comment       Comment[]
   like          Like[]
+  following     Following[]
 
   @@map("users")
+}
+
+model Following {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  followingId       String   @db.ObjectId
+  followingName     String
+  followingUserName String
+  followingImage    String
+  userId            String   @db.ObjectId
+  user              User     @relation(fields: [userId], references: [id])
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  @@map("followings")
 }
 
 model VerificationToken {

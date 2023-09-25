@@ -2,12 +2,13 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { Button } from './ui/button';
+import { FollowButton } from './FollowButton';
 
 interface FollowUsersProps {
   randomUsers: any[];
 }
 
-export const FollowUsers = ({ randomUsers }: FollowUsersProps) => {
+export const RandomFollowUsers = ({ randomUsers }: FollowUsersProps) => {
   const [randomUsersCount, setRandomUsersCount] = useState(5);
   return (
     <>
@@ -31,9 +32,8 @@ export const FollowUsers = ({ randomUsers }: FollowUsersProps) => {
               {randomUser.name.first + ' ' + randomUser.name.last}
             </h5>
           </div>
-          <Button variant={'default'} size={'sm'} className=' rounded-full text-sm ml-auto '>
-            Follow
-          </Button>
+
+          <FollowButton />
         </div>
       ))}
       <button

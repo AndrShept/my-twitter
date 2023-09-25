@@ -1,10 +1,14 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 import { News } from './News';
-import { FollowUsers } from './FollowUsers';
+import { RandomFollowUsers } from './RandomFollowUsers';
 import { Input } from './ui/input';
+import { UsersList } from './UsersList';
+import { prisma } from '@/lib/db/prisma';
+
 
 export const getWidgetData = async () => {
+
   try {
     const res = await fetch(
       'https://saurav.tech/NewsAPI/top-headlines/category/business/us.json'
@@ -26,6 +30,8 @@ export const getUsersAvatar = async () => {
 };
 
 export const Widgets = async () => {
+  const users = await prisma.user.findMany( );
+
   const { articles } = await getWidgetData();
   const { results: randomUsers } = await getUsersAvatar();
   return (
@@ -44,7 +50,10 @@ export const Widgets = async () => {
       </div>
       <div className=' text-muted-foreground space-y-3 bg-secondary/50  py-4 rounded-lg sticky top-16 '>
         <h4 className='font-bold text-xl px-4 text-primary'>Who to follow</h4>
-        <FollowUsers randomUsers={randomUsers} />
+
+        <UsersList users={users} />
+
+        <RandomFollowUsers randomUsers={randomUsers} />
       </div>
     </div>
   );
