@@ -4,7 +4,7 @@ import React, { useState, useTransition } from 'react';
 import { format } from 'timeago.js';
 import { PostWithLikes } from './Feed';
 import { useSession } from 'next-auth/react';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { UserAvatar } from './UserAvatar';
 import { Modal } from './Modal';
 import { Textarea } from './ui/textarea';

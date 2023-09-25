@@ -1,7 +1,6 @@
 'use client';
 import Image from 'next/image';
 import React, { useState } from 'react';
-import { Button } from './ui/button';
 import { FollowButton } from './FollowButton';
 
 interface FollowUsersProps {

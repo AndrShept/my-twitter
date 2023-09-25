@@ -1,5 +1,5 @@
 'use client';
-import { FaceSmileIcon, PhotoIcon } from '@heroicons/react/24/outline';
+import { PhotoIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import React, { useRef, useState, useTransition } from 'react';
 import { Session } from 'next-auth';
@@ -7,7 +7,6 @@ import { toast } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { SessionAvatar } from './SessionAvatar';
 
-import { useClickAway } from 'react-use';
 import { EmojiIcon } from './EmojiIcon';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
