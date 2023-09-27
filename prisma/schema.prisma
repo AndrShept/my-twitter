@@ -47,6 +47,7 @@ model User {
   email         String?     @unique
   emailVerified DateTime?   @map("email_verified")
   image         String?
+  view          Int?        @default(0)
   accounts      Account[]
   sessions      Session[]
   post          Post[]
@@ -88,12 +89,13 @@ model Post {
   authorImage    String
   authorName     String
   authorUserName String
+  view           Int       @default(0)
   authorId       String    @db.ObjectId
   author         User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   createdAt      DateTime  @default(now()) @map("created_at")
   updatedAt      DateTime? @updatedAt @map("updated_at")
   comments       Comment[] // Relationship with the Comment model
-  likes           Like[]
+  likes          Like[]
 
   @@map("posts")
 }

@@ -4,9 +4,17 @@ import { PostBlock } from './PostBlock';
 import { Input } from './Input';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-
+import { prisma } from '@/lib/db/prisma';
 
 export const Feed = async () => {
+  const posts = await prisma.post.findMany({
+    orderBy: { createdAt: 'desc' },
+    include: {
+      comments: true,
+      likes: true,
+      _count: { select: { comments: true, likes: true } },
+    },
+  });
 
   const session = await getServerSession(authOptions);
 
@@ -21,7 +29,9 @@ export const Feed = async () => {
 
       {session && <Input session={session!} />}
 
-      <PostBlock />
+      {posts.map((post) => (
+        <PostBlock key={post.id} post={post} />
+      ))}
     </div>
   );
 };

@@ -18,11 +18,18 @@ export const LikeIcon = ({ post }: PostProps) => {
     (like) => like.authorId === session?.user.id
   );
   const router = useRouter();
-  const [likeState, setLikesState] = useState<boolean| undefined>();
+  const [likeState, setLikesState] = useState<boolean | undefined>();
+  const [likeCount, setLikeCount] = useState(post._count.likes);
 
   const addLike = async () => {
     if (!session) return;
     setLikesState(!likeState);
+
+    if (!likeState) {
+      setLikeCount((prev) => prev + 1);
+    } else {
+      setLikeCount((prev) => prev - 1);
+    }
 
     try {
       const res = await fetch(`/api/posts/${post.id}/likes`, {
@@ -36,7 +43,10 @@ export const LikeIcon = ({ post }: PostProps) => {
     }
   };
 
-  useEffect(() => setLikesState(likeExist), [likeExist]);
+  useEffect(() => {
+    setLikesState(likeExist);
+    setLikeCount(post._count.likes);
+  }, [likeExist, post._count.likes]);
   return (
     <>
       {!likeState || !session ? (
@@ -46,9 +56,9 @@ export const LikeIcon = ({ post }: PostProps) => {
           className='tooltip group  p-2 rounded-full transition cursor-pointer hover:text-red-500  hover:bg-secondary flex items-center justify-center gap-1 '
         >
           <HeartIcon className='h-5 w-5 active:scale-110   ' />
-          {post._count.likes > 0 && (
+          {likeCount > 0 && (
             <span className='group-hover:text-red-600 text-xs  font-semibold'>
-              {post._count.likes}
+              {likeCount}
             </span>
           )}
         </div>
@@ -59,9 +69,9 @@ export const LikeIcon = ({ post }: PostProps) => {
           className='tooltip group  p-2 rounded-full transition cursor-pointer hover:text-red-600  hover:bg-secondary flex items-center justify-center gap-1 '
         >
           <HeartIconSolid className='h-5 w-5 text-red-600 active:scale-110       ' />
-          {post._count.likes > 0 && (
+          {likeCount > 0 && (
             <span className='group-hover:text-red-600 text-xs  font-semibold'>
-              {post._count.likes}
+              {likeCount}
             </span>
           )}
         </div>

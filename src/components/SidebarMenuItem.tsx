@@ -25,8 +25,8 @@ const menuList = [
   { path: '#', name: 'Notification', Icon: BellIcon },
   { path: '#', name: 'Messages', Icon: InboxIcon },
   { path: '#', name: 'Bookmarks', Icon: BookmarkIcon },
-  { path: '#', name: 'Lists', Icon: ClipboardIcon },
-  { path: '#', name: 'Profile', Icon: UserIcon },
+  { path: '/lists', name: 'Lists', Icon: ClipboardIcon },
+  { path: '/profile', name: 'Profile', Icon: UserIcon },
   {
     path: '#',
     name: 'More',
