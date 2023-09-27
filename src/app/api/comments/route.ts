@@ -1,5 +1,4 @@
 import { prisma } from '@/lib/db/prisma';
-import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 
 
@@ -19,7 +18,6 @@ export const POST = async (req: Request) => {
         postId,
       },
     });
-    revalidatePath('/')
     return new NextResponse(JSON.stringify(comments), { status: 201 });
   } catch (error) {
     return new NextResponse('DATABASE ERROR', { status: 500 });

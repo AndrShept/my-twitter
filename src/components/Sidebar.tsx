@@ -34,7 +34,7 @@ export const Sidebar = async () => {
 
       {session ? (
         <Button className='rounded-full w-56 h-12 font-bold shadow-md text-lg hidden xl:inline'>
-          Tweet
+          Post
         </Button>
       ) : (
         <SignInButton />

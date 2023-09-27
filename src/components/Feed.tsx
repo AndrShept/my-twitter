@@ -4,27 +4,9 @@ import { PostBlock } from './PostBlock';
 import { Input } from './Input';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { Comment, Like, Post } from '@prisma/client';
 
-
-export type PostWithLikes = Post & { like: Like[] , comments: Comment[] };
-
-export const getPosts = async () => {
-  try {
-    const res = await fetch('http://localhost:3000/api/posts', {
-      next:{revalidate: 10}
-   
-    });
-
-    return res.json();
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 export const Feed = async () => {
-
-  const posts: PostWithLikes[] = await getPosts();
 
   const session = await getServerSession(authOptions);
 
@@ -38,9 +20,8 @@ export const Feed = async () => {
       </div>
 
       {session && <Input session={session!} />}
-      {posts.map((post) => (
-        <PostBlock key={post.id} post={post} />
-      ))}
+
+      <PostBlock />
     </div>
   );
 };

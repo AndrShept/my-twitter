@@ -8,7 +8,6 @@ interface FollowUsersProps {
 }
 
 export const RandomFollowUsers = ({ randomUsers }: FollowUsersProps) => {
-  console.log(randomUsers);
   const [randomUsersCount, setRandomUsersCount] = useState(5);
   return (
     <>

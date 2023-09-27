@@ -2,30 +2,32 @@
 import { HeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 import { useSession } from 'next-auth/react';
-import React, { useState } from 'react';
-import { PostWithLikes } from '../Feed';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Comment, Like, Post, PostPayload } from '@prisma/client';
 
-export const LikeIcon = ({ post }: { post: PostWithLikes }) => {
-  const router = useRouter();
-  // const [likes, setLikes] = useState(post.like);
+export interface PostProps {
+  post: Post & { comments: Comment[] } & { likes: Like[] } & {
+    _count: { likes: number; comments: number };
+  };
+}
+
+export const LikeIcon = ({ post }: PostProps) => {
   const { data: session } = useSession();
-
-  const likeById = post.like.some((item) => item.authorId === session?.user.id);
-  const likeByPostId = post.like.some((item) => item.postId === post.id);
+  const likeExist = post.likes.some(
+    (like) => like.authorId === session?.user.id
+  );
+  const router = useRouter();
+  const [likeState, setLikesState] = useState(likeExist);
 
   const addLike = async () => {
     if (!session) return;
-    const newLike = {
-      authorId: session!.user.id,
-      postId: post.id,
-      id: new Date().toString(),
-    };
-    // setLikes((prev) => [...prev, newLike]);
+    setLikesState(!likeState);
+
+
     try {
-      const res = await fetch(`api/posts/${post.id}/likes`, {
+      const res = await fetch(`/api/posts/${post.id}/likes`, {
         method: 'POST',
-        body: JSON.stringify(session?.user.id),
       });
       if (res.ok) {
         router.refresh();
@@ -34,48 +36,33 @@ export const LikeIcon = ({ post }: { post: PostWithLikes }) => {
       console.log(error);
     }
   };
-  const deleteLike = async () => {
-    if (!session) return;
-    // setLikes((prev) => [
-    //   ...prev.filter((item) => item.authorId !== session!.user.id),
-    // ]);
-    try {
-      const res = await fetch(`api/posts/${post.id}/likes`, {
-        method: 'DELETE',
-        body: JSON.stringify(session?.user.id),
-      });
-      if (res.ok) {
-        router.refresh();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
+
   return (
     <>
-      {!likeById && !likeByPostId ? (
+      {likeState || !session ? (
         <div
           onClick={addLike}
           data-tip='like?'
           className='tooltip group  p-2 rounded-full transition cursor-pointer hover:text-red-500  hover:bg-secondary flex items-center justify-center gap-1 '
         >
           <HeartIcon className='h-5 w-5 active:scale-110   ' />
-          {post.like.length > 0 && (
+          {post._count.likes > 0 && (
             <span className='group-hover:text-red-600 text-xs  font-semibold'>
-              {post.like.length}
+              {post._count.likes}
             </span>
           )}
         </div>
       ) : (
         <div
-          onClick={deleteLike}
+          onClick={addLike}
           data-tip='like?'
           className='tooltip group  p-2 rounded-full transition cursor-pointer hover:text-red-600  hover:bg-secondary flex items-center justify-center gap-1 '
         >
           <HeartIconSolid className='h-5 w-5 text-red-600 active:scale-110       ' />
-          {post.like.length > 0 && (
+          {post._count.likes > 0 && (
             <span className='group-hover:text-red-600 text-xs  font-semibold'>
-              {post.like.length}
+              {post._count.likes}
             </span>
           )}
         </div>

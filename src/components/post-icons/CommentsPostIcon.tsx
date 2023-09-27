@@ -2,10 +2,10 @@
 import { ChatBubbleLeftIcon } from '@heroicons/react/24/outline';
 import React, { useState } from 'react';
 import { CommentModal } from '../CommentModal';
-import { PostWithLikes } from '../Feed';
 import { useSession } from 'next-auth/react';
+import { PostProps } from './LikeIcon';
 
-export const CommentsPostIcon = ({ post }: { post: PostWithLikes }) => {
+export const CommentsPostIcon = ({ post }: PostProps) => {
   const { data: session } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -22,9 +22,9 @@ export const CommentsPostIcon = ({ post }: { post: PostWithLikes }) => {
         className='tooltip   p-2 rounded-full transition cursor-pointer hover:text-sky-500  hover:bg-secondary flex items-center justify-center gap-1 group'
       >
         <ChatBubbleLeftIcon className='h-5 w-5 active:scale-110 ' />
-        {post.comments.length > 0 && (
+        {post._count.comments > 0 && (
           <span className='group-hover:text-sky-500 duration-300 text-xs  font-semibold'>
-            {post.comments.length}
+            {post._count.comments}
           </span>
         )}
       </div>

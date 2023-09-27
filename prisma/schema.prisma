@@ -58,13 +58,13 @@ model User {
 }
 
 model Following {
-  id                String   @id @default(uuid()) @map("_id") 
-  followingId       String   
+  id                String   @id @default(uuid()) @map("_id")
+  followingId       String
   followingName     String
   followingUserName String
   followingImage    String
   userId            String   @db.ObjectId
-  user              User     @relation(fields: [userId], references: [id])
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt         DateTime @default(now()) @map("created_at")
 
   @@map("followings")
@@ -93,7 +93,7 @@ model Post {
   createdAt      DateTime  @default(now()) @map("created_at")
   updatedAt      DateTime? @updatedAt @map("updated_at")
   comments       Comment[] // Relationship with the Comment model
-  like           Like[]
+  likes           Like[]
 
   @@map("posts")
 }

@@ -1,7 +1,7 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { PostWithLikes } from '@/components/Feed';
 import { PostComments } from '@/components/PostComments';
 import { UserAvatar } from '@/components/UserAvatar';
+import { prisma } from '@/lib/db/prisma';
 import {
   ArrowSmallLeftIcon,
   EllipsisHorizontalIcon,
@@ -12,19 +12,19 @@ import Link from 'next/link';
 import React from 'react';
 import { format } from 'timeago.js';
 
-export const getPostById = async (postId: string) => {
-  try {
-    const res = await fetch('http://localhost:3000/api/posts/' + postId);
-    return await res.json();
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 const PostPageById = async ({ params }: { params: { id: string } }) => {
   const session = await getServerSession(authOptions);
-  const post: PostWithLikes = await getPostById(params.id);
-
+  const post = await prisma.post.findUnique({
+    where: { id: params.id },
+    include: {
+      comments: true,
+      likes: true,
+      _count: { select: { comments: true, likes: true } },
+    },
+  });
+  if (!post) {
+    return null;
+  }
   return (
     <div className='border border-border'>
       <div className='flex py-2 px-7  sticky top-0 z-50  min-w-[300px] bg-background  border-b border-border'>
@@ -52,21 +52,17 @@ const PostPageById = async ({ params }: { params: { id: string } }) => {
               </span>
             </div>
           </div>
-          {/* post text */}
           <p className='text-muted-foreground text-[15px] sm:text-[16px] mb-2'>
             {post.content}
           </p>
-          {/* <div className='mr-2 sm:h-72 h-60 group overflow-hidden rounded-xl'> */}
-   
-            <Image
-              height={500}
-              width={500}
-              alt='post_image'
-              src={post.image!}
-              className='rounded-xl  object-cover mr-2 '
-            />
-     
 
+          <Image
+            height={500}
+            width={500}
+            alt='post_image'
+            src={post.image!}
+            className='rounded-xl  object-cover mr-2 '
+          />
         </div>
       </div>
       <PostComments comments={post.comments} postId={post.id} />

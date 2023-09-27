@@ -22,6 +22,7 @@ export const UsersList = async ({ users }: { users: User[] }) => {
           key={user.id}
           className='flex items-center px-4 py-2 cursor-pointer hover:bg-secondary/50 transition'
         >
+         {session.user.id !== user.id &&  <>
           <Avatar className='h-12 w-12'>
             <AvatarImage
               className='object-cover'
@@ -46,6 +47,7 @@ export const UsersList = async ({ users }: { users: User[] }) => {
             followingUserName={`@${user.name?.replace(' ', '')}`}
             followingName={user.name}
           />
+          </>}
         </div>
       ))}
     </>

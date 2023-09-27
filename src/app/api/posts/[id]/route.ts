@@ -1,5 +1,4 @@
 import { prisma } from '@/lib/db/prisma';
-import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 
 
@@ -10,9 +9,8 @@ export const GET = async (
   try {
     const post = await prisma.post.findUnique({
      where:{ id: params.id},
-     include: {comments: true, like: true}
+     include: {comments: true, likes: true}
     })
-    revalidatePath('post/' + params.id);
     return new NextResponse(JSON.stringify(post), { status: 200 });
   } catch (error) {
     console.log(error);
@@ -31,7 +29,6 @@ export const DELETE = async (
         id: params.id,
       },
     });
-    revalidatePath('/');
     return new NextResponse(JSON.stringify(post), { status: 200 });
   } catch (error) {
     return new NextResponse('Database ERROR', { status: 500 });

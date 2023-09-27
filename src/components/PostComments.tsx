@@ -2,7 +2,6 @@
 import React, { useState, useTransition } from 'react';
 import { UserAvatar } from './UserAvatar';
 import { format } from 'timeago.js';
-import { PostWithLikes } from './Feed';
 import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 import { API_URL } from '@/lib/utils/baseUrl';
@@ -37,7 +36,6 @@ export const PostComments = ({ comments, postId }: { comments: Comment[], postId
       console.log(error);
     }
   };
-console.log(!comments)
   if (!comments.length) {
     return (
       <h1 className='text-muted-foreground text-center text-2xl mt-10 min-h-[400px]'>
