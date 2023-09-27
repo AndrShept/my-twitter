@@ -18,12 +18,11 @@ export const LikeIcon = ({ post }: PostProps) => {
     (like) => like.authorId === session?.user.id
   );
   const router = useRouter();
-  const [likeState, setLikesState] = useState(likeExist);
+  const [likeState, setLikesState] = useState<boolean| undefined>();
 
   const addLike = async () => {
     if (!session) return;
     setLikesState(!likeState);
-
 
     try {
       const res = await fetch(`/api/posts/${post.id}/likes`, {
@@ -37,10 +36,10 @@ export const LikeIcon = ({ post }: PostProps) => {
     }
   };
 
-
+  useEffect(() => setLikesState(likeExist), [likeExist]);
   return (
     <>
-      {likeState || !session ? (
+      {!likeState || !session ? (
         <div
           onClick={addLike}
           data-tip='like?'
