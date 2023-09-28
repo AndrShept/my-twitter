@@ -4,13 +4,9 @@ import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Comment, Like, Post, PostPayload } from '@prisma/client';
+import { PostProps } from '@/@types/postTypes';
 
-export interface PostProps {
-  post: Post & { comments: Comment[] } & { likes: Like[] } & {
-    _count: { likes: number; comments: number };
-  };
-}
+
 
 export const LikeIcon = ({ post }: PostProps) => {
   const { data: session } = useSession();
@@ -30,7 +26,7 @@ export const LikeIcon = ({ post }: PostProps) => {
     } else {
       setLikeCount((prev) => prev - 1);
     }
-
+console.log(likeState)
     try {
       const res = await fetch(`/api/posts/${post.id}/likes`, {
         method: 'POST',

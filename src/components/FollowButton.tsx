@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { Following } from '@prisma/client';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 interface FollowButtonProps {
   followingId: string | null;
@@ -19,6 +20,7 @@ export const FollowButton = ({
   followingName,
   followingsArr,
 }: FollowButtonProps) => {
+  const { data: session } = useSession();
   const router = useRouter();
   const followingExist = followingsArr?.some(
     (following) => following.followingId === followingId
@@ -26,6 +28,9 @@ export const FollowButton = ({
   const [followingExistState, setFollowingExistState] =
     useState(followingExist);
   const addFollowingUsers = async () => {
+    if (!session) {
+      return;
+    }
     const followingUser = {
       followingId,
       followingUserName,

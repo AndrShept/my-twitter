@@ -1,4 +1,5 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { BackArrow } from '@/components/BackArrow';
 import { PostComments } from '@/components/PostComments';
 import { UserAvatar } from '@/components/UserAvatar';
 import { prisma } from '@/lib/db/prisma';
@@ -6,6 +7,7 @@ import {
   ArrowSmallLeftIcon,
   EllipsisHorizontalIcon,
 } from '@heroicons/react/24/outline';
+import { ChevronLeft } from 'lucide-react';
 import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -27,11 +29,9 @@ const PostPageById = async ({ params }: { params: { id: string } }) => {
   }
   return (
     <div className='border border-border'>
-      <div className='flex py-2 px-7  sticky top-0 z-50  min-w-[300px] bg-background  border-b border-border'>
-        <div className=' flex items-center justify-center   w-9 h-9 ml-2'>
-          <Link href='/'>
-            <ArrowSmallLeftIcon className='h-10 w-10 text-muted-foreground hover:bg-secondary/50 p-2 rounded-full transition cursor-pointer' />
-          </Link>
+      <div className='flex p-2  sticky top-0 z-50 backdrop-blur-md   min-w-[300px] bg-background/80  border-b border-border'>
+        <div className='flex items-center'>
+          <BackArrow />
           <h2 className='text-base sm:text-xl font-bold ml-1'>Home</h2>
         </div>
       </div>

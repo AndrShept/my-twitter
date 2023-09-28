@@ -1,5 +1,4 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { PostWithLikes } from '@/components/Feed';
 import { prisma } from '@/lib/db/prisma';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';

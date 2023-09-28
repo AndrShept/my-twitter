@@ -1,17 +1,40 @@
+'use client';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import React from 'react';
 import { format } from 'timeago.js';
 import { CommentsPostIcon } from './post-icons/CommentsPostIcon';
-import { LikeIcon, PostProps } from './post-icons/LikeIcon';
+import { LikeIcon } from './post-icons/LikeIcon';
 import { DeletePostIcon } from './post-icons/DeletePostIcon';
 import { ChartBarPostIcon } from './post-icons/ChartBarPostIcon';
 import { SharePostIcon } from './post-icons/SharePostIcon';
 import Link from 'next/link';
 import { UserAvatar } from './UserAvatar';
+import { useRouter } from 'next/navigation';
+import { BookmarkIcon } from './post-icons/BookmarkIcon';
+import { Comment, FavoritePost, Like, Post } from '@prisma/client';
 
+export interface PostProps {
+  post: Post & { comments: Comment[] } & { likes: Like[] } & {
+    _count: { likes: number; comments: number };
+  };
+  favoritePost: FavoritePost[];
+}
 
-export const PostBlock = async ({ post }: PostProps) => {
+export const PostBlock = ({ post, favoritePost }: PostProps) => {
+  const router = useRouter();
+  const updatePost = async () => {
+    try {
+      const res = await fetch(`/api/posts/${post.id}`, {
+        method: 'PUT',
+      });
+      if (res.ok) {
+        router.refresh();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <div className='flex p-3  border-b border-border bg-secondary/20  '>
@@ -37,8 +60,7 @@ export const PostBlock = async ({ post }: PostProps) => {
           <p className='text-muted-foreground text-[15px] sm:text-[16px] mb-2'>
             {post.content}
           </p>
-          {/* <div className='mr-2 sm:h-72 h-60 group overflow-hidden rounded-xl'> */}
-          <Link href={'post/' + post.id}>
+          <Link onClick={updatePost} href={'post/' + post.id}>
             <Image
               height={500}
               width={600}
@@ -47,7 +69,6 @@ export const PostBlock = async ({ post }: PostProps) => {
               className='rounded-xl  object-cover mr-2 border border-border '
             />
           </Link>
-          {/* </div> */}
 
           {/* ICON BLOCK */}
           <div className=' flex justify-between items-center   text-muted-foreground    mt-2 '>
@@ -55,7 +76,8 @@ export const PostBlock = async ({ post }: PostProps) => {
             <LikeIcon post={post} />
             <DeletePostIcon postId={post.id} />
             <SharePostIcon />
-            <ChartBarPostIcon />
+            <ChartBarPostIcon viewCount={post.view} />
+            <BookmarkIcon postId={post.id} favoritePost={favoritePost} />
           </div>
         </div>
       </div>
