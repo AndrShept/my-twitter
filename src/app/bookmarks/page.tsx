@@ -9,11 +9,12 @@ import { redirect } from 'next/navigation';
 const page = async () => {
   const session = await getServerSession(authOptions);
   const favoritePost = await prisma.favoritePost.findMany({
+    orderBy: { createdAt: 'asc' },
     where: { userId: session?.user.id },
   });
   const posts = await prisma.post.findMany({
-    orderBy: { createdAt: 'desc' },
     where: { id: { in: favoritePost.map((item) => item.postId) } },
+
     include: {
       comments: true,
       likes: true,

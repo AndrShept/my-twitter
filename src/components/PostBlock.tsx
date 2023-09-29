@@ -38,7 +38,11 @@ export const PostBlock = ({ post, favoritePost }: PostProps) => {
   return (
     <>
       <div className='flex p-3  border-b border-border bg-secondary/20  '>
-        <UserAvatar userImage={post.authorImage} />
+        <UserAvatar
+          userId={post.authorId}
+          userName={post.authorName || post.authorUserName}
+          userImage={post.authorImage}
+        />
         <div className='w-full'>
           {/* post user info */}
           <div className='flex items-center space-x-1 whitespace-nowrap w-full justify-between '>

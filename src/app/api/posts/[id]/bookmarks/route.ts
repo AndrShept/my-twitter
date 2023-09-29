@@ -28,11 +28,11 @@ export const POST = async (
     (favoritePost) => favoritePost.postId === params.id
   );
 
-  console.log(favoritePostFindId);
   if (!favoritePostExist) {
     const newFavoritePost = await prisma.favoritePost.create({
       data: { postId: params.id, userId: session.user.id },
     });
+
     return NextResponse.json(newFavoritePost, { status: 201 });
   }
   if (favoritePostExist) {
@@ -40,7 +40,7 @@ export const POST = async (
       where: { id: favoritePostFindId?.id },
     });
     return NextResponse.json(
-      { message: 'FavoritePost delete' },
+      { message: 'FavoritePost deleted' },
       { status: 200 }
     );
   }

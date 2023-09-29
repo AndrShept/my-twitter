@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { FollowButton } from './FollowButton';
+import { UserAvatar } from './UserAvatar';
 
 interface FollowUsersProps {
   randomUsers: any[];
@@ -16,13 +17,8 @@ export const RandomFollowUsers = ({ randomUsers }: FollowUsersProps) => {
           key={randomUser.login.username}
           className='flex items-center px-4 py-2 cursor-pointer hover:bg-secondary/50 transition'
         >
-          <Image
-            className='rounded-full object-cover h-14 w-14'
-            width={500}
-            height={500}
-            alt='avatar-img'
-            src={randomUser.picture.thumbnail}
-          />
+          <UserAvatar className='mr-0' userName={randomUser.name.first} userImage={randomUser.picture.thumbnail} userId='asdas' />
+
           <div className='truncate ml-4 leading-5'>
             <h4 className='font-semibold hover:underline text-muted-foreground text-[14px] truncate'>
               {randomUser.login.username}

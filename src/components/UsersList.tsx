@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { prisma } from '@/lib/db/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { UserAvatar } from './UserAvatar';
 
 export const UsersList = async ({ users }: { users: User[] }) => {
   const session = await getServerSession(authOptions);
@@ -24,14 +25,7 @@ export const UsersList = async ({ users }: { users: User[] }) => {
         >
           {session.user.id !== user.id && (
             <>
-              <Avatar className='h-12 w-12'>
-                <AvatarImage
-                  className='object-cover'
-                  src={user.image || undefined}
-                  alt='@shadcn'
-                />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
+              <UserAvatar userName={user.name|| ''} className='mr-0' userId={user.id} userImage={user.image || ''}/>
               <div className='truncate ml-4 leading-5'>
                 <h4 className='font-semibold hover:underline text-muted-foreground text-[14px] truncate'>
                   {user.name}

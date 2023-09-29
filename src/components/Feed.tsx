@@ -20,7 +20,6 @@ export const Feed = async () => {
   const favoritePost = await prisma.favoritePost.findMany({
     where: { userId: session?.user.id },
   });
-  console.log(favoritePost);
   return (
     <div className=' border-l border-r border-border bg-secondary/20  '>
       <div className='flex py-2 px-3 sticky top-0 z-50 bg-background  border-b border-border'>

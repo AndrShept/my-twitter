@@ -12,13 +12,13 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
+import { useSession } from 'next-auth/react';
 
 const menuList = [
   { path: '/', name: 'Home', Icon: HomeIcon },
   {
-    path: '/explore',
+    path: '#',
     name: 'Explore',
     Icon: HashtagIcon,
   },
@@ -36,6 +36,7 @@ const menuList = [
 
 export const SidebarMenuItem = ({ authProtectNum = menuList.length }) => {
   const pathname = usePathname();
+  const { data: session } = useSession();
   return (
     <div className='flex flex-col gap-1 xl:items-start items-center'>
       {menuList.slice(0, authProtectNum).map((item) => {
@@ -45,11 +46,17 @@ export const SidebarMenuItem = ({ authProtectNum = menuList.length }) => {
           <Link
             className={cn(
               'xl:px-5 xl:py-3 p-[10px] xl:w-auto xl:h-auto h-12 w-12   flex items-center hover:bg-secondary/30  text-muted-foreground text-lg rounded-full',
-             {'bg-secondary hover:bg-secondary font-semibold text-primary': isActive}
-            
+              {
+                'bg-secondary hover:bg-secondary font-semibold text-primary':
+                  isActive,
+              }
             )}
             key={item.name}
-            href={item.path}
+            href={
+              item.name === 'Profile'
+                ? `${item.path}/${session?.user.name}/${session?.user.id}`
+                : item.path
+            }
           >
             <item.Icon className='xl:h-[25px] xl:w-[25px]  ' />
 
