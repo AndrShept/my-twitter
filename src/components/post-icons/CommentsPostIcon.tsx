@@ -3,9 +3,9 @@ import { ChatBubbleLeftIcon } from '@heroicons/react/24/outline';
 import React, { useState } from 'react';
 import { CommentModal } from '../CommentModal';
 import { useSession } from 'next-auth/react';
-import { PostProps } from './LikeIcon';
+import { PostLikeAndComments } from '@/@types/postTypes';
 
-export const CommentsPostIcon = ({ post }: PostProps) => {
+export const CommentsPostIcon = ({ post }:PostLikeAndComments ) => {
   const { data: session } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
 

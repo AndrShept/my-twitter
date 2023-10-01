@@ -40,8 +40,13 @@ export const SidebarMenuItem = ({ authProtectNum = menuList.length }) => {
   return (
     <div className='flex flex-col gap-1 xl:items-start items-center'>
       {menuList.slice(0, authProtectNum).map((item) => {
-        const isActive = pathname === item.path;
-
+        const selfPathnameProfile = `${item.path}/${session?.user.name?.replace(
+          ' ',
+          ''
+        )}/${session?.user.id}`;
+        const isActive =
+          pathname ===
+          (item.name === 'Profile' ? selfPathnameProfile : item.path);
         return (
           <Link
             className={cn(
@@ -52,11 +57,7 @@ export const SidebarMenuItem = ({ authProtectNum = menuList.length }) => {
               }
             )}
             key={item.name}
-            href={
-              item.name === 'Profile'
-                ? `${item.path}/${session?.user.name}/${session?.user.id}`
-                : item.path
-            }
+            href={item.name === 'Profile' ? selfPathnameProfile : item.path}
           >
             <item.Icon className='xl:h-[25px] xl:w-[25px]  ' />
 

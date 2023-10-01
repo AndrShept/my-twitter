@@ -4,9 +4,9 @@ import { experimental_useFormStatus } from 'react-dom';
 import { toast } from 'react-hot-toast';
 
 export const TwittButton = () => {
-  const { pending,method } = experimental_useFormStatus();
-  if(method){
-    toast.success('Post created!!')
+  const { pending, method } = experimental_useFormStatus();
+  if (method) {
+    toast.success('Post created!!');
   }
   return (
     <button

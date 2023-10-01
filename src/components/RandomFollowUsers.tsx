@@ -17,7 +17,12 @@ export const RandomFollowUsers = ({ randomUsers }: FollowUsersProps) => {
           key={randomUser.login.username}
           className='flex items-center px-4 py-2 cursor-pointer hover:bg-secondary/50 transition'
         >
-          <UserAvatar className='mr-0' userName={randomUser.name.first} userImage={randomUser.picture.thumbnail} userId='asdas' />
+          <UserAvatar
+            className='mr-0'
+            userName={randomUser.name.first}
+            userImage={randomUser.picture.thumbnail}
+            userId='asdas'
+          />
 
           <div className='truncate ml-4 leading-5'>
             <h4 className='font-semibold hover:underline text-muted-foreground text-[14px] truncate'>
@@ -35,7 +40,6 @@ export const RandomFollowUsers = ({ randomUsers }: FollowUsersProps) => {
             followingUserName={
               randomUser.name.first + ' ' + randomUser.name.last
             }
-
           />
         </div>
       ))}

@@ -1,7 +1,6 @@
 import { User } from '@prisma/client';
 import React from 'react';
 import { FollowButton } from './FollowButton';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { prisma } from '@/lib/db/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
@@ -18,14 +17,19 @@ export const UsersList = async ({ users }: { users: User[] }) => {
 
   return (
     <>
-      {users.map((user) => (
-        <div
-          key={user.id}
-          className='flex items-center px-4 py-2 cursor-pointer hover:bg-secondary/50 transition'
-        >
-          {session.user.id !== user.id && (
-            <>
-              <UserAvatar userName={user.name|| ''} className='mr-0' userId={user.id} userImage={user.image || ''}/>
+      {users.map(
+        (user) =>
+          session.user.id !== user.id && (
+            <li
+              key={user.id}
+              className='flex items-center px-4 py-2 cursor-pointer hover:bg-secondary/50 transition'
+            >
+              <UserAvatar
+                userName={user.name || ''}
+                className='mr-0'
+                userId={user.id}
+                userImage={user.image || ''}
+              />
               <div className='truncate ml-4 leading-5'>
                 <h4 className='font-semibold hover:underline text-muted-foreground text-[14px] truncate'>
                   {user.name}
@@ -42,10 +46,9 @@ export const UsersList = async ({ users }: { users: User[] }) => {
                 followingUserName={`@${user.name?.replace(' ', '')}`}
                 followingName={user.name}
               />
-            </>
-          )}
-        </div>
-      ))}
+            </li>
+          )
+      )}
     </>
   );
 };

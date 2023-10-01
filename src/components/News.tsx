@@ -25,9 +25,7 @@ export const News = ({ articles }: { articles: NewsProps[] }) => {
         >
           <div className='flex items-center justify-between px-4 py-2 space-x-1 hover:bg-secondary/50 transition '>
             <div className='space-y-0.5'>
-              <h6 className='text-sm line-clamp-2'>
-                {article.title}
-              </h6>
+              <h6 className='text-sm line-clamp-2'>{article.title}</h6>
               <p className='text-xs  text-muted-foreground/30'>
                 {article.source.name}
               </p>

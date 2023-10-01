@@ -7,14 +7,9 @@ import { useClickAway } from 'react-use';
 interface EmojiIconProps {
   content: string;
   setContent: (str: string) => void;
-
 }
 
-export const EmojiIcon = ({
-  content,
-  setContent,
-
-}: EmojiIconProps) => {
+export const EmojiIcon = ({ content, setContent }: EmojiIconProps) => {
   const [isEmojiShow, setIsEmojiShow] = useState(false);
   const refEmoji = useRef(null);
   const handleEmojiClick = (e: any) => {

@@ -77,15 +77,13 @@ export const PostComments = ({
                       : `${format(comment.updatedAt || '')}(змінено) `}
                   </time>
                   <CommentsDropDownMenu
-                  setNewComment={setNewComment}
-                  setCommentId={setCommentId}
-                  comment={comment}
-                  postId={postId}
-                  i={i}
-                />
+                    setNewComment={setNewComment}
+                    setCommentId={setCommentId}
+                    comment={comment}
+                    postId={postId}
+                    i={i}
+                  />
                 </div>
-
-
               </div>
               {comment.id !== commentId ? (
                 <p className={`  text-primary/90  break-all`}>

@@ -4,11 +4,9 @@ import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { PostProps } from '@/@types/postTypes';
+import { PostLikeAndComments } from '@/@types/postTypes';
 
-
-
-export const LikeIcon = ({ post }: PostProps) => {
+export const LikeIcon = ({ post }: PostLikeAndComments) => {
   const { data: session } = useSession();
   const likeExist = post.likes.some(
     (like) => like.authorId === session?.user.id
@@ -26,7 +24,7 @@ export const LikeIcon = ({ post }: PostProps) => {
     } else {
       setLikeCount((prev) => prev - 1);
     }
-console.log(likeState)
+    console.log(likeState);
     try {
       const res = await fetch(`/api/posts/${post.id}/likes`, {
         method: 'POST',
