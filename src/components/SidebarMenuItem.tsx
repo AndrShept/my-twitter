@@ -27,11 +27,11 @@ const menuList = [
   { path: '/bookmarks', name: 'Bookmarks', Icon: BookmarkIcon },
   { path: '/lists', name: 'Lists', Icon: ClipboardIcon },
   { path: '/profile', name: 'Profile', Icon: UserIcon },
-  {
-    path: '#',
-    name: 'More',
-    Icon: EllipsisHorizontalIcon,
-  },
+  // {
+  //   path: '#',
+  //   name: 'More',
+  //   Icon: EllipsisHorizontalIcon,
+  // },
 ];
 
 export const SidebarMenuItem = ({ authProtectNum = menuList.length }) => {

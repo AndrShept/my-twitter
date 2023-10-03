@@ -12,6 +12,7 @@ import { SignInButton } from './SignInButton';
 import { ModeToggle } from './ToggleMode';
 import { Button } from './ui/button';
 import Link from 'next/link';
+import { Plus } from 'lucide-react';
 
 export const Sidebar = async () => {
   const session = await getServerSession(authOptions);
@@ -36,9 +37,18 @@ export const Sidebar = async () => {
       </div>
 
       {session ? (
-        <Button className='rounded-full w-56 h-12 font-bold shadow-md text-lg hidden xl:inline'>
-          Post
-        </Button>
+        <div>
+          <Button className='rounded-full w-56 h-12 font-bold shadow-md text-lg mt-10 hidden xl:inline'>
+            Post
+          </Button>
+          <Button
+            className='rounded-full  xl:hidden flex mt-10 '
+            variant={'default'}
+            size={'icon'}
+          >
+            <Plus />
+          </Button>
+        </div>
       ) : (
         <SignInButton />
       )}

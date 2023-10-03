@@ -5,6 +5,7 @@ import { prisma } from '@/lib/db/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { UserAvatar } from './UserAvatar';
+import Link from 'next/link';
 
 export const UsersList = async ({ users }: { users: User[] }) => {
   const session = await getServerSession(authOptions);
@@ -30,14 +31,17 @@ export const UsersList = async ({ users }: { users: User[] }) => {
                 userId={user.id}
                 userImage={user.image || ''}
               />
-              <div className='truncate ml-4 leading-5'>
+              <Link
+                href={`/profile/${user.username}/${user.id}`}
+                className='truncate ml-4 leading-5'
+              >
                 <h4 className='font-semibold hover:underline text-muted-foreground text-[14px] truncate'>
                   {user.name}
                 </h4>
                 <h5 className='text-[13px] text-muted-foreground/60 truncate'>
                   {`@${user.name?.replace(' ', '')}`}
                 </h5>
-              </div>
+              </Link>
 
               <FollowButton
                 followingsArr={userData?.following}

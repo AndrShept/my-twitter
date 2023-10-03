@@ -28,14 +28,22 @@ export const POST = async (req: Request) => {
   }
 
   const userFollowing = await prisma.user.findUnique({
-    include: { following: true },
+    include: { following: true},
     where: { id: userId },
   });
+  const userFollower = await prisma.user.findUnique({
+    include: { follower:true},
+    where: { id: followingId },
+  });
+
   const followingExist = userFollowing?.following.some(
     (follow) => follow.followingId === followingId
   );
   const findFollowingId = userFollowing?.following.find(
     (follow) => follow.followingId === followingId
+  );
+  const findFollowerId = userFollower?.follower.find(
+    (follow) => follow.followerId === followingId
   );
 
   if (!followingExist) {
@@ -48,10 +56,16 @@ export const POST = async (req: Request) => {
         userId,
       },
     });
+    const newFollower = await prisma.follower.create({
+      data: {followerId: userId, userId: followingId }
+    })
     return NextResponse.json(newFollowing, { status: 201 });
   } else {
     await prisma.following.delete({
       where: { id: findFollowingId?.id },
+    });
+    await prisma.follower.deleteMany({
+      where: { id: findFollowerId?.id },
     });
     return NextResponse.json({ message: 'following deleted' }, { status: 200 });
   }

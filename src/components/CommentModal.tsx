@@ -2,19 +2,19 @@
 import Image from 'next/image';
 import React, { useState, useTransition } from 'react';
 import { format } from 'timeago.js';
-import { PostWithLikes } from './Feed';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { UserAvatar } from './UserAvatar';
 import { Modal } from './Modal';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
+import { Comment, Like, Post } from '@prisma/client';
 
 export const CommentModal = ({
   post,
   setIsModalOpen,
 }: {
-  post: PostWithLikes;
+  post: Post & {comments: Comment[]} & {likes: Like[]};
   setIsModalOpen: (bool: boolean) => void;
 }) => {
   const router = useRouter();
@@ -32,14 +32,14 @@ export const CommentModal = ({
     };
 
     startTransition(async () => {
-      const res = await fetch(`api/comments`, {
+      const res = await fetch(`/api/comments`, {
         method: 'POST',
         body: JSON.stringify(data),
       });
       if (res) {
         setIsModalOpen(false);
         router.refresh();
-        router.push('post/' + post.id);
+        router.push('/post/' + post.id);
       }
     });
   };
@@ -56,7 +56,7 @@ export const CommentModal = ({
         </div>
         <div className=' flex mt-4'>
           <div className=' '>
-            <UserAvatar userImage={post.authorImage} />
+            <UserAvatar userId={post.id} userName={post.authorName} userImage={post.authorImage} />
           </div>
           <div className='flex flex-col  items-start space-x-1 whitespace-nowrap w-full justify-between '>
             <div className='flex  items-center justify-between gap-1'>

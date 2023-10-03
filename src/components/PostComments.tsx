@@ -4,7 +4,6 @@ import { UserAvatar } from './UserAvatar';
 import { format } from 'timeago.js';
 import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
-import { API_URL } from '@/lib/utils/baseUrl';
 import { useRouter } from 'next/navigation';
 import { CommentsDropDownMenu } from './CommentsDropDownMenu';
 
@@ -29,7 +28,7 @@ export const PostComments = ({
     e.preventDefault();
     try {
       startTransition(async () => {
-        const res = await fetch(`${API_URL}comments/${commentId}`, {
+        const res = await fetch(`/api/comments/${commentId}`, {
           method: 'PUT',
           body: JSON.stringify(newComment),
         });
@@ -118,10 +117,10 @@ export const PostComments = ({
                     <div className='flex  self-end mt-2'>
                       <button
                         data-tip='cancel'
-                        className='tooltip p-1 rounded-full hover:bg-red-200 duration-200'
+                        className='tooltip p-1 rounded-full hover:bg-secondary duration-200'
                         onClick={() => setCommentId('')}
                       >
-                        <XMarkIcon className='h-6 w-6 text-muted-foreground hover:text-red-500' />
+                        <XMarkIcon className='h-6 w-6 text-red-500' />
                       </button>
 
                       {isPending ? (
@@ -130,9 +129,9 @@ export const PostComments = ({
                         <button
                           data-tip='ok!'
                           disabled={comment.content === newComment}
-                          className='tooltip p-1 rounded-full hover:bg-green-200 duration-200 disabled:opacity-50 '
+                          className='tooltip p-1 rounded-full hover:bg-secondary duration-200 disabled:opacity-50 '
                         >
-                          <CheckIcon className='h-6 w-6 text-muted-foreground hover:text-green-500 ' />
+                          <CheckIcon className='h-6 w-6 text-green-600 ' />
                         </button>
                       )}
                     </div>

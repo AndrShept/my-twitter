@@ -21,7 +21,7 @@ export const RandomFollowUsers = ({ randomUsers }: FollowUsersProps) => {
             className='mr-0'
             userName={randomUser.name.first}
             userImage={randomUser.picture.thumbnail}
-            userId='asdas'
+            userId={randomUser.login.uuid}
           />
 
           <div className='truncate ml-4 leading-5'>

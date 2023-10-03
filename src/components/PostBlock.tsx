@@ -64,7 +64,7 @@ export const PostBlock = ({ post, favoritePost }: PostProps) => {
           <p className='text-muted-foreground text-[15px] sm:text-[16px] mb-2'>
             {post.content}
           </p>
-          <Link onClick={updatePost} href={'post/' + post.id}>
+          <Link onClick={updatePost} href={'/post/' + post.id}>
             <Image
               height={500}
               width={600}
