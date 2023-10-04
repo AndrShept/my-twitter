@@ -61,7 +61,7 @@ export const PostBlock = ({ post, favoritePost }: PostProps) => {
             <EllipsisHorizontalIcon className='h-8 w-8 rounded-full transition cursor-pointer hover:bg-sky-100 hover:text-sky-500' />
           </div>
           {/* post text */}
-          <p className='text-muted-foreground text-[15px] sm:text-[16px] mb-2'>
+          <p className='text-muted-foreground text-left text-[15px] sm:text-[16px] mb-2'>
             {post.content}
           </p>
           <Link onClick={updatePost} href={'/post/' + post.id}>

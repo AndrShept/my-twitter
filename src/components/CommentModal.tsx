@@ -9,12 +9,13 @@ import { Modal } from './Modal';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
 import { Comment, Like, Post } from '@prisma/client';
+import { X } from 'lucide-react';
 
 export const CommentModal = ({
   post,
   setIsModalOpen,
 }: {
-  post: Post & {comments: Comment[]} & {likes: Like[]};
+  post: Post & { comments: Comment[] } & { likes: Like[] };
   setIsModalOpen: (bool: boolean) => void;
 }) => {
   const router = useRouter();
@@ -45,20 +46,24 @@ export const CommentModal = ({
   };
   return (
     <Modal>
-      <div className='md:min-w-[500px] w-[500px]   bg-background after:rounded-xl border-2 border-border shadow-lg flex flex-col p-4 animate-in fade-in-0 zoom-in-90 duration-300 '>
-        <div className=' border-b flex items-center justify-end  '>
-          <span
-            onClick={() => setIsModalOpen(false)}
-            className='cursor-pointer px-[10px] duration-300 hover:bg-secondary/50 rounded-full mb-2 text-lg'
-          >
-            x
-          </span>
-        </div>
-        <div className=' flex mt-4'>
-          <div className=' '>
-            <UserAvatar userId={post.id} userName={post.authorName} userImage={post.authorImage} />
+      <div className='md:min-w-[500px] w-[500px] rounded-lg   bg-background after:rounded-xl border-2 border-border shadow-lg flex flex-col px-6 py-3 animate-in fade-in-0 zoom-in-90 duration-300 '>
+        <Button
+          variant={'ghost'}
+          size={'icon'}
+          className='rounded-full ml-auto  '
+        >
+
+          <X onClick={() => setIsModalOpen(false)} />
+        </Button>
+        <div className=' flex border-y py-4 mt-2 '>
+          <div >
+            <UserAvatar
+              userId={post.authorId}
+              userName={post.authorName}
+              userImage={post.authorImage}
+            />
           </div>
-          <div className='flex flex-col  items-start space-x-1 whitespace-nowrap w-full justify-between '>
+          <div className='flex  flex-col text-left  items-start whitespace-nowrap w-full justify-between '>
             <div className='flex  items-center justify-between gap-1'>
               <h4 className='font-bold text-primary text-[15px] sm:text-[16px] hover:underline'>
                 {post.authorName}
@@ -70,7 +75,7 @@ export const CommentModal = ({
                 {format(post.createdAt)}
               </span>
             </div>
-            <p className='text-muted text-[15px] sm:text-[16px] '>
+            <p className='text-primary text-[15px] sm:text-[16px] '>
               {post.content}
             </p>
           </div>

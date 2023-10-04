@@ -9,7 +9,7 @@ import { redirect } from 'next/navigation';
 const page = async () => {
   const session = await getServerSession(authOptions);
   const favoritePost = await prisma.favoritePost.findMany({
-    orderBy: { createdAt: 'asc' },
+    orderBy: { createdAt: 'desc' },
     where: { userId: session?.user.id },
   });
   const posts = await prisma.post.findMany({
@@ -21,6 +21,7 @@ const page = async () => {
       _count: { select: { comments: true, likes: true } },
     },
   });
+
 
   if (!session) {
     redirect('/');

@@ -87,7 +87,14 @@ const layout = async ({ children, params }: layoutProps) => {
                 <CalendarDays size={18} />
               </div>
               <span>Joined</span>
-              <span>{`September 2023`}</span>
+              <span>
+                {user.createdAt?.toLocaleDateString('en-US', {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </span>
             </div>
             <div className='text-muted-foreground text-sm flex space-x-4'>
               <div className='hover:underline flex  '>

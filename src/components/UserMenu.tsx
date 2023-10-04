@@ -2,8 +2,8 @@
 import { ArrowLeftOnRectangleIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
 import { Session } from 'next-auth';
 import { signIn, signOut } from 'next-auth/react';
-import React, { useTransition } from 'react';
 import toast from 'react-hot-toast'
+import React, { useTransition } from 'react';
 
 
 

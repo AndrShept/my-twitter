@@ -1,6 +1,7 @@
-import { UsersList } from '@/components/UsersList';
+import { UsersList } from '@/components/UsersWidget';
 import { prisma } from '@/lib/db/prisma';
 import React from 'react';
+import { FollowingUsers } from './FollowingUsers';
 
 const page = async ({
   params,
@@ -11,11 +12,16 @@ const page = async ({
     where: { id: params.id },
     include: { following: true },
   });
-  console.log(users);
   return (
-    <div className='max-w-sm mx-auto'>
-      <UsersList users={users?.following} />
-    </div>
+    <section className='max-w-[400px] mx-auto'>
+      <FollowingUsers followingUsers={users!.following} />
+      {!users!.following.length && (
+        <h1 className='text-muted-foreground '>
+          Following accounts is an easy way to curate your timeline and know
+          what’s happening with the topics and people you’re interested in.
+        </h1>
+      )}
+    </section>
   );
 };
 

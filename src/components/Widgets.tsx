@@ -3,8 +3,10 @@ import React from 'react';
 import { News } from './News';
 import { RandomFollowUsers } from './RandomFollowUsers';
 import { Input } from './ui/input';
-import { UsersList } from './UsersList';
+import { UsersList } from './UsersWidget';
 import { prisma } from '@/lib/db/prisma';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 export const getWidgetData = async () => {
   try {
@@ -28,10 +30,20 @@ export const getUsersAvatar = async () => {
 };
 
 export const Widgets = async () => {
+  const session = await getServerSession(authOptions);
+  let userData;
+  if (session) {
+    userData = await prisma.user.findUnique({
+      where: { id: session?.user.id },
+      include: { following: true },
+    });
+  }
+
   const users = await prisma.user.findMany();
 
   const { articles } = await getWidgetData();
   const { results: randomUsers } = await getUsersAvatar();
+
   return (
     <div className=' hidden lg:inline ml-8 space-y-5 max-w-[350px] '>
       <div className='flex items-center    sticky top-0 z-50 py-4  '>
@@ -49,7 +61,9 @@ export const Widgets = async () => {
       <div className=' text-muted-foreground space-y-3 bg-secondary/50  py-4 rounded-lg sticky top-16 '>
         <h4 className='font-bold text-xl px-4 text-primary'>Who to follow</h4>
 
-        <UsersList users={users} />
+        {session && (
+          <UsersList allUsers={users} followingArr={userData!.following} />
+        )}
 
         <RandomFollowUsers randomUsers={randomUsers} />
       </div>

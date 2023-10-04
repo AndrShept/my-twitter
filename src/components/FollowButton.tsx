@@ -27,7 +27,10 @@ export const FollowButton = ({
   );
   const [followingExistState, setFollowingExistState] =
     useState(followingExist);
-  const addFollowingUsers = async () => {
+  const addFollowingUsers = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
     if (!session) {
       return;
     }
@@ -67,7 +70,7 @@ export const FollowButton = ({
           onClick={addFollowingUsers}
           variant={'outline'}
           size={'sm'}
-          className=' rounded-full text-sm ml-auto group transition  hover:bg-red-500/10 hover:text-red-500 hover:border-red-500/50'
+          className=' rounded-full text-sm ml-auto text-primary group transition  hover:bg-red-500/10 hover:text-red-500 hover:border-red-500/50'
         >
           <span className='group-hover:hidden block '> Following</span>
           <span className='group-hover:block hidden '> Unfollow</span>

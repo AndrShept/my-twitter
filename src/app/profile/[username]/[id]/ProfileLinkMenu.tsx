@@ -46,13 +46,15 @@ export const ProfileLinkMenu = ({
     <>
       {linkList.map((link) => (
         <Link
+          scroll={false}
           href={link.path}
           className='cursor-pointer    sm:pt-4 sm:px-4 pt-3 px-2 sm:text-base text-sm text-center col-span-1 text-muted-foreground hover:bg-secondary/30  '
           key={link.id}
         >
           <ul
             className={cn('border-b-[3px] sm:pb-4 pb-3 border-transparent', {
-              'border-border text-primary font-semibold': pathname === link.path,
+              'border-border text-primary font-semibold':
+                pathname === link.path,
             })}
           >
             {link.name}
