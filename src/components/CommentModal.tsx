@@ -26,9 +26,6 @@ export const CommentModal = ({
     e.preventDefault();
     const data = {
       comment,
-      authorName: session?.user.username,
-      authorImage: session?.user.image,
-      authorId: session?.user.id,
       postId: post.id,
     };
 
@@ -52,11 +49,10 @@ export const CommentModal = ({
           size={'icon'}
           className='rounded-full ml-auto  '
         >
-
           <X onClick={() => setIsModalOpen(false)} />
         </Button>
         <div className=' flex border-y py-4 mt-2 '>
-          <div >
+          <div>
             <UserAvatar
               userId={post.authorId}
               userName={post.authorName}

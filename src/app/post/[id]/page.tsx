@@ -1,21 +1,12 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { BackArrow } from '@/components/BackArrow';
 import { PostComments } from '@/components/PostComments';
 import { UserAvatar } from '@/components/UserAvatar';
 import { prisma } from '@/lib/db/prisma';
-import {
-  ArrowSmallLeftIcon,
-  EllipsisHorizontalIcon,
-} from '@heroicons/react/24/outline';
-import { ChevronLeft } from 'lucide-react';
-import { getServerSession } from 'next-auth';
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 import { format } from 'timeago.js';
 
 const PostPageById = async ({ params }: { params: { id: string } }) => {
-  const session = await getServerSession(authOptions);
   const post = await prisma.post.findUnique({
     where: { id: params.id },
     include: {
@@ -29,7 +20,7 @@ const PostPageById = async ({ params }: { params: { id: string } }) => {
   }
   return (
     <div className='border border-border'>
-      <div className='flex p-2  sticky top-0 z-50 backdrop-blur-md   min-w-[300px] bg-background/80  border-b border-border'>
+      <div className='flex p-2  sticky top-0 z-10 backdrop-blur-md   min-w-[300px] bg-background/80  border-b border-border'>
         <div className='flex items-center'>
           <BackArrow />
           <h2 className='text-base sm:text-xl font-bold ml-1'>Home</h2>

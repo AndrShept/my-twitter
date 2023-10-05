@@ -49,9 +49,9 @@ export const Sidebar = async () => {
       ) : (
         <SignInButton />
       )}
-      <UserSessionMenu  />
+      <UserSessionMenu />
 
-      <div className='xl:ml-7'>
+      <div className='xl:ml-7 mb-2'>
         <ModeToggle />
       </div>
     </div>

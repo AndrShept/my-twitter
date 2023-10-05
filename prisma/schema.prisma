@@ -57,7 +57,14 @@ model User {
   email         String?        @unique
   emailVerified DateTime?      @map("email_verified")
   image         String?
+  profileImage  String?
   view          Int?           @default(0)
+  birthDay      String?
+  birthMonth    String?
+  birthYear     String?
+  bio           String?
+  location      String?
+  website       String?
   accounts      Account[]
   sessions      Session[]
   post          Post[]
@@ -66,7 +73,7 @@ model User {
   following     Following[]
   favoritePosts FavoritePost[]
   follower      Follower[]
-  createdAt     DateTime?       @default(now()) @map("created_at")
+  createdAt     DateTime?      @default(now()) @map("created_at")
 
   @@map("users")
 }
@@ -86,11 +93,11 @@ model Following {
 
 model Follower {
   id         String   @id @default(uuid()) @map("_id")
-  followerId String   
+  followerId String
   userId     String   @db.ObjectId
   createdAt  DateTime @default(now()) @map("created_at")
 
-  user User @relation(fields: [userId], references: [id],  onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("followers")
 }

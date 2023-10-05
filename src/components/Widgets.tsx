@@ -46,8 +46,8 @@ export const Widgets = async () => {
 
   return (
     <div className=' hidden lg:inline ml-8 space-y-5 max-w-[350px] '>
-      <div className='flex items-center    sticky top-0 z-50 py-4  '>
-        <MagnifyingGlassIcon className='h-6 w-6 text-muted-foreground z-50 absolute left-2' />
+      <div className='flex items-center    sticky top-0 z-1 py-4  '>
+        <MagnifyingGlassIcon className='h-6 w-6 text-muted-foreground z-10 absolute left-2' />
         <Input
           type='text'
           placeholder='Search Twitter '

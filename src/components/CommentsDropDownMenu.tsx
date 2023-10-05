@@ -8,6 +8,7 @@ import { useClickAway } from 'react-use';
 import { DeleteIcon } from './comments-icons/DeleteIcon';
 import clsx from 'clsx';
 import { Comment } from '@prisma/client';
+import { Button } from './ui/button';
 
 interface CommentsDropDownMenuProps {
   setNewComment: (str: string) => void;
@@ -42,23 +43,25 @@ export const CommentsDropDownMenu = ({
     <>
       <div className='h-10 w-10 '>
         {session && session.user.id === comment.authorId && (
-          <EllipsisHorizontalIcon
-            onClick={() => {
-              setIndex(i);
-              setIsShowDropdownMenu((prev) => !prev);
-            }}
-            className={clsx(
-              `group-hover:block  cursor-pointer p-2  transition   rounded-full `,
-              {
-                hidden: !isShowDropdownMenu,
-              }
-            )}
-          />
+          <Button variant={'ghost'} size={'icon'} className='rounded-full'>
+            <EllipsisHorizontalIcon
+              onClick={() => {
+                setIndex(i);
+                setIsShowDropdownMenu((prev) => !prev);
+              }}
+              className={clsx(
+                `group-hover:block  cursor-pointer p-2  transition   rounded-full `,
+                {
+                  hidden: !isShowDropdownMenu,
+                }
+              )}
+            />
+          </Button>
         )}
         {i === index && isShowDropdownMenu && (
           <div
             ref={ref}
-            className='absolute mt-1 text-sm flex flex-col w-32   bg-background rounded-md gap-1 shadow-md border animate-in fade-in-0 zoom-in-90 duration-200'
+            className='absolute z-10 -mt-[123px] ml-4 text-sm flex flex-col w-32   bg-background rounded-md gap-1 shadow-md border animate-in fade-in-0 zoom-in-90 duration-200'
           >
             <div
               onClick={() => handleEditClick(comment.content, comment.id)}

@@ -152,7 +152,7 @@ export const Input = ({ session }: { session: Session }) => {
           {/* <TweetButton /> */}
           <div className='flex items-center gap-3'>
             {isPendingData && (
-              <span className='loading loading-spinner loading-md text-secondary' />
+              <span className='loading loading-spinner loading-md' />
             )}
             <Button
               disabled={isPendingImg || isPendingData}
