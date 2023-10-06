@@ -6,6 +6,21 @@ import { Button } from '@/components/ui/button';
 import { CalendarDays } from 'lucide-react';
 import { UserAvatar } from '@/components/UserAvatar';
 import { ProfileLinkMenu } from './ProfileLinkMenu';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import Link from 'next/link';
+import { Metadata } from 'next';
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { username: string; id: string };
+}): Promise<Metadata> => {
+  const user = await prisma.user.findUnique({ where: { id: params.id } });
+  return {
+    title: `User info ${user?.name}`,
+  };
+};
 
 interface layoutProps {
   children: ReactNode;
@@ -13,6 +28,7 @@ interface layoutProps {
 }
 
 const layout = async ({ children, params }: layoutProps) => {
+  const session = await getServerSession(authOptions);
   const user = await prisma.user.findUnique({
     where: { id: params.id },
     include: {
@@ -58,8 +74,8 @@ const layout = async ({ children, params }: layoutProps) => {
           />
         </div>
         <div className=''>
-          <div className='flex justify-between md:p-5 p-2 relative'>
-            <div className='p-[3px] bg-white rounded-full absolute top-0 -translate-y-[50%] '>
+          <div className='flex justify-between md:p-5 p-2 relative h-[70px] '>
+            <div className='p-[2px] bg-white rounded-full absolute top-0 -translate-y-[50%] '>
               <UserAvatar
                 userName={user.name || user.username || ''}
                 userId={user.id}
@@ -70,9 +86,17 @@ const layout = async ({ children, params }: layoutProps) => {
                 }
               />
             </div>
-            <Button className='rounded-full ml-auto' variant={'outline'}>
-              Edit profile
-            </Button>
+            {user.id === session?.user.id && (
+              <Button
+                asChild
+                className='rounded-full ml-auto'
+                variant={'default'}
+              >
+                <Link href={`/edit/profile/${session.user.id}`}>
+                  Edit profile
+                </Link>
+              </Button>
+            )}
           </div>
           <div className='md:p-5 p-2 flex flex-col gap-2'>
             <div>
@@ -121,7 +145,9 @@ const layout = async ({ children, params }: layoutProps) => {
           username={user.name!.replace(' ', '')}
         />
       </div>
-      <div className='text-center w-full mx-auto mt-10'>{children}</div>
+      <div className='text-center sm:w-full w-[420px]  mx-auto mt-10'>
+        {children}
+      </div>
     </section>
   );
 };

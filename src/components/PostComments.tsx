@@ -71,7 +71,7 @@ export const PostComments = ({
             className='group flex items-center  w-full hover:bg-secondary/30 text-sm  py-2'
             key={comment.id}
           >
-            <div className='flex gap-4 px-3 py-2 items-start'>
+            <div className='flex gap-4 sm:px-3 sm"py-2 px-2 py-1 items-start'>
               <UserAvatar
                 className='mr-0 mt-3'
                 userId={comment.authorId}
@@ -100,7 +100,7 @@ export const PostComments = ({
                 </div>
 
                 {comment.id !== commentId ? (
-                  <p className={`  text-primary/90  break-all`}>
+                  <p className={`  text-primary/90 text-base  break-all`}>
                     {comment.content}
                   </p>
                 ) : (

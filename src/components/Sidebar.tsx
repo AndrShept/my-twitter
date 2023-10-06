@@ -14,7 +14,7 @@ export const Sidebar = async () => {
   const session = await getServerSession(authOptions);
 
   return (
-    <div className='hidden sm:flex flex-col p-1  xl:items-start xl:justify-center items-center  fixed h-full xl:ml-24'>
+    <div className='  p-1 fixed flex top-0 flex-col items-center xl:items-start h-full '>
       <Link href={'/'}>
         <Image
           priority
@@ -49,11 +49,10 @@ export const Sidebar = async () => {
       ) : (
         <SignInButton />
       )}
-      <UserSessionMenu />
-
-      <div className='xl:ml-7 mb-2'>
+      <div className='xl:ml-7 mb-2 mt-auto'>
         <ModeToggle />
       </div>
+      <UserSessionMenu />
     </div>
   );
 };

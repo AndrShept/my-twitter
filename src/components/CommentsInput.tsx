@@ -15,6 +15,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2, SendHorizontal } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { EmojiIcon } from './EmojiIcon';
 
 const formSchema = z.object({
   comment: z.string().min(3),
@@ -46,7 +47,7 @@ export const CommentsInput = ({ postId }: { postId: string }) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className=' bg-background/80 backdrop-blur-md z-[1] flex gap-2 sticky top-14 p-6 border-b '
+        className=' bg-background/80 backdrop-blur-md z-[1] flex gap-2 sticky top-14 py-2 px-6 border-b '
       >
         <FormField
           control={form.control}
@@ -55,6 +56,7 @@ export const CommentsInput = ({ postId }: { postId: string }) => {
             <FormItem className='w-full'>
               <FormControl>
                 <Input
+                className='text-base placeholder:text-sm'
                   disabled={isLoading}
                   {...field}
                   placeholder='Enter comments...'
@@ -62,6 +64,7 @@ export const CommentsInput = ({ postId }: { postId: string }) => {
               </FormControl>
 
               <FormMessage />
+              <EmojiIcon content={field.value} setContent={field.onChange} className=' scale-90 sm:left-5 left-4 -top-3'/>
             </FormItem>
           )}
         />

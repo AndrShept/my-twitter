@@ -21,8 +21,8 @@ export const Input = ({ session }: { session: Session }) => {
 
   const refEmoji = useRef(null);
   const ref = useRef(null);
-  const CLOUD_NAME = 'dn4qas6ys';
-  const UPLOAD_PRESET = 'my-twitter';
+  const CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_NAME;
+  const UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!;
 
   const uploadImage = async (e: any) => {
     const photo = e.target.files[0];

@@ -1,15 +1,20 @@
+'use client';
 import React, { useRef, useState } from 'react';
 import data from '@emoji-mart/data';
 import Picker from '@emoji-mart/react';
 import { FaceSmileIcon } from '@heroicons/react/24/outline';
 import { useClickAway } from 'react-use';
+import { useTheme } from 'next-themes';
+import { cn } from '@/lib/utils';
 
 interface EmojiIconProps {
   content: string;
   setContent: (str: string) => void;
+  className?: string
 }
 
-export const EmojiIcon = ({ content, setContent }: EmojiIconProps) => {
+export const EmojiIcon = ({ content, setContent, className }: EmojiIconProps) => {
+  const { theme } = useTheme();
   const [isEmojiShow, setIsEmojiShow] = useState(false);
   const refEmoji = useRef(null);
   const handleEmojiClick = (e: any) => {
@@ -34,9 +39,14 @@ export const EmojiIcon = ({ content, setContent }: EmojiIconProps) => {
       {isEmojiShow && (
         <div
           ref={refEmoji}
-          className='absolute animate-in fade-in-0 duration-200 zoom-in-90 sm:left-0 -left-10 top-9'
+          className={cn('absolute  sm:left-0 -left-10 top-9', className)}
         >
-          <Picker data={data} onEmojiSelect={handleEmojiClick} />
+          <Picker
+       
+            data={data}
+            theme={theme === 'dark' ? 'dark' : 'light'}
+            onEmojiSelect={handleEmojiClick}
+          />
         </div>
       )}
     </div>

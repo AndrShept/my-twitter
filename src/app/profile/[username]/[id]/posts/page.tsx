@@ -20,7 +20,7 @@ const page = async ({
   });
 
   return (
-    <div>
+    <>
       {posts.map((post) => (
         <PostBlock
           key={post.id}
@@ -33,7 +33,7 @@ const page = async ({
           The user has no posts :(
         </h1>
       )}
-    </div>
+    </>
   );
 };
 

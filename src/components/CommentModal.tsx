@@ -10,6 +10,7 @@ import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
 import { Comment, Like, Post } from '@prisma/client';
 import { X } from 'lucide-react';
+import { EmojiIcon } from './EmojiIcon';
 
 export const CommentModal = ({
   post,
@@ -93,11 +94,12 @@ export const CommentModal = ({
               onChange={(e) => setComment(e.target.value)}
               required
               name='text'
-              className=' border-b   placeholder-text-muted-foreground   text-muted-foreground'
+              className=' border-b text-base   placeholder-text-muted-foreground   text-muted-foreground'
               rows={4}
               placeholder='Whats happening'
             />
-            <div className='self-end  mt-4'>
+            <div className='flex  mt-4 justify-between py-1'>
+              <EmojiIcon content={comment} setContent={setComment} className='scale-90  -top-8' />
               <Button className=' rounded-full w-20  shadow-md  self-end '>
                 {isPending ? (
                   <span className='loading loading-spinner  text-muted-foreground' />

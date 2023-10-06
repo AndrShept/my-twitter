@@ -16,7 +16,7 @@ export const UserAvatar = ({
 }) => {
   return (
     <Link className='hover:opacity-90' href={`/profile/${userName}/${userId}`}>
-      <Avatar className={cn('h-12 w-12 mr-4 ', className)}>
+      <Avatar className={cn('md:h-12 md:w-12  mr-4 ', className)}>
         <AvatarImage className='object-cover' src={userImage} alt='@shadcn' />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>

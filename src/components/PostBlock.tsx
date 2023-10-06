@@ -58,7 +58,7 @@ export const PostBlock = ({ post, favoritePost }: PostProps) => {
               </span>
             </div>
 
-            <EllipsisHorizontalIcon className='h-8 w-8 rounded-full transition cursor-pointer hover:bg-sky-100 hover:text-sky-500' />
+            {/* <EllipsisHorizontalIcon className='h-8 w-8 rounded-full transition cursor-pointer hover:bg-sky-100 hover:text-sky-500' /> */}
           </div>
           {/* post text */}
           <p className='text-muted-foreground text-left text-[15px] sm:text-[16px] mb-2'>

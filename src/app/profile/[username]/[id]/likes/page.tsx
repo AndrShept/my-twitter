@@ -2,7 +2,7 @@ import React from 'react';
 
 const page = () => {
   return (
-    <div>
+    <section className=''>
       {true && (
         <div className='p-2 space-y-2'>
           <h1 className=' font-semibold text-xl'>
@@ -14,7 +14,7 @@ const page = () => {
           </span>
         </div>
       )}
-    </div>
+    </section>
   );
 };
 

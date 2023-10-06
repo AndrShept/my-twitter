@@ -45,7 +45,7 @@ export const Widgets = async () => {
   const { results: randomUsers } = await getUsersAvatar();
 
   return (
-    <div className=' hidden lg:inline ml-8 space-y-5 max-w-[350px] '>
+    <div className=' hidden md:inline-block ml-8 space-y-5 lg:max-w-[350px] max-w-[260px] '>
       <div className='flex items-center    sticky top-0 z-1 py-4  '>
         <MagnifyingGlassIcon className='h-6 w-6 text-muted-foreground z-10 absolute left-2' />
         <Input

@@ -16,13 +16,16 @@ const page = async ({
   });
 
   return (
-    <section className='max-w-[300px] mx-auto'>
-      <FollowersUsers followersUsers={users} />
-      {!users.length && (
-        <h1 className='text-muted-foreground   '>
-          When someone follows this account, they’ll show up here. Tweeting and interacting with others helps boost followers.
-        </h1>
-      )}
+    <section className='  '>
+      <div className='max-w-[300px] mx-auto'>
+        <FollowersUsers followersUsers={users} />
+        {!users.length && (
+          <h1 className='text-muted-foreground   '>
+            When someone follows this account, they’ll show up here. Tweeting
+            and interacting with others helps boost followers.
+          </h1>
+        )}
+      </div>
     </section>
   );
 };

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useState, useTransition } from 'react';
 import { useSession } from 'next-auth/react';
 import {
@@ -21,9 +21,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import Image from 'next/image';
+import { UserAvatar } from './UserAvatar';
 
 export const UserSessionMenu = () => {
-
   const { data: session } = useSession();
   const [isPending, startTransition] = useTransition();
 
@@ -36,22 +36,19 @@ export const UserSessionMenu = () => {
   const signOutUser = async () => {
     startTransition(async () => {
       await signOut();
-    
     });
   };
   return (
-    <div className=' mx-auto hover:bg-secondary/40 rounded-full duration-500    cursor-pointer  flex  mt-auto mb-6'>
-      <DropdownMenu >
+    <div className=' hover:bg-secondary/40 rounded-full duration-500 justify-center items-center   cursor-pointer  flex   mb-4'>
+      <DropdownMenu>
         <DropdownMenuTrigger>
           {session && (
-            <div className='flex items-center cursor-pointer  xl:px-6 xl:py-3'>
-            
-              <Image
-                className='rounded-full  hover:brightness-95'
-                height={50}
-                width={50}
-                alt='avatar'
-                src={session?.user.image ?? ''}
+            <div className='flex  items-center cursor-pointer  xl:px-6 xl:py-3'>
+              <UserAvatar
+              className='mr-0'
+                userId={session.user.id}
+                userImage={session.user.image!}
+                userName={session.user.name!}
               />
               <div className='leading-5 hidden xl:inline ml-3'>
                 <h4 className='font-bold'>{session?.user.name}</h4>
@@ -70,7 +67,6 @@ export const UserSessionMenu = () => {
           sideOffset={10}
           alignOffset={40}
           className='xl:w-56 w-max'
-
         >
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuItem>
@@ -80,7 +76,7 @@ export const UserSessionMenu = () => {
               Settings
             </span>
           </DropdownMenuItem>
-          <DropdownMenuItem >
+          <DropdownMenuItem>
             {!session ? (
               <div className='flex items-center gap-2' onClick={signInUser}>
                 <Cog6ToothIcon className='h-6 w-6 text-muted-foreground' />
