@@ -46,7 +46,7 @@ export const DeletePostIcon = ({ postId }: { postId: string }) => {
           handleDeletePost={handleDeletePost}
           isPending={isPending}
           setIsShowModal={setIsShowModal}
-          confirmText=' Ви дійсно хочете видалити цей пост? '
+          confirmText=' Are you sure you want to delete this post?  '
         />
       )}
     </div>

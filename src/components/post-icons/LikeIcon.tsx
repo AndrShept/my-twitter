@@ -16,7 +16,9 @@ export const LikeIcon = ({ post }: PostLikeAndComments) => {
   const [likeCount, setLikeCount] = useState(post._count.likes);
 
   const addLike = async () => {
-    if (!session) return;
+    if (!session) {
+      return;
+    }
     setLikesState(!likeState);
 
     if (!likeState) {

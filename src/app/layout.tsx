@@ -6,6 +6,7 @@ import { Sidebar } from '../components/Sidebar';
 import { Widgets } from '@/components/Widgets';
 import { ToastProvider } from '@/components/ToastProvider';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import { Toaster } from '@/components/ui/toaster';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,7 +22,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <body className={`${inter.className} overflow-x-hidden overflow-y-scroll flex`}>
+      <body
+        className={`${inter.className} overflow-x-hidden overflow-y-scroll flex`}
+      >
         <AuthProvider>
           <ThemeProvider
             attribute='class'
@@ -30,8 +33,9 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <main className='flex min-h-screen mx-auto   '>
-              <ToastProvider />
               <Sidebar />
+              <Toaster />
+              <ToastProvider />
               <div className=' lg:w-[570px] md:w-[520px]  sm:w-[460px] w-[420px]    xl:ml-[300px] sm:ml-[73px]  ml-[60px]    '>
                 {children}
               </div>

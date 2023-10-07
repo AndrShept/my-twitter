@@ -1,8 +1,6 @@
 'use client';
 import { BackArrow } from '@/components/BackArrow';
-import { UserAvatar } from '@/components/UserAvatar';
 import { User } from '@prisma/client';
-import Image from 'next/image';
 import React from 'react';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -22,11 +20,14 @@ import { Textarea } from '@/components/ui/textarea';
 import { Loader2 } from 'lucide-react';
 import { ProfileImageUpload } from '@/components/ProfileImageUpload';
 import { ImageUpload } from '@/components/ImageUpload';
+import { useSession } from 'next-auth/react';
+import { useToast } from '@/components/ui/use-toast';
+import { useRouter } from 'next/navigation';
 
 const editUserSchema = z.object({
   username: z.string().min(3).max(20),
-  image: z.string(),
-  profileImage: z.string(),
+  image: z.string().optional().or(z.literal('')),
+  profileImage: z.string().optional().or(z.literal('')),
   birthDay: z.string().min(2).max(2).optional().or(z.literal('')),
   birthMonth: z.string().min(2).max(2).optional().or(z.literal('')),
   birthYear: z.string().min(2).max(4).optional().or(z.literal('')),
@@ -36,9 +37,23 @@ const editUserSchema = z.object({
 });
 
 export const EditForm = ({ user }: { user: User }) => {
+  const router = useRouter();
+  const { data: session } = useSession();
+  const {toast} = useToast();
+  const initialData = {
+    username: user!.username || undefined,
+    image: user!.image || undefined,
+    profileImage: user!.profileImage || undefined,
+    birthDay: user!.birthDay || undefined,
+    birthMonth: user!.birthMonth || undefined,
+    birthYear: user!.birthYear || undefined,
+    bio: user!.bio || undefined,
+    location: user!.location || undefined,
+    website: user!.website || undefined,
+  };
   const form = useForm<z.infer<typeof editUserSchema>>({
     resolver: zodResolver(editUserSchema),
-    defaultValues: {
+    defaultValues: initialData || {
       username: '',
       image: '',
       profileImage: '',
@@ -52,8 +67,28 @@ export const EditForm = ({ user }: { user: User }) => {
   });
   const isLoading = form.formState.isSubmitting;
 
-  function onSubmit(values: z.infer<typeof editUserSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof editUserSchema>) {
+    try {
+      const res = await fetch('/api/users/edit', {
+        method: 'PUT',
+        body: JSON.stringify(values),
+      });
+      if (res.ok) {
+        form.reset();
+        router.push(`/profile/${session?.user.name}/${session?.user.id}`);
+        toast({
+          title: 'update success',
+        });
+      }
+      if (!res.ok) {
+        toast({
+          title: 'Something went wrong',
+          variant: 'destructive',
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -72,12 +107,10 @@ export const EditForm = ({ user }: { user: User }) => {
 
       {/*      ----------------- ----------------- -----------------------------------------------------------------------------   */}
 
-
-
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className=' space-y-6 '>
           <div className='w-full'>
-            {/*  IMAGE */}
+            {/*  IMAGE  FORM*/}
             <FormField
               name='profileImage'
               render={({ field }) => (
@@ -109,7 +142,7 @@ export const EditForm = ({ user }: { user: User }) => {
               )}
             />
 
-            {/*  IMAGE */}
+            {/*   IMAGE  FORM* */}
           </div>
           <div className='p-3 space-y-5 '>
             <FormField
@@ -219,8 +252,8 @@ export const EditForm = ({ user }: { user: User }) => {
                 </FormItem>
               )}
             />
-            <div className='flex   place-content-end gap-x-2'>
-              {isLoading && <Loader2 className='animate-spin' />}
+            <div className='flex items-center   place-content-end gap-x-2'>
+              {isLoading && <Loader2 size={27} className='animate-spin' />}
               <Button
                 disabled={isLoading}
                 className='rounded-full  '
