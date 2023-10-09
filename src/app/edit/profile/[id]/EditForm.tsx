@@ -18,8 +18,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Loader2 } from 'lucide-react';
-import { ProfileImageUpload } from '@/components/ProfileImageUpload';
-import { ImageUpload } from '@/components/ImageUpload';
+import { ProfileImageUpload } from '@/components/upload-image/ProfileImageUpload';
+import { ImageUpload } from '@/components/upload-image/ImageUpload';
 import { useSession } from 'next-auth/react';
 import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
@@ -39,7 +39,7 @@ const editUserSchema = z.object({
 export const EditForm = ({ user }: { user: User }) => {
   const router = useRouter();
   const { data: session } = useSession();
-  const {toast} = useToast();
+  const { toast } = useToast();
   const initialData = {
     username: user!.username || undefined,
     image: user!.image || undefined,
@@ -75,6 +75,7 @@ export const EditForm = ({ user }: { user: User }) => {
       });
       if (res.ok) {
         form.reset();
+        router.refresh();
         router.push(`/profile/${session?.user.name}/${session?.user.id}`);
         toast({
           title: 'update success',

@@ -11,7 +11,7 @@ export const SessionAvatar = ({
 }) => {
   return (
     <Avatar>
-      <AvatarImage src={session.user.image!} alt='@shadcn' />
+      <AvatarImage className='object-cover' src={session.user.image!} alt='@shadcn' />
       <AvatarFallback>CN</AvatarFallback>
     </Avatar>
   );

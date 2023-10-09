@@ -21,8 +21,7 @@ export const Input = ({ session }: { session: Session }) => {
 
   const refEmoji = useRef(null);
   const ref = useRef(null);
-  const CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_NAME;
-  const UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!;
+
 
   const uploadImage = async (e: any) => {
     const photo = e.target.files[0];
@@ -31,11 +30,11 @@ export const Input = ({ session }: { session: Session }) => {
 
     const formData = new FormData();
     formData.append('file', photo);
-    formData.append('upload_preset', UPLOAD_PRESET);
+    formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!);
     try {
       startTransition(async () => {
         const res = await fetch(
-          `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+          `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_NAME}/image/upload`,
           {
             method: 'POST',
             body: formData,

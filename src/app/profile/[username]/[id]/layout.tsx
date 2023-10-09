@@ -68,7 +68,7 @@ const layout = async ({ children, params }: layoutProps) => {
             className='object-cover object-center'
             alt='img'
             fill
-            src={
+            src={user.profileImage ||
               'https://images.unsplash.com/photo-1514993898616-9f2f3fe1a7a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
             }
           />
@@ -82,7 +82,7 @@ const layout = async ({ children, params }: layoutProps) => {
                 className='md:h-[120px] md:w-[120px] w-[60px] h-[60px] mr-0'
                 userImage={
                   user?.image ||
-                  'https://images.unsplash.com/photo-1544631008-534b4b6c1215?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1306&q=80'
+                  ''
                 }
               />
             </div>

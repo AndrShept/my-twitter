@@ -28,11 +28,11 @@ export const POST = async (req: Request) => {
   }
 
   const userFollowing = await prisma.user.findUnique({
-    include: { following: true},
+    include: { following: true },
     where: { id: userId },
   });
   const userFollower = await prisma.user.findUnique({
-    include: { follower:true},
+    include: { follower: true },
     where: { id: followingId },
   });
 
@@ -57,8 +57,8 @@ export const POST = async (req: Request) => {
       },
     });
     const newFollower = await prisma.follower.create({
-      data: {followerId: userId, userId: followingId }
-    })
+      data: { followerId: userId, userId: followingId },
+    });
     return NextResponse.json(newFollowing, { status: 201 });
   } else {
     await prisma.following.delete({
@@ -70,3 +70,4 @@ export const POST = async (req: Request) => {
     return NextResponse.json({ message: 'following deleted' }, { status: 200 });
   }
 };
+

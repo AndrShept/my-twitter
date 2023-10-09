@@ -20,5 +20,14 @@ export const PUT = async (req: Request) => {
     where: { id: userId },
     data: body,
   });
+
+  await prisma.post.updateMany({
+    where: { authorId: session.user.id },
+    data: { authorImage: newUserData.image || '' },
+  });
+  await prisma.comment.updateMany({
+    where: { authorId: session.user.id },
+    data: { authorImage: newUserData.image || '' },
+  });
   return NextResponse.json(newUserData, { status: 200 });
 };
