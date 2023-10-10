@@ -15,7 +15,7 @@ export const UsersList = ({
   followingArr,
 }: {
   allUsers: User[];
-  followingArr: Following[];
+  followingArr: Following[] | undefined;
 }) => {
   const { data: session } = useSession();
 
@@ -50,7 +50,7 @@ export const UsersList = ({
               </div>
 
               <FollowButton
-                followingsArr={followingArr}
+                followingsArr={followingArr || undefined}
                 followingId={user.id}
                 followingImage={user.image}
                 followingUserName={`@${user.name?.replace(' ', '')}`}

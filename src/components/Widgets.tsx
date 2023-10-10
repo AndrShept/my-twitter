@@ -62,7 +62,7 @@ export const Widgets = async () => {
         <h4 className='font-bold text-xl px-4 text-primary'>Who to follow</h4>
 
         
-          <UsersList allUsers={users} followingArr={userData!.following} />
+          <UsersList allUsers={users} followingArr={userData?.following} />
         
 
         {/* <RandomFollowUsers randomUsers={randomUsers} /> */}
