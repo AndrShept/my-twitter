@@ -39,7 +39,7 @@ export const SidebarMenuItem = ({ authProtectNum = menuList.length }) => {
   const { data: session } = useSession();
   return (
     <div className='flex flex-col gap-1 xl:items-start items-center'>
-      {menuList.slice(0, authProtectNum).map((item) => {
+      {menuList.map((item) => {
         const selfPathnameProfile = `${item.path}/${session?.user.name?.replace(
           ' ',
           ''
