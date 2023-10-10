@@ -7,6 +7,7 @@ export const PUT = async (req: Request) => {
   const session = await getServerSession(authOptions);
   const userId = session?.user.id;
   const body = await req.json();
+  
 
   if (!userId) {
     return new NextResponse('Unauthorized', { status: 401 });
@@ -31,3 +32,25 @@ export const PUT = async (req: Request) => {
   });
   return NextResponse.json(newUserData, { status: 200 });
 };
+
+// export const UPDATE = async (req: Request) => {
+//   const session = await getServerSession(authOptions);
+//   const userId = session?.user.id;
+//   const body = await req.json();
+//   console.log(body)
+//   console.log(userId)
+
+//   if (!userId) {
+//     return new NextResponse('Unauthorized', { status: 401 });
+//   }
+//   if (!body) {
+//     console.log('Missing requirements fields');
+//     return NextResponse.json({ error: 'Missing requirements fields ' });
+//   }
+
+//   const newBoolean = prisma.user.update({
+//     where: { id: userId },
+//     data: { isBirthdayShow: body },
+//   });
+//   return NextResponse.json(newBoolean, { status: 200 });
+// };

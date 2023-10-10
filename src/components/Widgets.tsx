@@ -65,7 +65,7 @@ export const Widgets = async () => {
           <UsersList allUsers={users} followingArr={userData!.following} />
         )}
 
-        <RandomFollowUsers randomUsers={randomUsers} />
+        {/* <RandomFollowUsers randomUsers={randomUsers} /> */}
       </div>
     </div>
   );

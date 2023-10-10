@@ -10,6 +10,8 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import Link from 'next/link';
 import { Metadata } from 'next';
+import { MoreUserInfo } from './MoreUserInfo';
+import { BirthdaySwitch } from '../../BirthdaySwitch';
 
 export const generateMetadata = async ({
   params,
@@ -68,7 +70,8 @@ const layout = async ({ children, params }: layoutProps) => {
             className='object-cover object-center'
             alt='img'
             fill
-            src={user.profileImage ||
+            src={
+              user.profileImage ||
               'https://images.unsplash.com/photo-1514993898616-9f2f3fe1a7a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
             }
           />
@@ -80,10 +83,7 @@ const layout = async ({ children, params }: layoutProps) => {
                 userName={user.name || user.username || ''}
                 userId={user.id}
                 className='md:h-[120px] md:w-[120px] w-[60px] h-[60px] mr-0'
-                userImage={
-                  user?.image ||
-                  ''
-                }
+                userImage={user?.image || ''}
               />
             </div>
             {user.id === session?.user.id && (
@@ -136,17 +136,29 @@ const layout = async ({ children, params }: layoutProps) => {
                 Followers
               </div>
             </div>
+            <MoreUserInfo
+              bio={user.bio!}
+              location={user.location!}
+              website={user.website!}
+              day={user.birthDay!}
+              month={user.birthMonth!}
+              year={user.birthYear!}
+              name={user.name!}
+              isShow={user.isBirthdayShow}
+              userId={user.id}
+            />
+      { session?.user.id === user.id   &&     <BirthdaySwitch defaultValue={user.isBirthdayShow!} />}
           </div>
         </div>
       </div>
-      <div className=' mt-10 grid grid-cols-5 w-full overflow-x-auto '>
+      <ul className=' mt-32 grid grid-cols-5 w-full overflow-x-auto '>
         <ProfileLinkMenu
           userId={user.id}
           username={user.name!.replace(' ', '')}
         />
-      </div>
+      </ul>
+
       <div className='text-center sm:w-full w-[420px]  mx-auto mt-10'>
-       
         {children}
       </div>
     </section>

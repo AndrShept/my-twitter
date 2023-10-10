@@ -35,7 +35,7 @@ export const Sidebar = async () => {
 
       {session ? (
         <div>
-          <Button className='rounded-full w-56 h-12 font-bold shadow-md text-lg mt-10 hidden xl:inline'>
+          {/* <Button className='rounded-full w-56 h-12 font-bold shadow-md text-lg mt-10 hidden xl:inline'>
             Post
           </Button>
           <Button
@@ -44,7 +44,7 @@ export const Sidebar = async () => {
             size={'icon'}
           >
             <Plus />
-          </Button>
+          </Button> */}
         </div>
       ) : (
         <SignInButton />

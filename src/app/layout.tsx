@@ -36,7 +36,7 @@ export default function RootLayout({
               <Sidebar />
               <Toaster />
               <ToastProvider />
-              <div className=' lg:w-[570px] md:w-[520px]  sm:w-[460px] w-[420px]    xl:ml-[300px] sm:ml-[73px]  ml-[60px]    '>
+              <div className=' lg:w-[570px] md:w-[520px]  sm:w-[460px] w-[420px]    xl:ml-[250px] sm:ml-[73px]  ml-[60px]    '>
                 {children}
               </div>
               <Widgets />

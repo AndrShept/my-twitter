@@ -39,7 +39,7 @@ export const EmojiIcon = ({ content, setContent, className }: EmojiIconProps) =>
       {isEmojiShow && (
         <div
           ref={refEmoji}
-          className={cn('absolute  sm:left-0 -left-10 top-9', className)}
+          className={cn('absolute z-10  sm:left-0 -left-10 top-9  ', className)}
         >
           <Picker
        

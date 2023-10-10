@@ -26,7 +26,7 @@ export const UploadIconButton = ({
           onClick={() => onChange('')}
           className='p-1 absolute bg-red-500 cursor-pointer rounded-full hover:bg-red-600 transition left-1/2 bottom-1/2 translate-x-3 -translate-y-[18px] '
         >
-          <X size={20} />
+          <X className='text-white' size={20} />
         </div>
       )}
       <label
