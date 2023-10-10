@@ -35,7 +35,7 @@ export const UserSessionMenu = () => {
   };
   const signOutUser = async () => {
     startTransition(async () => {
-      await signOut();
+      await signOut({redirect:true});
     });
   };
   return (

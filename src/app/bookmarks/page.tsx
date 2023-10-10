@@ -26,7 +26,7 @@ const page = async () => {
 
 
   if (!session) {
-    redirect('/');
+  return
   }
   return (
     <section className='border border-border min-h-full  '>
