@@ -25,9 +25,9 @@ const page = async () => {
   });
 
 
-  // if (!session) {
-  // return
-  // }
+  if (!session) {
+  redirect('/')
+  }
   return (
     <section className='border border-border min-h-full  '>
       <div className='sticky mb-2 top-0 z-50 p-2 flex items-center bg-background/80 gap-2 border-b border-border backdrop-blur-md '>

@@ -1,17 +1,16 @@
+'use client';
 import Image from 'next/image';
-import React, { useTransition } from 'react';
+import React from 'react';
 import { SidebarMenuItem } from './SidebarMenuItem';
 import { SignInButton } from './SignInButton';
 import { ModeToggle } from './ToggleMode';
 import { Button } from './ui/button';
 import Link from 'next/link';
-import { Plus } from 'lucide-react';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { UserSessionMenu } from './UserSessionMenu';
+import { useSession } from 'next-auth/react';
 
-export const Sidebar = async () => {
-  const session = await getServerSession(authOptions);
+export const Sidebar = () => {
+  const { data: session } = useSession();
 
   return (
     <div className='  p-1 fixed flex top-0 flex-col items-center xl:items-start h-full '>
