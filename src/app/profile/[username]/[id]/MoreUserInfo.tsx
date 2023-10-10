@@ -9,6 +9,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
+import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 
 interface MoreUserInfoProps {
@@ -35,11 +36,11 @@ export const MoreUserInfo = ({
   userId,
 }: MoreUserInfoProps) => {
   return (
-    <section className='text-[15px] gap-y-1'>
+    <section className='text-[15px] gap-y-1 mt-3'>
       <HoverCard>
         <HoverCardTrigger asChild>
           <Button className='cursor-help p-0' variant='link'>
-            @More Info
+            <Badge variant={'default'} > @More Info</Badge>
           </Button>
         </HoverCardTrigger>
         <HoverCardContent className=''>
@@ -48,7 +49,7 @@ export const MoreUserInfo = ({
               <AvatarImage src='https://github.com/vercel.png' />
               <AvatarFallback>VC</AvatarFallback>
             </Avatar> */}
-            <Info className='text-muted-foreground' size={40} />
+            <Info className='' size={40} />
             <div className='space-y-1'>
               <h4 className='text-sm mb-2 font-semibold'>@{name}</h4>
 
@@ -59,7 +60,7 @@ export const MoreUserInfo = ({
                   className='flex items-center text-sm hover:underline'
                 >
                   <span>
-                    website:{' '}
+                    Website:{' '}
                     <span className='text-muted-foreground'> {website}</span>
                   </span>
                   <ArrowUpRightSquare className='text-muted-foreground h-4 w-4   ml-1' />
@@ -68,7 +69,7 @@ export const MoreUserInfo = ({
 
               <p className='text-sm'>
                 <span>
-                  location:{' '}
+                  Location:{' '}
                   <span className='text-muted-foreground'>
                     {location || 'these fields are currently empty'}
                   </span>
@@ -78,7 +79,7 @@ export const MoreUserInfo = ({
               <p className='text-sm'>
                 <span>
                   {' '}
-                  bio:{' '}
+                  Bio:{' '}
                   <span className='text-muted-foreground'>
                     {' '}
                     {bio || 'these fields are currently empty'}
