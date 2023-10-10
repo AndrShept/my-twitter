@@ -18,16 +18,16 @@ export const getWidgetData = async () => {
     console.log(error);
   }
 };
-export const getUsersAvatar = async () => {
-  try {
-    const res = await fetch(
-      'https://randomuser.me/api/?results=30&inc=name,login,picture'
-    );
-    return res.json();
-  } catch (error) {
-    console.log(error);
-  }
-};
+// export const getUsersAvatar = async () => {
+//   try {
+//     const res = await fetch(
+//       'https://randomuser.me/api/?results=30&inc=name,login,picture'
+//     );
+//     return res.json();
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 export const Widgets = async () => {
   const session = await getServerSession(authOptions);
@@ -42,7 +42,7 @@ export const Widgets = async () => {
   const users = await prisma.user.findMany();
 
   const { articles } = await getWidgetData();
-  const { results: randomUsers } = await getUsersAvatar();
+  // const { results: randomUsers } = await getUsersAvatar();
 
   return (
     <div className=' hidden md:inline-block ml-8 space-y-5 lg:max-w-[350px] max-w-[260px] '>
@@ -61,9 +61,9 @@ export const Widgets = async () => {
       <div className=' text-muted-foreground space-y-3 bg-secondary/50  py-4 rounded-lg sticky top-16 '>
         <h4 className='font-bold text-xl px-4 text-primary'>Who to follow</h4>
 
-        {session && (
+        
           <UsersList allUsers={users} followingArr={userData!.following} />
-        )}
+        
 
         {/* <RandomFollowUsers randomUsers={randomUsers} /> */}
       </div>

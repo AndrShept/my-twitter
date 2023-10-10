@@ -20,13 +20,13 @@ export const UsersList = ({
   const { data: session } = useSession();
 
   const router = useRouter();
-  if (!session) return;
+ 
 
   return (
     <>
       {allUsers.map(
         (user) =>
-          session.user.id !== user.id && (
+          session?.user.id !== user.id && (
             <div
               key={user.id}
               onClick={() =>
