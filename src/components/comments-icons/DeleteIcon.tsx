@@ -1,4 +1,3 @@
-import { API_URL } from '@/lib/utils/baseUrl';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import React, { useState, useTransition } from 'react';
 import { ConfirmModal } from '../ConfirmModal';
@@ -17,7 +16,7 @@ export const DeleteIcon = ({ commentId, postId }: DeleteIconProps) => {
   const handleClick = async () => {
     try {
       startTransition(async () => {
-        const res = await fetch(`${API_URL}comments/${commentId}`, {
+        const res = await fetch(`/api/comments/${commentId}`, {
           method: 'DELETE',
         });
         if (res.ok) {
