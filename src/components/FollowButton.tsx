@@ -49,7 +49,7 @@ export const FollowButton = ({
       });
       setFollowingExistState(!followingExistState);
       if (res.ok) {
-        router.refresh();
+        router.prefetch('/api/users');
       }
     } catch (error) {
       console.log(error, 'something went wrong [ADD FOLLOWING] ');
