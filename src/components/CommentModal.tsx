@@ -78,7 +78,7 @@ export const CommentModal = ({
             </p>
           </div>
         </div>
-        <div className='flex mt-16 gap-x-4 justify-between'>
+        <div className='flex mt-9 gap-x-4 justify-between'>
           <div className='h-11 w-11 relative'>
             <Image
               className='rounded-full  object-cover   '

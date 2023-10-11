@@ -47,7 +47,7 @@ export const FollowButton = ({
         body: JSON.stringify(followingUser)
        
       });
-      setFollowingExistState(!followingExist);
+      // setFollowingExistState(!followingExist);
       if (res.ok) {
         router.refresh();
       }
@@ -55,12 +55,12 @@ export const FollowButton = ({
       console.log(error, 'something went wrong [ADD FOLLOWING] ');
     }
   };
-  useEffect(() => {
-    setFollowingExistState(followingExist);
-  }, [followingExist]);
+  // useEffect(() => {
+  //   setFollowingExistState(followingExist);
+  // }, [followingExist]);
   return (
     <>
-      {!followingExistState ? (
+      {!followingExist ? (
         <Button
           onClick={addFollowingUsers}
           variant={'default'}
