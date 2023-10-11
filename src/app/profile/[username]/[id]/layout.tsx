@@ -158,7 +158,7 @@ const layout = async ({ children, params }: layoutProps) => {
         />
       </ul>
 
-      <div className='text-center sm:w-full w-[420px]  mx-auto mt-10'>
+      <div className='text-center sm:w-full w-[420px]  mx-auto  py-10'>
         {children}
       </div>
     </section>

@@ -40,6 +40,7 @@ export const FollowButton = ({
       followingImage,
       followingName,
     };
+
     try {
       const res = await fetch('/api/users', {
         method: 'POST',
@@ -53,7 +54,9 @@ export const FollowButton = ({
       console.log(error, 'something went wrong [ADD FOLLOWING] ');
     }
   };
-
+  useEffect(() => {
+    setFollowingExistState(followingExist);
+  }, [followingExist]);
   return (
     <>
       {!followingExistState ? (
@@ -78,4 +81,4 @@ export const FollowButton = ({
       )}
     </>
   );
-}
+};
