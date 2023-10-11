@@ -32,11 +32,12 @@ export const getWidgetData = async () => {
 export const Widgets = async () => {
   const session = await getServerSession(authOptions);
 
- const   userData = await prisma.user.findUnique({
-      where: { id: session?.user.id },
-      include: { following: true },
-    })
- 
+  const userData = session
+    ? await prisma.user.findUnique({
+        where: { id: session?.user.id },
+        include: { following: true },
+      })
+    : null;
 
   const users = await prisma.user.findMany();
 
@@ -60,9 +61,7 @@ export const Widgets = async () => {
       <div className=' text-muted-foreground space-y-3 bg-secondary/50  py-4 rounded-lg sticky top-16 '>
         <h4 className='font-bold text-xl px-4 text-primary'>Who to follow</h4>
 
-        
-          <UsersList allUsers={users} followingArr={userData?.following} />
-        
+        <UsersList allUsers={users} followingArr={userData?.following} />
 
         {/* <RandomFollowUsers randomUsers={randomUsers} /> */}
       </div>
