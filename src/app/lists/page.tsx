@@ -4,6 +4,8 @@ import { getServerSession } from 'next-auth';
 import React from 'react';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { redirect } from 'next/navigation';
+import { BackArrow } from '@/components/BackArrow';
+import { StickyHeader } from '@/components/StickyHeader';
 
 const page = async () => {
   const session = await getServerSession(authOptions);
@@ -32,7 +34,12 @@ const page = async () => {
   }
   return (
     <section className='border border-border'>
-      <h1 className='text-3xl text-center font-semibold  py-5'>My Posts</h1>
+      <StickyHeader
+        pagename='My Posts'
+        username={
+          session.user.username || `@${session.user.name!.replace(' ', '')}`
+        }
+      />
       {posts.map((post) => (
         <PostBlock key={post.id} post={post} favoritePost={favoritePost} />
       ))}
