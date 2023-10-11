@@ -26,7 +26,7 @@ export const FollowButton = ({
     (following) => following.followingId === followingId
   );
   const [followingExistState, setFollowingExistState] =
-    useState<boolean| undefined>();
+    useState(followingExist);
   const addFollowingUsers = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -47,7 +47,7 @@ export const FollowButton = ({
         body: JSON.stringify(followingUser)
        
       });
-      // setFollowingExistState(!followingExist);
+      setFollowingExistState(!followingExist);
       if (res.ok) {
         router.refresh();
       }
@@ -55,12 +55,12 @@ export const FollowButton = ({
       console.log(error, 'something went wrong [ADD FOLLOWING] ');
     }
   };
-  // useEffect(() => {
-  //   setFollowingExistState(followingExist);
-  // }, [followingExist]);
+  useEffect(() => {
+    setFollowingExistState(followingExist);
+  }, [followingExist]);
   return (
     <>
-      {!followingExist ? (
+      {!followingExistState ? (
         <Button
           onClick={addFollowingUsers}
           variant={'default'}
