@@ -47,7 +47,7 @@ export const FollowButton = ({
         body: JSON.stringify(followingUser)
        
       });
-      setFollowingExistState(!followingExistState);
+      setFollowingExistState(!followingExist);
       if (res.ok) {
         router.refresh();
       }
@@ -57,7 +57,7 @@ export const FollowButton = ({
   };
   useEffect(() => {
     setFollowingExistState(followingExist);
-  }, []);
+  }, [followingExist]);
   return (
     <>
       {!followingExistState ? (
