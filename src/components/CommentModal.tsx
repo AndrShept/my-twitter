@@ -46,11 +46,12 @@ export const CommentModal = ({
     <Modal>
       <div className='md:min-w-[500px] w-[500px] rounded-lg   bg-background after:rounded-xl border-2 border-border shadow-lg flex flex-col px-6 py-3 animate-in fade-in-0 zoom-in-90 duration-300 '>
         <Button
+          onClick={() => setIsModalOpen(false)}
           variant={'ghost'}
           size={'icon'}
           className='rounded-full ml-auto  '
         >
-          <X onClick={() => setIsModalOpen(false)} />
+          <X />
         </Button>
         <div className=' flex border-y py-4 mt-2 '>
           <div>
@@ -77,16 +78,17 @@ export const CommentModal = ({
             </p>
           </div>
         </div>
-        <div className='flex mt-16 gap-6'>
-          <Image
-            className='rounded-full w-11 h-11 object-cover   '
-            height={400}
-            width={400}
-            alt='avatar_img'
-            src={session?.user.image || ''}
-          />
+        <div className='flex mt-16 gap-x-4 justify-between'>
+          <div className='h-11 w-11 relative'>
+            <Image
+              className='rounded-full  object-cover   '
+              fill
+              alt='avatar_img'
+              src={session?.user.image || ''}
+            />
+          </div>
           <form
-            className='flex flex-col  min-h-[50px]  w-full'
+            className='flex flex-col w-[80%]  min-h-[50px] '
             onSubmit={handleChange}
           >
             <Textarea
@@ -94,12 +96,16 @@ export const CommentModal = ({
               onChange={(e) => setComment(e.target.value)}
               required
               name='text'
-              className=' border-b text-base   placeholder-text-muted-foreground   text-muted-foreground'
+              className=' border-b text-[15px] text-primary    '
               rows={4}
-              placeholder='Whats happening'
+              placeholder='comment...'
             />
             <div className='flex  mt-4 justify-between py-1'>
-              <EmojiIcon content={comment} setContent={setComment} className='scale-90  -top-8' />
+              <EmojiIcon
+                content={comment}
+                setContent={setComment}
+                className='scale-90  -top-8'
+              />
               <Button className=' rounded-full w-20  shadow-md  self-end '>
                 {isPending ? (
                   <span className='loading loading-spinner  text-muted-foreground' />
