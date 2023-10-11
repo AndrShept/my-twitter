@@ -11,7 +11,7 @@ import {
   UserIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { useSession } from 'next-auth/react';
 
@@ -35,7 +35,7 @@ const menuList = [
 ];
 
 export const SidebarMenuItem = ({ authProtectNum = menuList.length }) => {
-  const router = useRouter()
+ 
   const pathname = usePathname();
   const { data: session } = useSession();
   return (
@@ -49,22 +49,21 @@ export const SidebarMenuItem = ({ authProtectNum = menuList.length }) => {
           pathname ===
           (item.name === 'Profile' ? selfPathnameProfile : item.path);
         return (
-          <div
+          <Link
             className={cn(
-              'xl:px-5 xl:py-3 p-[10px] xl:w-auto xl:h-auto h-12 w-12 cursor-pointer   flex items-center hover:bg-secondary/30  text-muted-foreground text-lg rounded-full',
+              'xl:px-5 xl:py-3 p-[10px] xl:w-auto xl:h-auto h-12 w-12   flex items-center hover:bg-secondary/30  text-muted-foreground text-lg rounded-full',
               {
                 'bg-secondary hover:bg-secondary font-semibold text-primary':
                   isActive,
               }
             )}
             key={item.name}
-            onClick={()=> {router.push(`${item.name === 'Profile' ? selfPathnameProfile : item.path}`,{scroll:false}); router.refresh()}}
-            // href={item.name === 'Profile' ? selfPathnameProfile : item.path}
+            href={item.name === 'Profile' ? selfPathnameProfile : item.path}
           >
             <item.Icon className='xl:h-[25px] xl:w-[25px]  ' />
 
             <span className='text-base hidden xl:inline ml-2'>{item.name}</span>
-          </div>
+          </Link>
         );
       })}
     </div>
