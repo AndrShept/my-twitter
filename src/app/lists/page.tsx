@@ -25,9 +25,7 @@ const page = async () => {
   if (!session) {
     redirect('/');
   }
-  if (!session) {
-   return
-  }
+
   if (posts.length === 0) {
     return (
       <h2 className='text-muted-foreground text-center text-xl mt-10'>
