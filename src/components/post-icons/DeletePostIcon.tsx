@@ -7,7 +7,13 @@ import { Modal } from '../Modal';
 import { useSession } from 'next-auth/react';
 import { ConfirmModal } from '../ConfirmModal';
 
-export const DeletePostIcon = ({ postId }: { postId: string }) => {
+export const DeletePostIcon = ({
+  postId,
+  authorId,
+}: {
+  postId: string;
+  authorId: string;
+}) => {
   const { data: session } = useSession();
   const [isShowModal, setIsShowModal] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -30,6 +36,9 @@ export const DeletePostIcon = ({ postId }: { postId: string }) => {
       console.log(error);
     }
   };
+  if (authorId !== session?.user.id) {
+    return;
+  }
   return (
     <div
       data-tip='delete'
@@ -41,7 +50,7 @@ export const DeletePostIcon = ({ postId }: { postId: string }) => {
         }}
         className='h-5 w-5 active:scale-110    '
       />
-      {isShowModal && session && (
+      {isShowModal && (
         <ConfirmModal
           handleDeletePost={handleDeletePost}
           isPending={isPending}

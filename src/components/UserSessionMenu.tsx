@@ -39,25 +39,25 @@ export const UserSessionMenu = () => {
     });
   };
   return (
-    <div className=' hover:bg-secondary/40 rounded-full duration-500 justify-center items-center   cursor-pointer  flex   mb-4'>
+    <div className=' hover:bg-secondary/40 flex    rounded-full duration-500    cursor-pointer     mb-4'>
       <DropdownMenu>
         <DropdownMenuTrigger>
           {session && (
-            <div className='flex  items-center cursor-pointer  xl:px-6 xl:py-3'>
+            <div className='flex items-center gap-x-2 max-w-[220px] text-sm xl:px-4 xl:py-3'>
               <UserAvatar
               className='mr-0'
                 userId={session.user.id}
                 userImage={session.user.image!}
                 userName={session.user.name!}
               />
-              <div className='leading-5 hidden xl:inline ml-3'>
-                <h4 className='font-bold'>{session?.user.name}</h4>
-                <p className='text-muted-foreground'>
+              <div className='truncate leading-5 hidden xl:inline ml-3'>
+                <h4 className='font-bold truncate'>{session.user.name}</h4>
+                <p className='text-muted-foreground truncate'>
                   {' '}
                   {session?.user.username}
                 </p>
               </div>
-              <EllipsisHorizontalIcon className='h-7 w-7 xl:ml-8 xl:inline hidden  ' />
+              <EllipsisHorizontalIcon  className='h-7 w-7 xl:inline hidden  ' />
             </div>
           )}
         </DropdownMenuTrigger>
@@ -66,7 +66,7 @@ export const UserSessionMenu = () => {
           side='right'
           sideOffset={10}
           alignOffset={40}
-          className='xl:w-56 w-max'
+          className='xl:w-40 w-max'
         >
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuItem>

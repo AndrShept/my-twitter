@@ -61,7 +61,7 @@ export const PostBlock = ({ post, favoritePost }: PostProps) => {
             {/* <EllipsisHorizontalIcon className='h-8 w-8 rounded-full transition cursor-pointer hover:bg-sky-100 hover:text-sky-500' /> */}
           </div>
           {/* post text */}
-          <p className='text-muted-foreground text-left text-[15px] sm:text-[16px] mb-2'>
+          <p className='text-muted-foreground text-left text-[15px] sm:text-[16px] mb-2 break-all'>
             {post.content}
           </p>
           <Link onClick={updatePost} href={'/post/' + post.id}>
@@ -78,7 +78,7 @@ export const PostBlock = ({ post, favoritePost }: PostProps) => {
           <div className=' flex justify-between items-center   text-muted-foreground    mt-2 '>
             <CommentsPostIcon post={post} />
             <LikeIcon post={post} />
-            <DeletePostIcon postId={post.id} />
+            <DeletePostIcon authorId={post.authorId} postId={post.id} />
             <SharePostIcon />
             <ChartBarPostIcon viewCount={post.view} />
             <BookmarkIcon postId={post.id} favoritePost={favoritePost} />

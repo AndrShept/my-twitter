@@ -26,13 +26,6 @@ const page = async () => {
     redirect('/');
   }
 
-  if (posts.length === 0) {
-    return (
-      <h2 className='text-muted-foreground text-center text-xl mt-10'>
-        I dont have any posts
-      </h2>
-    );
-  }
   return (
     <section className='border border-border'>
       <StickyHeader
@@ -41,6 +34,11 @@ const page = async () => {
           session.user.username || `@${session.user.name!.replace(' ', '')}`
         }
       />
+      {posts.length === 0 && (
+        <h2 className='text-muted-foreground text-center text-xl mt-10'>
+          I dont have any posts
+        </h2>
+      )}
       {posts.map((post) => (
         <PostBlock key={post.id} post={post} favoritePost={favoritePost} />
       ))}

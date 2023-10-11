@@ -61,7 +61,7 @@ export const CommentModal = ({
               userImage={post.authorImage}
             />
           </div>
-          <div className='flex  flex-col text-left  items-start whitespace-nowrap w-full justify-between '>
+          <div className='flex  flex-col text-left  items-start  w-full justify-between '>
             <div className='flex  items-center justify-between gap-1'>
               <h4 className='font-bold text-primary text-[15px] sm:text-[16px] hover:underline'>
                 {post.authorName}
@@ -73,7 +73,7 @@ export const CommentModal = ({
                 {format(post.createdAt)}
               </span>
             </div>
-            <p className='text-primary text-[15px] sm:text-[16px] '>
+            <p className='text-primary text-[14px] sm:text-[15px] break-all '>
               {post.content}
             </p>
           </div>
