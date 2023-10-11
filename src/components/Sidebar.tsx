@@ -18,12 +18,14 @@ export const Sidebar = () => {
         <Image
           priority
           className={
-            'cursor-pointer dark:bg-primary   border-primary dark:border-2 rounded-full xl:ml-3'
+            ' cursor-pointer dark:bg-primary   border-primary dark:border-2 rounded-full xl:ml-3'
           }
+    
           height='40'
           width='40'
           src={
             'https://cdn-icons-png.flaticon.com/128/6821/6821373.png?ga=GA1.1.6462837.1683122541&track=ais'
+            // '/logoX.png'
           }
           alt='logo'
         />

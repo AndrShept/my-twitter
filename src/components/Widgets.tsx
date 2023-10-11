@@ -31,13 +31,12 @@ export const getWidgetData = async () => {
 
 export const Widgets = async () => {
   const session = await getServerSession(authOptions);
-  let userData;
-  if (session) {
-    userData = await prisma.user.findUnique({
+
+ const   userData = await prisma.user.findUnique({
       where: { id: session?.user.id },
       include: { following: true },
-    });
-  }
+    })
+ 
 
   const users = await prisma.user.findMany();
 

@@ -2,9 +2,6 @@
 import { Following, User } from '@prisma/client';
 import React from 'react';
 import { FollowButton } from './FollowButton';
-import { prisma } from '@/lib/db/prisma';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { UserAvatar } from './UserAvatar';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';

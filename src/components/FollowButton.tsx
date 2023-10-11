@@ -46,7 +46,7 @@ export const FollowButton = ({
         method: 'POST',
         body: JSON.stringify(followingUser),
       });
-      setFollowingExistState(!followingExistState);
+      // setFollowingExistState(!followingExistState);
       if (res.ok) {
         router.refresh();
       }
