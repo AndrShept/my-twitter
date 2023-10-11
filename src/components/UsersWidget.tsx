@@ -1,13 +1,13 @@
 'use client';
 import { Following, User } from '@prisma/client';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FollowButton } from './FollowButton';
 import { UserAvatar } from './UserAvatar';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
-export const UsersList = ({
+const UsersList = ({
   allUsers,
   followingArr,
 }: {
@@ -59,3 +59,4 @@ export const UsersList = ({
     </>
   );
 };
+export default React.memo(UsersList)

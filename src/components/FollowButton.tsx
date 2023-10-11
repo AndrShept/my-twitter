@@ -44,8 +44,8 @@ export const FollowButton = ({
     try {
       const res = await fetch('/api/users', {
         method: 'POST',
-        body: JSON.stringify(followingUser),asd
-        cache: 'no-store'
+        body: JSON.stringify(followingUser)
+       
       });
       // setFollowingExistState(!followingExistState);
       if (res.ok) {
