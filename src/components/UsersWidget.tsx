@@ -7,11 +7,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
-const UsersList = ({
+export const UsersList = ({
   allUsers,
   followingArr,
 }: {
-  allUsers: User[];
+  allUsers: User[] ;
   followingArr: Following[] | undefined;
 }) => {
   const { data: session } = useSession();
@@ -47,7 +47,7 @@ const UsersList = ({
               </div>
 
               <FollowButton
-                followingsArr={followingArr || undefined}
+                followingsArr={followingArr }
                 followingId={user.id}
                 followingImage={user.image}
                 followingUserName={`@${user.name?.replace(' ', '')}`}
@@ -59,4 +59,3 @@ const UsersList = ({
     </>
   );
 };
-export default React.memo(UsersList)

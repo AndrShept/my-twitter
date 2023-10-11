@@ -3,7 +3,7 @@ import React from 'react';
 import { News } from './News';
 import { RandomFollowUsers } from './RandomFollowUsers';
 import { Input } from './ui/input';
-import  UsersList  from './UsersWidget';
+import  {UsersList}  from './UsersWidget';
 import { prisma } from '@/lib/db/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';

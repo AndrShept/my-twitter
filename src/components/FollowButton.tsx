@@ -57,7 +57,7 @@ export const FollowButton = ({
   };
   useEffect(() => {
     setFollowingExistState(followingExist);
-  }, [followingExist]);
+  }, []);
   return (
     <>
       {!followingExistState ? (
