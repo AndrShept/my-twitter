@@ -15,7 +15,6 @@ export const SignInButton = () => {
   const [isPending, startTransition] = useTransition();
   const handleSignIn = async () => {
     startTransition(async () => {
-      await new Promise((res) => setTimeout(res, 2000));
       await signIn('google');
       toast.success('Successfully login!');
     });
