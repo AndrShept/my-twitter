@@ -71,7 +71,7 @@ export const MoreUserInfo = ({
                 <span>
                   Location:{' '}
                   <span className='text-muted-foreground'>
-                    {location || 'these fields are currently empty'}
+                    {location || 'this fields are currently empty'}
                   </span>
                 </span>
               </p>
@@ -82,7 +82,7 @@ export const MoreUserInfo = ({
                   Bio:{' '}
                   <span className='text-muted-foreground'>
                     {' '}
-                    {bio || 'these fields are currently empty'}
+                    {bio || 'this fields are currently empty'}
                   </span>
                 </span>
               </p>

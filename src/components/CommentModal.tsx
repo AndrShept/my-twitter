@@ -79,16 +79,16 @@ export const CommentModal = ({
           </div>
         </div>
         <div className='flex mt-9 gap-x-4 justify-between'>
-          <div className='h-11 w-11 relative'>
+          {/* <div className='h-11 w-11 relative'>
             <Image
               className='rounded-full  object-cover   '
               fill
               alt='avatar_img'
-              src={session?.user.image || ''}
+              src={session?.user.image }
             />
-          </div>
+          </div> */}
           <form
-            className='flex flex-col w-[80%]  min-h-[50px] '
+            className='flex flex-col w-[100%]  min-h-[50px] '
             onSubmit={handleChange}
           >
             <Textarea
